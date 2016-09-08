@@ -63,6 +63,7 @@ gulp.task('nodemon', (a)=> {
   });
 });
 
+// gulp go
 // 压缩合并 css or js or image
 
 gulp.task('minifycss', ()=> {
@@ -118,6 +119,9 @@ gulp.watch(['./less/*.*','./es6/*.*'], ['less', 'es6']);
 gulp.watch(path, ()=> {
   reload();
 });
-// 默认执行gulp
 
-gulp.task('default', [ 'clean', 'browser-sync', 'less', 'es6', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
+// 构建压缩项目
+gulp.task('go', [ 'clean', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
+
+// 默认执行gulp 启动项目
+gulp.task('default', ['browser-sync', 'less', 'es6']);
