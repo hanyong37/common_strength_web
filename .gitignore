@@ -19,5 +19,6 @@ Thumbs.db
 node_modules/
 webapp/node_modules/
 webapp/public/css/
+webapp/public/js/
 webapp/dist/
 资料/
