@@ -11,7 +11,7 @@
   .container-left {
     float: left;
     width: 200px;
-    border-right: 1px solid #f4f4f4;
+    border-right: 1px solid @bgColor;
 
     .tab-bar-list {
       height: 40px;
@@ -24,11 +24,11 @@
         width: 15px;
         height: 15px;
         margin-right: 10px;
-        border: 1px solid #c1c1c1;
+        border: 1px solid @borderColor;
         vertical-align: middle;
       }
       &.active {
-        background-color: #f4f4f4;
+        background-color: @bgColor;
         border-right: 2px solid rgb(35, 192, 250);
       }
     }
