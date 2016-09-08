@@ -5,11 +5,25 @@
   visibility: hidden;
   clear: both;
 }
+.cellBox() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cellFlex(@number) {
+  -webkit-box-flex: @number;
+  -webkit-flex: @number;
+  -ms-flex: @number;
+  flex: @number;
+}
 @width: 1200px;
+@borderColor: #ececec;
+@bgColor: #f4f4f4;
 
 body {
   font-size: 12px;
-  background-color: #f4f4f4;
+  background-color: @bgColor;
 }
 .nav-bar {
   background-color: #414141;

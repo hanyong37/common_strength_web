@@ -1,4 +1,5 @@
 @import "tab";
+@cellHeight: 50px;
 
 .form-bar {
   margin-bottom: 10px;
@@ -15,7 +16,49 @@
     .clearFix();
   }
 }
+.calendar-bar {
+  margin-bottom: 5px;
+}
 
 .calendar-box {
-  
+  border: 1px solid @borderColor;
+
+  .calendar-row {
+    .cellBox();
+    width: 100%;
+    height: @cellHeight;
+    line-height: @cellHeight;
+    border-bottom: 1px solid @borderColor;
+
+    .calendar-row-info {
+      .cellFlex(1);
+      border-right: 1px solid @borderColor;
+      text-align: center;
+    }
+  }
+
+  .calendar-date {
+    background-color: @bgColor;
+  }
+}
+.calendar-container {
+  .cellBox();
+
+  .c-c-column {
+    .cellFlex(1);
+    border-right: 1px solid @borderColor;
+    text-align: center;
+
+    .column-cell {
+      width: 100%;
+      height: @cellHeight;
+      border-bottom: 1px solid @borderColor;
+      display: table;
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
 }
