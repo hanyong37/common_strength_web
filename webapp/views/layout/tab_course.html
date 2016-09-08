@@ -16,21 +16,8 @@
   {%- endblock %}
 </head>
 <body ontouchstart>
-<header class="nav-bar">
-  <div class="nav-center">
-    <div class="logo"></div>
-    <div class="nav-menu-bar">
-      <ul class="menu-list">
-        <li><a href="">课程管理</a></li>
-        <li><a href="">客户管理</a></li>
-        <li><a href="">训练管理</a></li>
-        <li><a href="">报表统计</a></li>
-      </ul>
-    </div>
-    <div class="help-block"><i class="glyphicon glyphicon-question-sign"></i><span>帮助</span></div>
-    <div class="user-block"><span class="user-name">admin</span></div>
-  </div>
-</header>
+{% include "layout/head.html" %}
+
 <ol class="breadcrumb">
   <li>首页</li>
   <li>课程管理</li>
