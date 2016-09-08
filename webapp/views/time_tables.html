@@ -1,10 +1,126 @@
 {% extends 'layout/tab_course.html'%}
 {% block style -%}
-<link rel="stylesheet" href="/css/store_manage.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="/css/time_tables.css">
 {%- endblock %}
 {% set breadcrumb = '排课程表'%}
 {% block body -%}
+<div class="form-bar">
+  <div class="btn btn-large btn-info btn-add-store">添加课程</div>
+  <div class="store-list">
+    <select id="sotre-select">
+      <option value="">请选择门店</option>
+      <option value="0">1</option>
+      <option value="1">2</option>
+      <option value="2">3</option>
+      <option value="3">4</option>
+      <option value="4">5</option>
+      <option value="5">6</option>
+    </select>
+  </div>
+</div>
+<div class="calendar-bar">
+  <div class="btn btn-default btn-calendar-prev"><i class="glyphicon glyphicon-chevron-left"></i></div>
+  <div class="btn btn-default btn-calendar-next"><i class="glyphicon glyphicon-chevron-right"></i></div>
+</div>
+<div class="calendar-box">
+  <div class="calendar-date">
+    <div class="calendar-date-info">时间</div>
+    <div class="calendar-date-info">8月22号</div>
+    <div class="calendar-date-info">8月23号</div>
+    <div class="calendar-date-info">8月24号</div>
+    <div class="calendar-date-info">8月25号</div>
+    <div class="calendar-date-info">8月26号</div>
+    <div class="calendar-date-info">8月27号</div>
+    <div class="calendar-date-info">8月28号</div>
+  </div>
+  <div class="calendar-week">
+    <div class="calendar-week-info"> </div>
+    <div class="calendar-week-info">周一</div>
+    <div class="calendar-week-info">周二</div>
+    <div class="calendar-week-info">周三</div>
+    <div class="calendar-week-info">周四</div>
+    <div class="calendar-week-info">周五</div>
+    <div class="calendar-week-info">周六</div>
+    <div class="calendar-week-info">周日</div>
+  </div>
+  <div class="calendar-container">
+    <div class="calendar-time">
+      <div class="calendar-time-ele">7:00 - 8:00</div>
+      <div class="calendar-time-ele">8:00 - 9:00</div>
+      <div class="calendar-time-ele">9:00 - 10:00</div>
+      <div class="calendar-time-ele">10:00 - 11:30</div>
+      <div class="calendar-time-ele">1:00 - 2:00</div>
+      <div class="calendar-time-ele">2:00 - 3:30</div>
+      <div class="calendar-time-ele">4:00 - 5:00</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+    <div class="calendar-course">
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele">下肢蹲</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">功能蹲+平衡训练</div>
+      <div class="calendar-time-ele"> </div>
+      <div class="calendar-time-ele">基础课</div>
+      <div class="calendar-time-ele">基础课</div>
+    </div>
+  </div>
+</div>
 {%- endblock %}
 {% block script -%}
+{{ super() }}
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<sciprt src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></sciprt>
+<script>
+  $(function(){
+    $('#sotre-select').selectpicker({
+      size: 5
+    });
 
+  });
+</script>
 {%- endblock %}
