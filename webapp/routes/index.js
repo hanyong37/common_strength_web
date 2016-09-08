@@ -2,6 +2,10 @@ var http = require('http');
 
 module.exports = function(app) {
   // global route
+  app.get(['/', '/login'], function(req, res){
+    res.render('login.html');
+  });
+
   app.get(['/', 'index.html'], function(req, res) {
     var i = 0;
     if (i = 0) {
