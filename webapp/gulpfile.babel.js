@@ -9,6 +9,7 @@ import rename from 'gulp-rename';
 import concat from 'gulp-concat';
 import nunjucks from 'gulp-nunjucks';
 import imagemin from 'gulp-imagemin';
+import es6 from 'gulp-babel';
 import del from 'del';
 import config from './config';
 
@@ -27,6 +28,14 @@ gulp.task('less', ()=> {
             .pipe(reload({stream: true}));
 });
 
+// es6 编译
+gulp.task('es6', ()=> {
+  return gulp.src(['./es6/*.js'])
+            .pipe(es6({presets: ['es2015']}))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest('./public/js'))
+});
+
 //  浏览器同步
 //  proxy 服务器代理
 
@@ -38,7 +47,7 @@ gulp.task('browser-sync',['nodemon'] , ()=> {
     files: ['*'],
     open: false,
     notify: false,
-    port: 9798
+    port: 9799
   });
 });
 
@@ -102,13 +111,13 @@ gulp.task('clean', (a)=> {
 var path = [
   './views/*.*',
   './views/*/*.*',
-  './public/javascript/*.*'
 ];
 
-gulp.watch('./less/*.*', ['less']);
+gulp.watch(['./less/*.*','./es6/*.*'], ['less', 'es6']);
+
 gulp.watch(path, ()=> {
   reload();
 });
 // 默认执行gulp
 
-gulp.task('default', [ 'clean', 'browser-sync', 'less', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
+gulp.task('default', [ 'clean', 'browser-sync', 'less', 'es6', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
