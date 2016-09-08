@@ -10,7 +10,7 @@ module.exports = function(app) {
 
   });
   // app route
-  const apps = ['course/store', 'course/timetable'];
+  const apps = ['course/store', 'course/timetable', 'course/course'];
   apps.forEach(function(item) {
     require('./' + item)(app);
   })

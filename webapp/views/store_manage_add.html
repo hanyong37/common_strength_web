@@ -1,0 +1,53 @@
+{% extends 'layout/tab_course.html'%}
+{% block style -%}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="css/store_manage.css">
+{%- endblock %}
+{% set secondary = '课程管理'%}
+{% set breadcrumb = '门店管理'%}
+{% block body -%}
+<div class="storeadd-box">
+  <div class="content-title">
+    <h4>添加 / 编辑门店</h3>
+  </div>
+  <div class="content-text">
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">门店名称：</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="请输入内容">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">门店地址：</label>
+        <div class="col-sm-3">
+          <select class="selectpicker">
+            <option>请选择</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">门店介绍：</label>
+        <div class="col-sm-6">
+          <textarea class="form-control" rows="5"  placeholder="请输入备注" style="resize: none">
+          </textarea>
+        </div>
+      </div>
+    </form>
+    <button type="button" class="btn btn-info">保存</button>
+  </div>
+</div>
+{% endblock -%}
+{%- block script %}
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="js/store_manage.js"></script>
+<script type="text/javascript">
+  $('.selectpicker').selectpicker({
+    size: 4
+  });
+</script>
+{%- endblock %}

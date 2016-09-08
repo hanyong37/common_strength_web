@@ -1,31 +1,59 @@
 {% extends 'layout/tab_course.html'%}
 {% block style -%}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="css/store_manage.css">
 {%- endblock %}
 {% set secondary = '课程管理'%}
 {% set breadcrumb = '门店管理'%}
 {% block body -%}
   <div class="content-add">
-    <a href="#" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
+    <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
     <div class="input-group iy-right">
       <input type="text" class="form-control" placeholder="请输入关键词">
       <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
     </div>
   </div>
-  <ul class="content-table">
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>3</li>
-    <li>3</li>
-    <li>3</li>
-    <li>3</li>
-  </ul>
+  <div class="content-text">
+    <ul class="content-table title">
+      <li class="table-checkbox">1</li>
+      <li>门店名称</li>
+      <li>地址</li>
+      <li>操作</li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>杭州市西湖区</li>
+      <li>
+        <a href="#">编辑</a>
+        <a href="#">删除</a>
+        <a href="#">设置课程表</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>杭州市西湖区</li>
+      <li>
+        <a href="#">编辑</a>
+        <a href="#">删除</a>
+        <a href="#">设置课程表</a>
+      </li>
+    </ul>
+    <nav>
+      <ul class="pagination iy-right">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+      </ul>
+    </nav>
+
+  </div>
 {% endblock -%}
 {%- block script %}
-<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script src="js/store_manage.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {

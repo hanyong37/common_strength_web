@@ -11,22 +11,51 @@
     width: 40%;
   }
 
-  .iy-left {
-    float: left;
-  }
-  .iy-right {
-    float: right;;
-  }
-
   &::after {
     .clearFix();
   }
 }
-
-.content-table {
+.content-text {
   margin-top: 10px;
-  display: flex;
-  li {
-    flex: 1;
+  .content-table {
+    margin-bottom: -1px;
+    display: flex;
+    li {
+      flex: 1;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid #dfdfdf;
+      margin-right: -1px;
+    }
+
+    .table-checkbox {
+      max-width: 50px;
+    }
+
+    &.title {
+      background-color: #efefef;
+    }
   }
+}
+.storeadd-box {
+  margin-left: 25px;
+  .content-title {
+    border-bottom: 1px solid #efefef;
+  }
+  @media (min-width: 768px) {
+    .col-sm-2 {
+      width: auto;
+    }
+  }
+  .btn-info {
+    margin-left: 9.5%;
+  }
+}
+
+.iy-left {
+  float: left;
+}
+.iy-right {
+  float: right;;
 }
