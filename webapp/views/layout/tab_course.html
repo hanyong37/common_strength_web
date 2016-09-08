@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="format-detection" content="telephone=no"/>
-  <title>{{title}}</title>
+  <title>{{breadcrumb}}</title>
   {% if basePath -%}
   <base href="{{basePath}}">
   {%- endif -%}
@@ -20,26 +20,23 @@
 
 <ol class="breadcrumb">
   <li>首页</li>
-  <li>课程管理</li>
+  <li>{{secondary}}</li>
   <li>{{breadcrumb}}</li>
 </ol>
 <div class="container-tab">
-  <div class="container-left">
-    <div class="tab-bar-list active"><i class="icon"></i>门店管理</div>
-    <div class="tab-bar-list"><i class="icon"></i>课程规则</div>
-    <div class="tab-bar-list"><i class="icon"></i>排课程表</div>
-    <div class="tab-bar-list"><i class="icon"></i>课程管理</div>
-    <div class="tab-bar-list"><i class="icon"></i>课程分类</div>
-  </div>
+  {% include "layout/left.html" %}
   <div class="container-right">
     {% block body -%}
     {%- endblock %}
   </div>
 </div>
-{%- block script -%}
+{%- block tail -%}
 <script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+{%- block script -%}
+
+{%- endblock %}
 {%- endblock %}
 </body>
 </html>

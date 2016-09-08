@@ -1,1 +1,32 @@
 @import "tab";
+
+.content-add {
+  margin-top: 5px;
+  .btn-block {
+    width: 10%;
+    background-color: #2DB7F5;
+  }
+
+  .input-group {
+    width: 40%;
+  }
+
+  .iy-left {
+    float: left;
+  }
+  .iy-right {
+    float: right;;
+  }
+
+  &::after {
+    .clearFix();
+  }
+}
+
+.content-table {
+  margin-top: 10px;
+  display: flex;
+  li {
+    flex: 1;
+  }
+}
