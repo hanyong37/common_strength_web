@@ -4,12 +4,34 @@
   width: @width;
   min-height: 100px;
   margin: 0 auto;
+  padding: 10px 0;
   border-radius: 5px;
   background-color: #fff;
 
   .container-left {
     float: left;
     width: 200px;
+    border-right: 1px solid #f4f4f4;
+
+    .tab-bar-list {
+      height: 40px;
+      padding: 0 20px;
+      line-height: 40px;
+      cursor: pointer;
+
+      .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: 1px solid #c1c1c1;
+        vertical-align: middle;
+      }
+      &.active {
+        background-color: #f4f4f4;
+        border-right: 2px solid rgb(35, 192, 250);
+      }
+    }
   }
   .container-right {
     float: left;
