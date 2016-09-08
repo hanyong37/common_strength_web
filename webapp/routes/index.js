@@ -6,27 +6,12 @@ module.exports = function(app) {
     res.render('login.html');
   });
 
-  app.get(['/', 'index.html'], function(req, res) {
-    var i = 0;
-    if (i = 0) {
-
-    } else {
-      res.render('index.html',{
-        title: '这就是命!',
-        list: [
-          {
-            a: '这个东西怎么玩!'
-        }
-        ]
-
-      });
-    }
-
+  app.get(['index', 'index.html'], function(req, res) {
 
   });
   // app route
-  // const apps = ['activity','class'];
-  // apps.forEach(function(item) {
-  //   require('./' + item)(app);
-  // })
+  const apps = ['course/store'];
+  apps.forEach(function(item) {
+    require('./' + item)(app);
+  })
 };
