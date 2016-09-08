@@ -16,15 +16,15 @@
   {%- endblock %}
 </head>
 <body ontouchstart>
-{% include "head.html" %}
+{% include "layout/head.html" %}
 
 <ol class="breadcrumb">
   <li>首页</li>
-  <li>课程管理</li>
+  <li>{{secondary}}</li>
   <li>{{breadcrumb}}</li>
 </ol>
 <div class="container-tab">
-  {% include "left.html" %}
+  {% include "layout/left.html" %}
   <div class="container-right">
     {% block body -%}
     {%- endblock %}
