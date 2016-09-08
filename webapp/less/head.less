@@ -5,6 +5,7 @@
   visibility: hidden;
   clear: both;
 }
+@width: 1200px;
 
 body {
   background-color: #f4f4f4;
@@ -13,7 +14,7 @@ body {
   background-color: #414141;
 }
 .nav-center {
-  width: 1000px;
+  width: @width;
   height: 50px;
   margin: 0 auto;
   line-height: 50px;
@@ -29,7 +30,7 @@ body {
   }
   .nav-menu-bar {
     float: left;
-    width: 720px;
+    width: @width - 280px;
 
     .menu-list {
       margin: 0;
@@ -84,6 +85,6 @@ body {
   }
 }
 .breadcrumb {
-  width: 1000px;
+  width: @width;
   margin: 0 auto;
 }
