@@ -1,15 +1,16 @@
 {% extends 'layout/tab_course.html'%}
 {% block style -%}
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="/css/time_tables.css">
 {%- endblock %}
 {% set breadcrumb = '排课程表'%}
 {% block body -%}
 <div class="form-bar">
-  <div class="btn btn-large btn-info btn-add-store">添加课程</div>
+  <div class="btn btn-large btn-info btn-add-store"
+       data-toggle="modal" data-target="#course_modal">添加课程</div>
   <div class="store-list">
-    <select id="sotre-select">
-      <option value="">请选择门店</option>
+    <select class="selectpicker select-store" title="请选择门店">
       <option value="0">1</option>
       <option value="1">2</option>
       <option value="2">3</option>
@@ -44,7 +45,7 @@
     <div class="calendar-row-info">周六</div>
     <div class="calendar-row-info">周日</div>
   </div>
-  <div class="calendar-container">
+  <div class="calendar-container c-c-bg">
     <div class="c-c-column calendar-time">
       <div class="column-cell"><span>7:00 - 8:00</span></div>
       <div class="column-cell"><span>8:00 - 9:00</span></div>
@@ -53,6 +54,81 @@
       <div class="column-cell"><span>1:00 - 2:00</span></div>
       <div class="column-cell"><span>2:00 - 3:30</span></div>
       <div class="column-cell"><span>4:00 - 5:00</span></div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+    <div class="c-c-column calendar-course">
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+      <div class="column-cell"> </div>
+    </div>
+  </div>
+
+  <div class="calendar-container c-c-info box-hidden">
+    <div class="c-c-column calendar-time">
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
+      <div class="column-cell"><span></span></div>
     </div>
     <div class="c-c-column calendar-course">
       <div class="column-cell"><span>下肢蹲</span></div>
@@ -119,17 +195,85 @@
     </div>
   </div>
 </div>
+
+<div id="course_modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">添加课程</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="start_datetime">课程开始时间</label>
+            <div class='input-group date datetimepicker start_datetime'>
+              <input type='text' id="start_datetime" class="form-control" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="over_datetime">课程结束时间</label>
+            <div class='input-group date datetimepicker over_datetime'>
+              <input type='text' id="over_datetime" class="form-control" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="select_course">选择课程</label>
+            <select id="select_course" class="selectpicker form-control" title="请选择课程" multiple>
+              <option value="0">1</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+              <option value="4">5</option>
+              <option value="5">6</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="course_number">课程人数</label>
+            <input type="number" class="form-control" id="course_number" placeholder="">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">新增</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {%- endblock %}
 {% block script -%}
 {{ super() }}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
-<sciprt src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></sciprt>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script>
   $(function(){
-    $('#sotre-select').selectpicker({
+    $('.selectpicker').selectpicker({
       size: 5
     });
+    var $startDatetime = $('.start_datetime');
+    var $overDatetime = $('.over_datetime');
+    $startDatetime.datetimepicker({
+      format: 'YYYY-MM-DD hh:mm'
+    });
+    $overDatetime.datetimepicker({
+      format: 'YYYY-MM-DD hh:mm',
+      useCurrent: false
+    });
+    $startDatetime.on("dp.change", function (e) {
+      $overDatetime.data("DateTimePicker").minDate(e.date);
+    });
 
+    $('.select-store').on('change', function () {
+      $('.c-c-info').removeClass('box-hidden');
+    });
   });
 </script>
 {%- endblock %}

@@ -1,6 +1,10 @@
 @import "tab";
 @cellHeight: 50px;
 
+.box-hidden {
+  display: none !important;
+}
+
 .form-bar {
   margin-bottom: 10px;
 
@@ -22,6 +26,7 @@
 
 .calendar-box {
   border: 1px solid @borderColor;
+  position: relative;
 
   .calendar-row {
     .cellBox();
@@ -60,5 +65,11 @@
         vertical-align: middle;
       }
     }
+  }
+  &.c-c-info {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
   }
 }
