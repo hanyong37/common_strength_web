@@ -6,4 +6,7 @@ module.exports = function(app){
   app.get('/clientListAdd', function(req, res){
     res.render('client_list_add.html');
   });
+  app.get('/clientCardList', function(req, res){
+    res.render('client_card_list.html');
+  });
 };

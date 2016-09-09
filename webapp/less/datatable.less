@@ -1,3 +1,22 @@
+.clearFix() {
+  content: '';
+  display: block;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+.cellBox() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cellFlex(@number) {
+  -webkit-box-flex: @number;
+  -webkit-flex: @number;
+  -ms-flex: @number;
+  flex: @number;
+}
 
 .content-add {
   margin-top: 5px;
@@ -16,20 +35,26 @@
 }
 .content-text {
   margin-top: 10px;
+
   .content-table {
     margin-bottom: -1px;
     display: flex;
 
     li {
-      flex: 1;
-      text-align: center;
+      .cellFlex(1);
       height: 40px;
-      line-height: 40px;
-      border: 1px solid #dfdfdf;
       margin-right: -1px;
+      border: 1px solid #dfdfdf;
+      text-align: center;
+      line-height: 40px;
 
       &.table-cell-auto {
-        flex: 2;
+        .cellFlex(2);
+      }
+      &.table-cell-info {
+        .cellFlex(4);
+        padding: 5px;
+        line-height: 30px;
       }
     }
 
@@ -42,6 +67,19 @@
     }
   }
 }
+.table-cell-info {
+  text-align: left;
+  vertical-align: middle;
+
+  p {
+    display:-webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
+  }
+}
+
 .storeadd-box {
   margin-left: 25px;
   .content-title {
