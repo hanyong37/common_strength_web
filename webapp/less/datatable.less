@@ -1,0 +1,80 @@
+
+.content-add {
+  margin-top: 5px;
+  .btn-block {
+    width: 10%;
+    background-color: #2DB7F5;
+  }
+
+  .input-group {
+    width: 40%;
+  }
+
+  &::after {
+    .clearFix();
+  }
+}
+.content-text {
+  margin-top: 10px;
+  .content-table {
+    margin-bottom: -1px;
+    display: flex;
+
+    li {
+      flex: 1;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid #dfdfdf;
+      margin-right: -1px;
+
+      &.table-cell-auto {
+        flex: 2;
+      }
+    }
+
+    .table-checkbox {
+      max-width: 50px;
+    }
+
+    &.title {
+      background-color: #efefef;
+    }
+  }
+}
+.storeadd-box {
+  margin-left: 25px;
+  .content-title {
+    border-bottom: 1px solid #efefef;
+  }
+  @media (min-width: 768px) {
+    .col-sm-1-1 {
+      float: left;
+      width: 64px;
+    }
+
+    .col-sm-1-2 {
+      float: left;
+      width: 86px;
+    }
+  }
+  .btn-info {
+    margin-left: 9.5%;
+  }
+}
+
+.iy-left {
+  float: left;
+}
+.iy-right {
+  float: right;;
+}
+
+.form-group {
+  .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+
+  }
+  .bootstrap-select {
+    width: 100%;
+  }
+}

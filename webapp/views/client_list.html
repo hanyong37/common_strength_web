@@ -1,0 +1,131 @@
+{% extends 'layout/tab_client.html' %}
+{% block style -%}
+<link rel="stylesheet" href="css/client_list.css">
+{%- endblock %}
+{% set breadcrumb = '会员列表' %}
+{% block body -%}
+<div class="member-list">
+  <div class="content-add">
+    <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">添加</a>
+    <div class="input-group iy-right">
+      <input type="text" class="form-control" placeholder="请输入关键词">
+      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
+    </div>
+  </div>
+  <div class="content-text">
+    <ul class="content-table title">
+      <li class="table-checkbox">1</li>
+      <li>会员名称</li>
+      <li>会员卡类型</li>
+      <li>电话</li>
+      <li>微信号</li>
+      <li>截止时间或剩余次数</li>
+      <li class="table-cell-auto">操作</li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>2016-05-29</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>2016-05-29</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>2016-05-29</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>6</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>7</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>胡彦斌</li>
+      <li>时间卡</li>
+      <li>13376250246</li>
+      <li>yiranfeng319</li>
+      <li>12</li>
+      <li class="table-cell-auto">
+        <a href="#">编辑</a>
+        <a href="#">变更记录</a>
+        <a href="#">训练记录</a>
+        <a href="#">锁定</a>
+        <a href="#">会员卡操作</a>
+      </li>
+    </ul>
+    <nav>
+      <ul class="pagination iy-right">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+{%- endblock %}
+{% block script -%}
+{{ super() }}
+{%- endblock %}

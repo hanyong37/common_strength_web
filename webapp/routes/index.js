@@ -10,7 +10,12 @@ module.exports = function(app) {
 
   });
   // app route
-  const apps = ['course/store', 'course/timetable', 'course/course'];
+  const apps = [
+    'course/store',
+    'course/timetable',
+    'course/course',
+    'client/client'
+  ];
   apps.forEach(function(item) {
     require('./' + item)(app);
   })
