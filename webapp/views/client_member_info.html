@@ -1,0 +1,124 @@
+{% extends 'layout/tab_client.html' %}
+{% block style -%}
+<link rel="stylesheet" href="css/client_member_info.css">
+{%- endblock %}
+{% set breadcrumb = '会员详情' %}
+{% block body -%}
+<div class="container-title">会员详情</div>
+<div class="member-block">
+  <div class="member-title">会员名称</div>
+  <div class="member-row"><span>电话：13376250246</span><span>微信号：13376250246</span></div>
+  <div class="member-row"><span>状态：正常</span><span>门店：门店一，门店二</span></div>
+</div>
+<div class="tab-box">
+  <div class="tab-bar">
+    <div class="tab-bar-block active">训练记录</div>
+    <div class="tab-bar-block">会员卡变更记录</div>
+  </div>
+  <div class="tab-container">
+    <div class="content-text tab-container-blcok">
+      <ul class="content-table title">
+        <li>时间</li>
+        <li>门店</li>
+        <li class="table-cell-info">课程名称</li>
+        <li>状态</li>
+      </ul>
+      <ul class="content-table">
+        <li>2015-12-30</li>
+        <li>门店一，门店二</li>
+        <li class="table-cell-info">课程一，课程二</li>
+        <li>完成</li>
+      </ul>
+      <ul class="content-table">
+        <li>2015-12-30</li>
+        <li>门店一，门店二</li>
+        <li class="table-cell-info">课程一，课程二</li>
+        <li>取消预约</li>
+      </ul>
+      <ul class="content-table">
+        <li>2015-12-30</li>
+        <li>门店一，门店二</li>
+        <li class="table-cell-info">课程一，课程二</li>
+        <li>排队</li>
+      </ul>
+      <ul class="content-table">
+        <li>2015-12-30</li>
+        <li>门店一，门店二</li>
+        <li class="table-cell-info">课程一，课程二</li>
+        <li>完成</li>
+      </ul>
+      <nav>
+        <ul class="pagination iy-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="content-text tab-container-blcok">
+      <ul class="content-table title">
+        <li class="table-checkbox">1</li>
+        <li>会员名称</li>
+        <li>会员卡类型</li>
+        <li>操作</li>
+        <li class="table-cell-info">操作</li>
+      </ul>
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
+          <p>
+            这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
+          </p>
+        </li>
+      </ul>
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
+          <p>
+            这里是说明这里是说明
+          </p>
+        </li>
+      </ul>
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
+          <p>
+            这里是说明这里是说明
+          </p>
+        </li>
+      </ul>
+      <nav>
+        <ul class="pagination iy-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+  </div>
+</div>
+{%- endblock %}
+{% block script -%}
+{{ super() }}
+{%- endblock %}

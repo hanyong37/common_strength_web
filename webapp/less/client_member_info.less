@@ -1,0 +1,62 @@
+@import "tab";
+@import "datatable";
+
+.container-title {
+  height: 20px;
+  margin: 10px;
+  padding-left: 10px;
+  color: #de3095;
+  font-size: 20px;
+  line-height: 20px;
+  border-left: 3px solid #de3095;
+}
+.member-block {
+  margin: 10px 10px 0 10px;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid @borderColor;
+
+  .member-title {
+    height: 30px;
+    margin-top: 10px;
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .member-row {
+    height: 30px;
+    line-height: 30px;
+
+    span {
+      padding-right: 20px;
+    }
+  }
+}
+.tab-box {
+  margin: 0 10px;
+  padding: 10px;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid @borderColor;
+  border-top: 0;
+
+  .tab-bar {
+    height: 30px;
+    margin: 0 20px;
+    border-bottom: 1px solid @borderColor;
+
+    .tab-bar-block {
+      float: left;
+      height: 30px;
+      padding: 0 20px;
+      text-align: center;
+      cursor: pointer;
+
+      &.active {
+        border-bottom: 2px solid #2DB7F5
+      }
+    }
+
+    &:after {
+      .clearFix();
+    }
+  }
+}
