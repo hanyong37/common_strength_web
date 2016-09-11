@@ -1,0 +1,87 @@
+{% extends 'layout/tab_training.html' %}
+{% block style -%}
+<link rel="stylesheet" href="css/training.css">
+{%- endblock %}
+{% set breadcrumb = '训练管理' %}
+{% block body -%}
+<div class="container-title">课程训练详情</div>
+<div class="member-block">
+  <div class="member-title">课程名称</div>
+  <div class="member-row"><span>预约人数：22</span><span>排队人数：12</span></div>
+  <div class="member-row"><span>状态：正常</span><span>门店：门店一，门店二</span><span>上课时间：2016-05-09 10:00 - 11:00</span></div>
+</div>
+<div class="tab-box">
+  <div class="tab-bar">
+    <div class="tab-bar-block active">训练记录</div>
+  </div>
+  <div class="tab-container">
+    <div class="content-text">
+      <ul class="content-table title">
+        <li class="table-checkbox">1</li>
+        <li>会员名称</li>
+        <li>门店</li>
+        <li class="table-cell-2">课程</li>
+        <li  class="table-cell-2">电话</li>
+        <li class="table-cell-3">上课时间</li>
+        <li>状态</li>
+        <li class="table-cell-2">操作</li>
+      </ul>
+      <ul class="content-table content-table-member">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>门店名称</li>
+        <li class="table-cell-2">课程名称</li>
+        <li class="table-cell-3">2015-08-09 7:30 - 8:30</li>
+        <li class="table-cell-2">13376252234</li>
+        <li>状态</li>
+        <li>5</li>
+        <li class="table-cell-2">
+          <a href="#">预约</a>
+        </li>
+      </ul>
+      <ul class="content-table content-table-tourist">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>门店名称</li>
+        <li class="table-cell-2">课程名称</li>
+        <li class="table-cell-3">2015-08-09 7:30 - 8:30</li>
+        <li class="table-cell-2">13376252234</li>
+        <li>状态</li>
+        <li>5</li>
+        <li class="table-cell-2">
+          <a href="#">取消预约</a>
+        </li>
+      </ul>
+      <ul class="content-table content-table-tourist">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>门店名称</li>
+        <li class="table-cell-2">课程名称</li>
+        <li class="table-cell-3">2015-08-09 7:30 - 8:30</li>
+        <li class="table-cell-2">13376252234</li>
+        <li>状态</li>
+        <li>5</li>
+        <li class="table-cell-2">
+          <a href="#">预约</a>
+        </li>
+      </ul>
+
+      <nav>
+        <ul class="pagination iy-right">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+{%- endblock %}
+{% block script -%}
+
+{%- endblock %}

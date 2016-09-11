@@ -8,4 +8,7 @@ module.exports = function(app){
   app.get('/trainingTourist', function(req, res){
     res.render('training_tourist.html');
   });
+  app.get('/trainingInfo', function(req, res){
+    res.render('training_info.html');
+  });
 };
