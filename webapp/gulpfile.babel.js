@@ -31,9 +31,11 @@ gulp.task('less', ()=> {
 // es6 编译
 gulp.task('es6', ()=> {
   return gulp.src(['./es6/*.js'])
+            .pipe(sourcemaps.init())
             .pipe(es6({presets: ['es2015']}))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest('./public/js'))
+            .pipe(reload({stream: true}));
 });
 
 //  浏览器同步

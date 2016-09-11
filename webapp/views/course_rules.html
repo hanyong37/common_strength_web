@@ -1,7 +1,7 @@
 {% extends 'layout/tab_course.html'%}
 {% block style -%}
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="css/course.css">
 {%- endblock %}
 {% set secondary = '课程管理'%}
@@ -58,7 +58,8 @@
 {% endblock -%}
 {%- block script %}
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="js/store_manage.js"></script>
 <script type="text/javascript">
   $('.selectpicker').selectpicker({

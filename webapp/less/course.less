@@ -27,6 +27,7 @@
       line-height: 40px;
       border: 1px solid #dfdfdf;
       margin-right: -1px;
+      position: relative;
     }
 
     .table-checkbox {
@@ -64,4 +65,35 @@
 }
 .iy-right {
   float: right;;
+}
+
+.y {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .one-y{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: rotate(65deg);
+  clip: rect(0px,10px,20px,0px);/* 这个clip属性用来绘制半圆，在clip的rect范围内的内容显示出来，使用clip属性，元素必须是absolute的 */
+  border-radius: 50%;
+  background-color: #2DB7F5;
+  // animation: an1 2s infinite linear;
+  }
+
+
+  .two-y{
+      position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: rotate(-65deg);
+  clip: rect(0px,10px,20px,0px);
+  border-radius: 50%;
+  background-color: #2DB7F5;
+  // animation: an2 2s infinite linear;
+  }
 }
