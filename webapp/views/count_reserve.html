@@ -1,0 +1,109 @@
+{% extends 'layout/tab_training.html' %}
+{% block style -%}
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="css/count.css">
+{%- endblock %}
+{% set breadcrumb = '训练查询' %}
+{% block body -%}
+<div class="member-list">
+  <div class="content-add form-add">
+    <div class='input-group date datetimepicker start_datetime iy-left'>
+      <input type='text' id="start_datetime" class="form-control" placeholder="请输入开始时间">
+      <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+    </div>
+    <div class='input-group date datetimepicker over_datetime iy-left'>
+      <input type='text' id="over_datetime" class="form-control" placeholder="请输入结束时间">
+      <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+    </div>
+    <select id="select_course" class="selectpicker select-control" title="请选择课程" multiple>
+      <option value="0">1</option>
+      <option value="1">2</option>
+      <option value="2">3</option>
+      <option value="3">4</option>
+      <option value="4">5</option>
+      <option value="5">6</option>
+    </select><select id="select_store_add" class="selectpicker select-control" title="请选择门店" >
+      <option value="0">1</option>
+      <option value="1">2</option>
+      <option value="2">3</option>
+      <option value="3">4</option>
+      <option value="4">5</option>
+      <option value="5">6</option>
+    </select>
+  </div>
+  <div class="btn-bar">
+    <div class="btn btn-large btn-info">搜索</div>
+  </div>
+  <div class="content-text">
+    <ul class="content-table title">
+      <li class="table-checkbox">1</li>
+      <li>课程</li>
+      <li>门店</li>
+      <li>总人次</li>
+      <li>平均单日完课人次</li>
+      <li>各个时段分别完课总人次</li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>34</li>
+      <li>34</li>
+      <li>123</li>
+      <li>
+        <a href="#">查看</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>34</li>
+      <li>34</li>
+      <li>123</li>
+      <li>
+        <a href="#">查看</a>
+      </li>
+    </ul>
+    <nav>
+      <ul class="pagination iy-right">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+{%- endblock %}
+{% block script -%}
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+  $('.selectpicker').selectpicker({
+    size: 5
+  });
+  $('#select_store_add').selectpicker({
+    size: 5,
+    liveSearch: true
+  });
+  var $startDatetime = $('.start_datetime');
+  var $overDatetime = $('.over_datetime');
+  $startDatetime.datetimepicker({
+    format: 'YYYY-MM-DD hh:mm'
+  });
+  $overDatetime.datetimepicker({
+    format: 'YYYY-MM-DD hh:mm',
+    useCurrent: false
+  });
+  $startDatetime.on("dp.change", function (e) {
+    $overDatetime.data("DateTimePicker").minDate(e.date);
+  });
+</script>
+{%- endblock %}

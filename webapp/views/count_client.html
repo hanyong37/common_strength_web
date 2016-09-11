@@ -36,7 +36,7 @@
         </div>
       </li>
       <li>
-        <a href="#">查看</a>
+        <a href="#" class="kcph">查看</a>
       </li>
       <li>
         <a href="#">查看</a>
@@ -55,7 +55,11 @@
         </div>
       </li>
       <li>
-        <a href="#">查看</a>
+        <a href="#" class="kcph">查看</a>
+        <div class="chart-tmp">
+          <h4 class="tmp-left">课程偏好统计</h4>
+          <div id="c1"></div>
+        </div>
       </li>
       <li>
         <a href="#">查看</a>
@@ -76,6 +80,13 @@
   </div>
 {% endblock -%}
 {%- block script %}
-<script src="//cdn.bootcss.com/Chart.js/2.2.2/Chart.min.js"></script>
-<script src="js/store_manage.js"></script>
+<script src="https://as.alipayobjects.com/g/datavis/g2/2.0.1/index.js"></script>
+<script src="js/count_client.js"></script>
+<!-- {% raw %}
+<script type="text/template" id="temp">
+  <div class="chart-tmp">
+    <h4 class="tmp-left">课程偏好统计</h4>
+  </div>
+</script>
+{% endraw %} -->
 {%- endblock %}
