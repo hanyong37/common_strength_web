@@ -15,7 +15,8 @@ module.exports = function(app) {
     'course/timetable',
     'course/course',
     'client/client',
-    'count/count.js'
+    'count/count.js',
+    'training/training'
   ];
   apps.forEach(function(item) {
     require('./' + item)(app);
