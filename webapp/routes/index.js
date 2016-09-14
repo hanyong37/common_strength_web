@@ -6,7 +6,7 @@ module.exports = function(app) {
     res.render('login.html');
   });
 
-  app.get(['index', 'index.html'], function(req, res) {
+  app.get(['/index', '/index.html'], function(req, res) {
 
   });
   // app route
