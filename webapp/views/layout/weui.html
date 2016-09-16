@@ -18,8 +18,11 @@
 <body ontouchstart>
 {% block body -%}
 {%- endblock -%}
-{%- block script -%}
+{%- block foot %}
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+{% block script -%}
+
 {%- endblock %}
+{% endblock -%}
 </body>
 </html>
