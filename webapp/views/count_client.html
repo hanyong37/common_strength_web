@@ -1,6 +1,6 @@
-{% extends 'layout/tab_course.html'%}
+{% extends 'layout/tab_count.html'%}
 {% block style -%}
-<link rel="stylesheet" href="css/course.css">
+<link rel="stylesheet" href="css/count.css">
 {%- endblock %}
 {% set secondary = '报表统计'%}
 {% set breadcrumb = '客户统计'%}
@@ -63,6 +63,9 @@
       </li>
       <li>
         <a href="#">查看</a>
+        <div class="chart-tmp chart-tmp-left">
+          <h4 class="tmp-left">课程偏好统计</h4>
+        </div>
       </li>
     </ul>
     <nav>
