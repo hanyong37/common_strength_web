@@ -1,12 +1,14 @@
 {% extends 'layout/weui.html' %}
 {% block style -%}
-
+<link rel="stylesheet" href="/css/course_list.css">
 {%- endblock %}
 {% block body -%}
-<div class="date-box"></div>
-<div class="btn-prev">prev</div>
-<div class="btn-next">next</div>
+<div class="date-box">
+  <div class="btn-date btn-prev"></div>
+  <div class="date-box">获取日期中...</div>
+  <div class="btn-date btn-next"></div>
+</div>
 {%- endblock %}
 {% block script -%}
-<script src="/js/dateTools.js"></script>
+<script src="/js/date_tool.js"></script>
 {%- endblock %}

@@ -1,0 +1,38 @@
+.clearFix() {
+  content: '';
+  display: block;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+.cellBox() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cellFlex(@number) {
+  -webkit-box-flex: @number;
+  -webkit-flex: @number;
+  -ms-flex: @number;
+  flex: @number;
+}
+@width: 1200px;
+@borderColor: #ececec;
+@bgColor: #f4f4f4;
+
+.date-box {
+  width: 100%;
+  height: 50px;
+  .cellBox();
+
+  .btn-date {
+    width: 50px;
+    height: 50px;
+  }
+  .date-box {
+    line-height: 50px;
+    text-align: center;
+    .cellFlex(1);
+  }
+}

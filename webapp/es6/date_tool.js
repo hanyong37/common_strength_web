@@ -1,15 +1,16 @@
-console.log('dateTool');
+
 const Main = {
   init: () => {
     var date = Main.getDate();
-    $('.date-box').text(date.nowDate + ' ' + date.week);
-    $('.btn-prev').on('tap', function(){
-      var prevDate = Main.getPrevDate(date);
-      $('.date-box').text(prevDate.nowDate + ' ' + prevDate.week);
+    $('.date-box').html(date.nowDate + ' ' + date.week);
+
+    $('.btn-prev').on('click', function(){
+      var prevDate = Main.getPrevDate(date.nowDate);
+      $('.date-box').html(prevDate.nowDate + ' ' + prevDate.week);
     });
-    $('.btn-next').on('tap', function(){
-      var prevDate = Main.getNextDate(date);
-      $('.date-box').text(prevDate.nowDate + ' ' + prevDate.week);
+    $('.btn-next').on('click', function(){
+      var nextDate = Main.getNextDate(date.nowDate);
+      $('.date-box').html(nextDate.nowDate + ' ' + nextDate.week);
     });
   },
   getDate: (_date = new Date()) => {
@@ -30,11 +31,11 @@ const Main = {
   },
   getPrevDate: (_date) => {
     const time = new Date(_date).getTime() - 24 * 60 * 60 * 1000;
-    return dateTool.getDate(time);
+    return Main.getDate(time);
   },
   getNextDate: (_date) => {
     const time = new Date(_date).getTime() + 24 * 60 * 60 * 1000;
-    return dateTool.getDate(time);
+    return Main.getDate(time);
   },
 };
 
