@@ -1,9 +1,10 @@
 $(function() {
-  var Main = ()=> {
-    var a = {
-      init: ()=>{
-        console.log(1);
-      }
-    }
-  }
+  const Main = {
+    init: () => {
+
+    },
+    getStoreList: () => {
+
+    },
+  };
 });
