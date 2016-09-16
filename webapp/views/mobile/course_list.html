@@ -1,4 +1,12 @@
-{% extends 'layout/base.html' %}
-{% block body %}
-index
-{% endblock %}
+{% extends 'layout/weui.html' %}
+{% block style -%}
+
+{%- endblock %}
+{% block body -%}
+<div class="date-box"></div>
+<div class="btn-prev">prev</div>
+<div class="btn-next">next</div>
+{%- endblock %}
+{% block script -%}
+<script src="/js/dateTools.js"></script>
+{%- endblock %}
