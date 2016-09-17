@@ -49,7 +49,7 @@ gulp.task('browser-sync',['nodemon'] , ()=> {
     files: ['*'],
     open: false,
     notify: false,
-    port: 9799
+    port: 80
   });
 });
 

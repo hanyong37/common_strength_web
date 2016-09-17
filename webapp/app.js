@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // interface proxy
 app.use('/api', proxy({
-  target: 'http://121.40.185.123:8080', // target host
+  target: 'http://123.207.151.199:8080', // target host
   changeOrigin: true,            // needed for virtual hosted sites
   ws: true,                      // proxy websockets
   cookieRewrite: true,
