@@ -1,7 +1,27 @@
 {% extends 'layout/weui.html' %}
 {% set title = "消息中心" %}
+{%- block style -%}
+<link rel="stylesheet" href="/css/message_center.css">
+{%- endblock %}
 {% block body %}
-
+<div class="cs-body">
+  <div class="weui_panel weui_panel_access">
+      <div class="weui_panel_bd">
+          <div class="weui_media_box weui_media_text">
+              <h4 class="weui_media_title"><span class="cs-lf">课程提示</span><span class="cs-rf">06-04 10:11</span></h4>
+              <p class="weui_media_desc">您的排队已经进入预约，请及时查看课程信息。体验你的训练</p>
+          </div>
+      </div>
+  </div>
+  <div class="weui_panel weui_panel_access">
+    <div class="weui_panel_bd">
+        <div class="weui_media_box weui_media_text">
+            <h4 class="weui_media_title"><span class="cs-lf">系统消息</span><span class="cs-rf">06-04 10:11</span></h4>
+            <p class="weui_media_desc">这里是系统消息。官方推送最新活动，新增课程等相关消息。</p>
+        </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {%- block script -%}
 

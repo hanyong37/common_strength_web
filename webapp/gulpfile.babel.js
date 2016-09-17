@@ -116,8 +116,8 @@ var path = [
   './views/*/*.*',
 ];
 
-gulp.watch(['./less/*.*'], ['less']);
-gulp.watch(['./es6/*.*'], ['es6']);
+gulp.watch('./less/*.*', ['less']);
+gulp.watch('./es6/*.*', ['es6']);
 gulp.watch(path, ()=> {
   reload();
 });
