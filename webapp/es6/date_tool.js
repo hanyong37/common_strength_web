@@ -5,6 +5,7 @@ const Main = {
     let $txtDate = $('.text-date');
     $txtDate.html(date.nowDate + ' ' + date.week).data('val', date.nowDate);
 
+
     $('.btn-prev').on('click', function(){
       let thisDate = $txtDate.data('val');
       let prevDate = Main.getPrevDate(thisDate);

@@ -20,6 +20,9 @@
 @borderColor: #ececec;
 @bgColor: #f4f4f4;
 
+body {
+  background-color: @bgColor;
+}
 .date-box {
   height: 3rem;
   padding: 0 .3rem;
@@ -44,8 +47,8 @@
 .training-block {
   position: relative;
   padding: 10px;
-  border-bottom: 1px solid @borderColor;
-  background-color: @bgColor;
+  border-bottom: 1px solid #fff;
+  background-color: @borderColor;
   .cellBox();
 
   .t-b-time {
@@ -108,5 +111,15 @@
         background-color: #a0a5ac;
       }
     }
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.select-store-box {
+  padding: 5px;
+
+  .am-selected {
+    width: 100%;
   }
 }
