@@ -17,22 +17,96 @@
   -ms-flex: @number;
   flex: @number;
 }
-@width: 1200px;
 @borderColor: #ececec;
 @bgColor: #f4f4f4;
 
 .date-box {
-  width: 100%;
-  height: 50px;
+  height: 3rem;
+  padding: 0 .3rem;
+  background-color: #cfcfcf;
   .cellBox();
 
   .btn-date {
-    width: 50px;
-    height: 50px;
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1.4rem;
+    text-align: center;
   }
-  .date-box {
-    line-height: 50px;
+  .text-date {
+    line-height: 3rem;
     text-align: center;
     .cellFlex(1);
+  }
+}
+
+.training-block {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid @borderColor;
+  background-color: @bgColor;
+  .cellBox();
+
+  .t-b-time {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+
+    .time-begin,
+    .time-over {
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+    }
+    .time-begin {
+      border-bottom: 2px solid #c4c4c4;
+    }
+  }
+  .training-info {
+    padding: 0 10px;
+    .cellFlex(1);
+  }
+  .schedule {
+    width: 40px;
+    height: 60px;
+    padding-left: 10px;
+
+    .schedule-tag {
+      display: block;
+      width: 40px;
+      height: 20px;
+      margin-top: 20px;
+      background-color: @bgColor;
+      border-radius: 20px;
+      border: 1px solid #8f949a;
+      text-align: center;
+      line-height: 20px;
+
+      &.reservation-tag {
+        background-color: #8f949a;
+      }
+    }
+  }
+
+  .schedule-over {
+    position: absolute;
+    top: 2px;
+    right: -5px;
+    width: 30px;
+    height: 30px;
+
+    .weui_icon_success_circle:before,
+    .weui_icon_success_no_circle:before {
+      font-size: 20px;
+    }
+  }
+
+  &.training-reservation {
+    .schedule {
+      .schedule-tag {
+        background-color: #a0a5ac;
+      }
+    }
   }
 }

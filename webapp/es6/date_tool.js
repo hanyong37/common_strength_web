@@ -1,16 +1,19 @@
 
 const Main = {
   init: () => {
-    var date = Main.getDate();
-    $('.date-box').html(date.nowDate + ' ' + date.week);
+    let date = Main.getDate();
+    let $txtDate = $('.text-date');
+    $txtDate.html(date.nowDate + ' ' + date.week).data('val', date.nowDate);
 
     $('.btn-prev').on('click', function(){
-      var prevDate = Main.getPrevDate(date.nowDate);
-      $('.date-box').html(prevDate.nowDate + ' ' + prevDate.week);
+      let thisDate = $txtDate.data('val');
+      let prevDate = Main.getPrevDate(thisDate);
+      $txtDate.html(prevDate.nowDate + ' ' + prevDate.week).data('val', prevDate.nowDate);
     });
     $('.btn-next').on('click', function(){
-      var nextDate = Main.getNextDate(date.nowDate);
-      $('.date-box').html(nextDate.nowDate + ' ' + nextDate.week);
+      let thisDate = $txtDate.data('val');
+      let nextDate = Main.getNextDate(thisDate);
+      $txtDate.html(nextDate.nowDate + ' ' + nextDate.week).data('val', nextDate.nowDate);
     });
   },
   getDate: (_date = new Date()) => {
