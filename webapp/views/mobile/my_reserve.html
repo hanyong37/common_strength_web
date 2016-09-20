@@ -1,0 +1,56 @@
+{% extends 'layout/weui.html' %}
+{% set title = "我的" %}
+{%- block style -%}
+<link rel="stylesheet" href="/css/my_reserve.css">
+{%- endblock %}
+{% block body %}
+<div class="cs-body">
+  <div class="navbar">
+    <div class="bd" style="height: 100%;">
+        <div class="weui_tab">
+            <div class="weui_navbar">
+                <div class="weui_navbar_item weui_bar_item_on">
+                    已预约
+                </div>
+                <div class="weui_navbar_item">
+                    已取消
+                </div>
+            </div>
+            <div class="weui_tab_bd">
+              <div class="weui_panel weui_panel_access cs-list-cell">
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text cs-list cs-list-active">
+                        <div class="cs-del">删除</div>
+                        <div class="cs-text">
+                          <h4 class="weui_media_title">大傻狍子 <em>进阶</em></h4>
+                          <div class="weui_media_desc">
+                            <div><label for="">门店:</label>这里是门店名称</div>
+                            <div><label for="">日期:</label>2015-05-29 <label for="">时间:</label>09:30-10:30</div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="weui_media_box weui_media_text cs-list">
+                        <div class="cs-del">删除</div>
+                        <div class="cs-text">
+                          <h4 class="weui_media_title">大傻狍子 <em>进阶</em></h4>
+                          <div class="weui_media_desc">
+                            <div><label for="">门店:</label>这里是门店名称</div>
+                            <div><label for="">日期:</label>2015-05-29 <label for="">时间:</label>09:30-10:30</div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{%- block script -%}
+<script type="text/javascript">
+  $('.cs-body').on('click', '.weui_navbar_item', function () {
+    $(this).addClass('weui_bar_item_on').siblings('.weui_bar_item_on').removeClass('weui_bar_item_on');
+  });
+</script>
+{%- endblock %}
