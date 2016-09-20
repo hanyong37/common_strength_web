@@ -10,4 +10,8 @@ module.exports = function(app) {
   app.get('/app/my', function(req, res) {
     res.render('mobile/my.html');
   });
+
+  app.get('/app/my_reserve', function(req, res) {
+    res.render('mobile/my_reserve.html');
+  });
 }
