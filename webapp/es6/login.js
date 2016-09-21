@@ -1,9 +1,9 @@
 
 const Main = {
   init: () => {
-    Main.loginTo();
+    Main.formValidate();
     $('.btn-login').on('click', () => {
-      Main.formValidate();
+      Main.loginTo();
     });
 
     let _$input = $('#productForm input');
@@ -13,12 +13,12 @@ const Main = {
         if(_selfIndex < _$input.length - 1){
           _$input.eq(_selfIndex + 1).focus();
         }else{
-          Main.formValidate();
+          Main.loginTo();
         }
       }
     });
   },
-  formValidate: ( )=> {
+  loginTo: ( )=> {
     var data = $('#productForm').data('bootstrapValidator');
     if (data) {
       // 修复记忆的组件不验证
@@ -43,10 +43,21 @@ const Main = {
       },
       success: (result) => {
         console.log(result);
+        if(result.code == 1){
+          location.href = 'storeManage';
+        }else{
+          $('.modal-alert').modal();
+          Main.addValidateError('.input-username');
+          Main.addValidateError('.input-password');
+        }
       }
     });
   },
-  loginTo: () => {
+  addValidateError: (selector) => {
+    $(selector).parent('.form-group').removeClass('has-success').addClass('has-error')
+      .find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+  },
+  formValidate: () => {
     $('#productForm').bootstrapValidator({
       feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',

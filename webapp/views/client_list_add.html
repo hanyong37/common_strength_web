@@ -1,20 +1,20 @@
 {% extends 'layout/tab_client.html' %}
 {% block style -%}
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="css/client_list_add.css">
+<link rel="stylesheet" href="/css/course.css">
 {%- endblock %}
 {% set breadcrumb = '会员列表' %}
 {% block body -%}
 <div class="storeadd-box">
   <div class="content-title">
-    <h4>添加 / 编辑课程</h4>
+    <h4>添加 / 编辑客户</h4>
   </div>
   <div class="content-text">
-    <form class="form-horizontal" role="form">
+    <form id="productForm" class="form-horizontal" role="form">
       <div class="form-group">
         <label class="col-sm-1-2 control-label">会员名称：</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" placeholder="请输入内容">
+          <input type="text" name="" class="form-control" placeholder="请输入内容">
         </div>
       </div>
       <div class="form-group">
@@ -32,15 +32,15 @@
       <div class="form-group">
         <label  class="col-sm-1-2 control-label">会员卡类型：</label>
         <div class="col-sm-4">
-          <select class="form-control selectpicker" title="请选择">
-            <option>1</option>
-            <option>2</option>
+          <select class="form-control select-member-type" >
+            <option value="时间卡">时间卡</option>
+            <option value="次卡">次卡</option>
           </select>
         </div>
       </div>
 
       <!--TODO 截止时间、剩余次数只显示一个-->
-      <div class="form-group">
+      <div class="form-group form-dead-line">
         <label  class="col-sm-1-2 control-label">截止时间：</label>
         <div class="col-sm-4">
           <div class='input-group date datetimepicker'>
@@ -49,17 +49,18 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group form-residue-degree" style="display: none">
         <label  class="col-sm-1-2 control-label">剩余次数：</label>
         <div class="col-sm-4">
           <input type="text" class="form-control" placeholder="请输入内容">
         </div>
       </div>
 
+      <!--selectpicker-->
       <div class="form-group">
         <label  class="col-sm-1-2 control-label">门店：</label>
         <div class="col-sm-4">
-          <select class="form-control selectpicker" title="请选择" multiple>
+          <select class="form-control select-store">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -77,4 +78,5 @@
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="/js/client_list_add.js"></script>
 {%- endblock %}
