@@ -3,7 +3,11 @@ const Main = {
   init: () => {
     $('.select-member-type').selectpicker();
     $('.select-store').selectpicker();
+    $('.end-date').datetimepicker({
+      format: 'YYYY-MM-DD hh:mm'
+    });
     Main.memberTypeChange();
+    Main.formValidator();
   },
   memberTypeChange: () => {
     const $memberType = $('.select-member-type');
@@ -18,7 +22,7 @@ const Main = {
       }
     });
   },
-  form: () => {
+  formValidator: () => {
     $('#productForm').bootstrapValidator({
       feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -26,17 +30,42 @@ const Main = {
         validating: 'glyphicon glyphicon-refresh'
       },
       fields: {
-        username: {
+        memberShipName: {
           validators: {
             notEmpty: {
-              message: '用户名不能为空'
+              message: '用户名称不能为空'
             }
           }
         },
-        password: {
+        memberShipTelephone: {
           validators: {
             notEmpty: {
-              message: '密码不能为空'
+              message: '手机号码不能为空'
+            },
+            regexp: {
+              regexp: /^1[34578]\d{9}$/,
+              message: '手机号码格式不正确'
+            }
+          }
+        },
+        memberShipWechatId: {
+          validators: {
+            notEmpty: {
+              message: '微信号不能为空'
+            }
+          }
+        },
+        deadLine: {
+          validators: {
+            notEmpty: {
+              message: '截止时间不能为空'
+            }
+          }
+        },
+        residueDegree: {
+          validators: {
+            notEmpty: {
+              message: '剩余次数不能为空'
             }
           }
         },
