@@ -18,10 +18,13 @@
 <body ontouchstart>
 {% block body -%}
 {%- endblock -%}
-{%- block script -%}
+{%- block tail -%}
 <script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+{%- block script -%}
+
+{%- endblock %}
 {%- endblock %}
 </body>
 </html>

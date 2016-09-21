@@ -1,21 +1,29 @@
 {% extends 'layout/base.html' %}
 {% block style %}
+<link rel="stylesheet" href="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
 <link rel="stylesheet" href="/css/login.css">
 {% endblock %}
 {% block body %}
 <div class="login-box">
   <div class="login-img"></div>
   <div class="login-form" >
-    <div class="form-group">
-      <input type="email" class="form-control" placeholder="用户名">
-    </div>
-    <div class="form-group">
-      <input type="email" class="form-control" placeholder="密码">
-      <a href="/storeManage" class="glyphicon glyphicon-download icon-login"></a>
-    </div>
+    <form id="productForm">
+      <div class="form-group">
+        <input type="text" class="form-control input-username" name="username" placeholder="用户名" autocomplete="off">
+      </div>
+      <div class="form-group form-password">
+        <input type="password" class="form-control input-password" name="password" placeholder="密码" >
+        <!--<input name="submit" class="glyphicon glyphicon-download icon-login btn-login" type="submit">-->
+        <button type="submit" name="submit" class="glyphicon glyphicon-download icon-login btn-login"></button>
+      </div>
+    </form>
   </div>
   <div class="forget-pwd "><a class="btn btn-link">忘记密码</a></div>
 </div>
 {% endblock%}
 {% block script %}
+<script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script></script>
+<script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.min.js"></script>
+<script src="/js/login.js"></script>
 {% endblock %}
