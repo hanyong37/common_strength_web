@@ -1,5 +1,6 @@
 const http = require('http');
 const url = require('url');
+const sha1 = crypto.createHash('sha1');
 
 const compute = (params) => {
   switch(params['type']){
