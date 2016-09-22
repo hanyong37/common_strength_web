@@ -1,6 +1,6 @@
 const http = require('http');
 const url = require('url');
-const crypto = crypto.createHash('sha1');
+const crypto = require('crypto');
 
 module.exports = function(app) {
   // global route
