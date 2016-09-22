@@ -21,7 +21,7 @@ module.exports = function(app) {
     let tmpArr = [token, timestamp, nonce];
     tmpArr.sort();
     let sha1 = crypto.createHash('sha1');
-    let msg = arr[0] + arr[1] + arr[2];
+    let msg = tmpArr[0] + tmpArr[1] + tmpArr[2];
     sha1.update(msg);
     msg = sha1.digest('hex');
     // 验证
