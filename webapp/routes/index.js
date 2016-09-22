@@ -16,7 +16,7 @@ module.exports = function(app) {
 
     const signature = query.signature;
     const timestamp = query.timestamp;
-    const nonce = query.timestamp;
+    const nonce = query.nonce;
 
     let tmpArr = [token, timestamp, nonce];
     tmpArr.sort();
