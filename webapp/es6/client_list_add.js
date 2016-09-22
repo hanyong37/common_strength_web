@@ -4,10 +4,31 @@ const Main = {
     $('.select-member-type').selectpicker();
     $('.select-store').selectpicker();
     $('.end-date').datetimepicker({
-      format: 'YYYY-MM-DD hh:mm'
+      format: 'YYYY-MM-DD',
+      stepping: 10
+    }).change(function(e){
+      console.log(e.date);
     });
+
+
+    // .on('changeDate', function(ev){
+    //   var val = $(this).val();
+    //   if (val){
+    //     $(this).parents('.has-feedback').removeClass('has-error').addClass('has-success')
+    //       .find('.form-control-feedback').removeClass('glyphicon-remove').addClass('glyphicon glyphicon-ok').show();
+    //   }else{
+    //     $(this).parent('.form-group').removeClass('has-success').addClass('has-error')
+    //       .find('.form-control-feedback').removeClass('glyphicon-ok').addClass('glyphicon glyphicon-remove').show();
+    //   }
+    // })
+
+
     Main.memberTypeChange();
     Main.formValidator();
+
+    $('.btn-save').on('click', function(){
+      Main.addValidator();
+    });
   },
   memberTypeChange: () => {
     const $memberType = $('.select-member-type');
@@ -22,8 +43,81 @@ const Main = {
       }
     });
   },
+  addValidator: () => {
+    var data = $('#productForm').data('bootstrapValidator');
+    if (data) {
+      // 修复记忆的组件不验证
+      data.validate();
+      if (!data.isValid()) {
+        console.log('action error');
+        return false;
+      }
+    }
+
+    const getVal = Main.getInputValue;
+
+    let memberShipId = '';
+    let memberShipName = getVal('[name=memberShipName]');
+    let memberShipTelephone = getVal('[name=memberShipTelephone]');
+    let memberShipWechatId = getVal('[name=memberShipWechatId]');
+    let memberShipCardType = $('.select-member-type').selectpicker('val');
+    let deadLine = getVal('[name=deadLine]');
+    let residueDegree = getVal('[name=residueDegree]');
+    let storeId = $('.select-store').selectpicker('val');
+
+    Main.postMemberShipsInfo(
+      memberShipId,
+      memberShipName,
+      memberShipTelephone,
+      memberShipWechatId,
+      memberShipCardType,
+      deadLine,
+      residueDegree,
+      storeId,
+    );
+
+  },
+  getInputValue: (selector) => {
+    return $.trim($(selector).val());
+  },
+  postMemberShipsInfo: (memberShipId,
+                       memberShipName,
+                       memberShipTelephone,
+                       memberShipWechatId,
+                       memberShipCardType,
+                       deadLine,
+                       residueDegree,
+                       storeId ) => {
+
+    if(!residueDegree){
+      residueDegree = 0;
+    }
+
+    let data = $.toJSON({
+      memberShipId,
+      memberShipName,
+      memberShipTelephone,
+      memberShipWechatId,
+      memberShipCardType,
+      deadLine,
+      residueDegree,
+      storeId
+    });
+    console.log(data);
+
+    $.ajax({
+      url: '/api/member/insertMemberShipInfo',
+      type: 'post',
+      dataType: 'json',
+      data: data,
+      success: (result) => {
+        console.log(result);
+      }
+    });
+  },
   formValidator: () => {
     $('#productForm').bootstrapValidator({
+      framework: 'bootstrap',
       feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
         invalid: 'glyphicon glyphicon-remove',
@@ -73,33 +167,6 @@ const Main = {
     }).on('success.form.bv', (e) => {
       // Prevent form submission
       e.preventDefault();
-    });
-  },
-  getMemberShipsInfo: (memberShipId,
-                       memberShipName,
-                       memberShipTelephone,
-                       memberShipWechatId,
-                       memberShipCardType,
-                       deadLine,
-                       residueDegree,
-                       storeId ) => {
-    $.ajax({
-      url: '/api/member/insertMemberShipsInfo',
-      type: 'post',
-      dataType: 'json',
-      data: {
-        memberShipId,
-        memberShipName,
-        memberShipTelephone,
-        memberShipWechatId,
-        memberShipCardType,
-        deadLine,
-        residueDegree,
-        storeId
-      },
-      success: (result) => {
-        console.log(result);
-      }
     });
   },
 };

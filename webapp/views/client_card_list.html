@@ -68,5 +68,20 @@
 </div>
 {%- endblock %}
 {% block script -%}
-
+<script>
+  $.ajax({
+    url: '/api/member/getCardOperationsInfo',
+    type: 'get',
+    dataType: 'json',
+    data: {
+      memberShipId: '',
+      currentPage: 1,
+      pageSize: 10,
+      keyword: ''
+    },
+    success: function(result){
+      console.log(result);
+    }
+  });
+</script>
 {%- endblock %}
