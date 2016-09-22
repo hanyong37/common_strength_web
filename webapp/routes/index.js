@@ -2,15 +2,6 @@ const http = require('http');
 const url = require('url');
 const crypto = crypto.createHash('sha1');
 
-const compute = (params) => {
-  switch(params['type']){
-    case "add": return parseFloat(params['num']) + parseFloat(params['num1']);break;
-    case "subtract": return parseFloat(params['num']) - parseFloat(params['num1']);break;
-    case "multiplication": return parseFloat(params['num']) * parseFloat(params['num1']);break;
-    case "division": return parseFloat(params['num']) / parseFloat(params['num1']);break;
-  }
-};
-
 module.exports = function(app) {
   // global route
   app.get([ '/login'], function(req, res){
