@@ -26,7 +26,7 @@ module.exports = function(app) {
     const timestamp = query.timestamp;
     const nonce = query.timestamp;
 
-    let tmpArr = [signature, timestamp, nonce];
+    let tmpArr = [token, timestamp, nonce];
     tmpArr.sort();
     let sha1 = crypto.createHash('sha1');
     let msg = arr[0] + arr[1] + arr[2];
