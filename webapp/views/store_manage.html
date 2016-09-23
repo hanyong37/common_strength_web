@@ -19,23 +19,27 @@
       <li>地址</li>
       <li>操作</li>
     </ul>
-    {% raw %}
-    <script type="text/template" id="temp">
-    {% for items in data %}
-      <ul class="content-table">
-        <li class="table-checkbox" data-id="{{ items.storeId }}">1</li>
-        <li>{{ items.storeName }}</li>
-        <li>{{ items.storeAddress }}</li>
-        <li>
-          <a href="#">编辑</a>
-          <a href="#">删除</a>
-          <a href="#">设置课程表</a>
-        </li>
-      </ul>
-      {% endfor %}
-    </script>
-    {% endraw %}
-    <nav id="j-html">
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>杭州市西湖区</li>
+      <li>
+        <a href="#">编辑</a>
+        <a href="#">删除</a>
+        <a href="#">设置课程表</a>
+      </li>
+    </ul>
+    <ul class="content-table">
+      <li class="table-checkbox">1</li>
+      <li>先生</li>
+      <li>杭州市西湖区</li>
+      <li>
+        <a href="#">编辑</a>
+        <a href="#">删除</a>
+        <a href="#">设置课程表</a>
+      </li>
+    </ul>
+    <nav>
       <ul class="pagination iy-right">
         <li><a href="#">&laquo;</a></li>
         <li><a href="#">1</a></li>
@@ -46,6 +50,7 @@
         <li><a href="#">&raquo;</a></li>
       </ul>
     </nav>
+
   </div>
 {% endblock -%}
 {%- block script %}

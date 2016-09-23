@@ -44,7 +44,7 @@
       <!--TODO 截止时间、剩余次数只显示一个-->
       <div class="form-group form-dead-line ">
         <label  class="col-sm-1-2 control-label">截止时间：</label>
-        <div class="col-sm-4">
+        <div class="col-sm-4 date-box">
           <div class='input-group date datetimepicker'>
             <input type='text' name="deadLine" class="form-control end-date" />
             <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
@@ -63,17 +63,17 @@
         <label  class="col-sm-1-2 control-label">门店：</label>
         <div class="col-sm-4">
           <select class="form-control select-store">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
+            <option value="11">1</option>
+            <option value="12">2</option>
+            <option value="13">3</option>
+            <option value="14">4</option>
+            <option value="15">5</option>
+            <option value="16">6</option>
           </select>
         </div>
       </div>
     </form>
-    <button type="button" class="btn btn-info">保存</button>
+    <button type="button" class="btn btn-info btn-save">保存</button>
   </div>
 </div>
 {%- endblock %}
@@ -84,5 +84,6 @@
 <script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-json/2.6.0/jquery.json.min.js"></script>
 <script src="/js/client_list_add.js"></script>
 {%- endblock %}

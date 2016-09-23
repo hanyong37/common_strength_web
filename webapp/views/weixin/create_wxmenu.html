@@ -1,0 +1,47 @@
+{% extends 'layout/weui.html' %}
+{% set title = '公众号菜单' %}
+{% block body -%}
+ <h1>公众号菜单</h1>
+<div class="container"></div>
+{%- endblock %}
+{% block script -%}
+<script>
+  (function(){
+    var access_token = 'uMuE-bkPGshuoRP-uxjwY5V21tp1KQb80BqmTqEhzcVjlkVYV1TH7EdP45JwyCQP8u4JsspmtHWw8rDXp5QV3tn7sy-UA52dQylKUFrUAc0QFBdABAJYU';
+//    $.ajax({
+//      url: '/wxapi/token?grant_type=client_credential&appid=wx3e88f64ec69153c2&secret=042d99014f1ae55841ed797246883fcc',
+////      url: '/wxapi/menu/get',
+//      type: 'get',
+//      dataType: 'json',
+//      data: {
+//       access_token: access_token,
+//      },
+//      async: false,
+//      success: function(result){
+////       $('.container').append(JSON.stringify(result));
+//       access_token = result.access_token;
+//      }
+//    });
+
+    $.ajax({
+      url: '/wxapi/menu/create?access_token=' + access_token,
+      type: 'post',
+      dataType: 'json',
+      data: {
+        button: [
+          {
+            "type": "view",
+            "name": "课程训练",
+            "url": "http://www.loveljl.com/app/courseList"
+          }
+        ]
+      },
+      async: false,
+      success: function(result){
+        $('.container').append(JSON.stringify(result));
+      }
+    });
+
+  })();
+</script>
+{%- endblock %}
