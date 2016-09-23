@@ -1,6 +1,7 @@
 const http = require('http');
 const url = require('url');
 const crypto = require('crypto');
+const querystring = require('querystring');
 
 module.exports = function(app) {
   // global route
@@ -33,6 +34,11 @@ module.exports = function(app) {
       res.end('微信登录验证失败，请重试！');
     }
   });
+
+  app.get('/wx/createMenu', function(req, res){
+    res.render('weixin/create_wxmenu.html');
+  });
+
   // app route
   const apps = [
     'course/store',

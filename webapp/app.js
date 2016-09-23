@@ -53,6 +53,17 @@ app.use('/api', proxy({
   }
 }));
 
+// interface proxy
+app.use('/wxapi', proxy({
+  target: 'https://api.weixin.qq.com/cgi-bin', // target host
+  changeOrigin: true,            // needed for virtual hosted sites
+  ws: true,                      // proxy websockets
+  cookieRewrite: true,
+  pathRewrite: {
+    '^/api/': '/'
+  }
+}));
+
 // pipeline
 app
   //cookie
