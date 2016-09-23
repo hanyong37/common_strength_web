@@ -6,7 +6,7 @@
 {% set breadcrumb = '课程管理'%}
 {% block body -%}
   <div class="content-add">
-    <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
+    <a href="courseManagementAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
     <div class="input-group iy-right">
       <input type="text" class="form-control" placeholder="请输入关键词">
       <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
@@ -22,30 +22,24 @@
       <li>课程状态</li>
       <li>操作</li>
     </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>先生</li>
-      <li>杭州市西湖区</li>
-      <li>杭州市西湖区</li>
-      <li>6</li>
-      <li>√</li>
-      <li>
-        <a href="#">编辑</a>
-        <a href="#">删除</a>
-      </li>
-    </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>先生</li>
-      <li>杭州市西湖区</li>
-      <li>杭州市西湖区</li>
-      <li>6</li>
-      <li>√</li>
-      <li>
-        <a href="#">编辑</a>
-        <a href="#">删除</a>
-      </li>
-    </ul>
+    {% raw %}
+    <script type="text/template" id="temp">
+      {% for items in data %}
+      <ul class="content-table" data-id="{{ items.courseId }}">
+        <li class="table-checkbox">1</li>
+        <li>{{ items.courseName }}</li>
+        <li>{{ items.storeName }}</li>
+        <li>{{ items.typeName }}</li>
+        <li>6</li>
+        <li>√</li>
+        <li>
+          <a href="#">编辑</a>
+          <a href="#">删除</a>
+        </li>
+      </ul>
+      {% endfor %}
+    </script>
+    {% endraw %}
     <nav>
       <ul class="pagination iy-right">
         <li><a href="#">&laquo;</a></li>
@@ -61,7 +55,5 @@
   </div>
 {% endblock -%}
 {%- block script %}
-<script src="js/store_manage.js"></script>
-<script type="text/javascript">
-</script>
+<script src="js/course_management.js"></script>
 {%- endblock %}

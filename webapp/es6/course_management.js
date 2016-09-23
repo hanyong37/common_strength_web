@@ -1,10 +1,10 @@
 const Main = {
-  init: () => {
-    Main.getStoreList();
+  init: ()=> {
+    Main.__ajax();
   },
-  getStoreList: () => {
+  __ajax: ()=> {
     $.ajax({
-      url: '/api/store/getStoresInfo',
+      url: '/api/course/getCoursesInfo',
       data: {
         currentPage: 0,
         pageSize: 10,
@@ -12,32 +12,29 @@ const Main = {
       },
       type: 'get',
       dataType: 'json',
-      success: function(result){
+      success: function(result) {
         console.log(result);
         if (result.code == 1) {
           var data = result.data;
           Main.setNunjucks({
             tmp: '#temp',
-            html: '#j-html',
+            html: '.content-table.title',
             data: {
               data: data
             }
-          });
-          if (result.totalPage != null) {
-
-          }
+          })
         }
       }
-    });
+    })
   },
   setNunjucks: (a)=> {
     var tpl_pay_template = $(a.tmp).html();
     var html = nunjucks.renderString(tpl_pay_template, a.data);
     var $c = $(a.html);
-    $c.before(html);
+    $c.after(html);
   }
 };
 
-$(function() {
+(function(){
   Main.init();
-});
+})();

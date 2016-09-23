@@ -15,6 +15,21 @@ const Main = {
       var _storeAddress = $.trim($("#j-address").val());
       var _storeDescription = $.trim($("#j-text").val());
 
+      if (_storeName == "") {
+        alert('请填写门店名称');
+        return false;
+      }
+
+      if (_storeAddress == "请选择") {
+        alert('请选择门店地址');
+        return false;
+      }
+
+      if (_storeDescription == "") {
+        alert('请点血门店介绍');
+        return false;
+      }
+
       Main.__ajax({
         storeId: '',
         storeName: _storeName,
@@ -24,7 +39,7 @@ const Main = {
    },
   __ajax: (a)=> {
     $.ajax({
-      url: '/api/store/updateStoreInfo',
+      url: '/api/store/insertStoreInfo',
       data: {
         storeId: a.storeId,
         storeName: a.storeName,
@@ -36,7 +51,7 @@ const Main = {
       success: function(result) {
         console.log(result);
         if (result.code == 1) {
-
+          alert('保存成功');
         }
       }
     })
