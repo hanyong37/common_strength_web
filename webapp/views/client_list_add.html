@@ -16,19 +16,19 @@
       <div class="form-group">
         <label class="col-sm-1-2 control-label">会员名称：</label>
         <div class="col-sm-4">
-          <input type="text" name="memberShipName" class="form-control" placeholder="请输入内容">
+          <input type="text" name="memberShipName" class="form-control" placeholder="请输入会员名称">
         </div>
       </div>
       <div class="form-group">
         <label  class="col-sm-1-2 control-label">手机号码：</label>
         <div class="col-sm-4">
-          <input type="text" name="memberShipTelephone" class="form-control" placeholder="请输入内容">
+          <input type="text" name="memberShipTelephone" class="form-control" placeholder="请输入手机号码">
         </div>
       </div>
       <div class="form-group">
         <label  class="col-sm-1-2 control-label">微信号：</label>
         <div class="col-sm-4">
-          <input type="text" name="memberShipWechatId" class="form-control" placeholder="请输入内容">
+          <input type="text" name="memberShipWechatId" class="form-control" placeholder="请输入微信号">
         </div>
       </div>
       <div class="form-group">
@@ -46,7 +46,7 @@
         <label  class="col-sm-1-2 control-label">截止时间：</label>
         <div class="col-sm-4 date-box">
           <div class='input-group date datetimepicker'>
-            <input type='text' name="deadLine" class="form-control end-date" />
+            <input type='text' name="deadLine" class="form-control end-date" placeholder="请选择截止时间"/>
             <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
           </div>
         </div>
@@ -54,7 +54,7 @@
       <div class="form-group form-residue-degree" style="display: none">
         <label  class="col-sm-1-2 control-label">剩余次数：</label>
         <div class="col-sm-4">
-          <input type="number" name="residueDegree" class="form-control" placeholder="请输入内容">
+          <input type="number" name="residueDegree" class="form-control" placeholder="请输入剩余次数">
         </div>
       </div>
 
@@ -63,12 +63,7 @@
         <label  class="col-sm-1-2 control-label">门店：</label>
         <div class="col-sm-4">
           <select class="form-control select-store">
-            <option value="11">1</option>
-            <option value="12">2</option>
-            <option value="13">3</option>
-            <option value="14">4</option>
-            <option value="15">5</option>
-            <option value="16">6</option>
+            <!--<option value="0">1</option>-->
           </select>
         </div>
       </div>
@@ -76,8 +71,17 @@
     <button type="button" class="btn btn-info btn-save">保存</button>
   </div>
 </div>
+
+<script id="tmp_select_store" type="text/template">
+  {% raw %}
+  {% for item in data %}
+    <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block script -%}
+<script src="//cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
@@ -85,5 +89,6 @@
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-json/2.6.0/jquery.json.min.js"></script>
+<script src="//cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
 <script src="/js/client_list_add.js"></script>
 {%- endblock %}

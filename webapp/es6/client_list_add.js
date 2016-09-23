@@ -10,24 +10,38 @@ const Main = {
       console.log(e.date);
     });
 
-
-    // .on('changeDate', function(ev){
-    //   var val = $(this).val();
-    //   if (val){
-    //     $(this).parents('.has-feedback').removeClass('has-error').addClass('has-success')
-    //       .find('.form-control-feedback').removeClass('glyphicon-remove').addClass('glyphicon glyphicon-ok').show();
-    //   }else{
-    //     $(this).parent('.form-group').removeClass('has-success').addClass('has-error')
-    //       .find('.form-control-feedback').removeClass('glyphicon-ok').addClass('glyphicon glyphicon-remove').show();
-    //   }
-    // })
-
-
+    Main.getStoreList();
     Main.memberTypeChange();
     Main.formValidator();
 
     $('.btn-save').on('click', function(){
       Main.addValidator();
+    });
+
+
+  },
+  getStoreList: () => {
+    $.ajax({
+      url: '/api/store/getStoresInfo',
+      type: 'get',
+      dataType: 'json',
+      data: {
+        currentPage: 0,
+        pageSize: 1,
+        keyword: '',
+      },
+      success: (result) => {
+        console.log('getStoresInfo', result);
+        const dataArr = result.data;
+        Main.setNunjucksTmp({
+          tmpSelector: '#tmp_select_store',
+          boxSelector: 'select.select-store',
+          data: dataArr,
+          callback: () => {
+            $('.select-store').selectpicker('refresh');
+          }
+        });
+      }
     });
   },
   memberTypeChange: () => {
@@ -168,6 +182,18 @@ const Main = {
       // Prevent form submission
       e.preventDefault();
     });
+  },
+  setNunjucksTmp: (options) => {
+    const tpl_pay_template = $(options.tmpSelector).html();
+    const html = nunjucks.renderString(tpl_pay_template, {data: options.data});
+    const index_container = $(options.boxSelector);
+
+    if(options.isAppend){
+      index_container.append(html);
+    }else{
+      index_container.html(html);
+    }
+    options.callback();
   },
 };
 (function(){
