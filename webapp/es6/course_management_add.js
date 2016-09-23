@@ -4,7 +4,12 @@ const Main = {
       size: 4
     });
 
-    $('.j-save').on('click', function() {
+    $('#j-save').on('click', function() {
+      var input = $("#j-input").val();
+      var input = $("#j-input").val();
+      var input = $("#j-input").val();
+      var input = $("#j-input").val();
+
       Main.saveCourseInfo({
         courseId: '',
         courseName: '',
