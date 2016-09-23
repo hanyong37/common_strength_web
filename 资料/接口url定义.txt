@@ -1,0 +1,18 @@
+webroot ： http://localhost:8080/cs  localhost测试的时候会替换为ip地址
+门店管理：
+展示列表：/store/listAllStoresInfo
+添加/编辑门店: /store/saveOrUpdateStoreInfo
+删除门店信息: /store/deleteStoreInfoByStoreId
+获取门店信息: /store/getStoreInfoByStoreId
+
+课程规则：
+设置课程规则: /rule/insertRuleIns
+
+课程管理：
+获取课程列表: /course/listAllCoursesInfo
+添加/编辑课程信息: /course/saveOrUpdateCourseInfo
+删除课程信息: /course/deleteCourseInfoByCourseId
+
+
+
+
