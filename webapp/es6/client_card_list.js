@@ -1,4 +1,4 @@
-Main = {
+const Main = {
   init: () => {
     Main.getClientCardList();
   },
