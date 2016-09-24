@@ -1,22 +1,19 @@
-let pageCurrent = 1;
-let pageNumber = 10;
-let pageCount = 1;
-let filterText = '';
-const Main = {
+Main = {
   init: () => {
-    Main.getMemberShipsInfo(pageCurrent, pageNumber, filterText);
+    Main.getClientCardList();
   },
-  getMemberShipsInfo: (currentPage, pageSize, keyword) => {
+  getClientCardList: () => {
     $.ajax({
-      url: '/api/member/getMemberShipsInfo',
+      url: '/api/member/getCardOperationsInfo',
       type: 'get',
       dataType: 'json',
       data: {
-        currentPage,
-        pageSize,
-        keyword,
+        memberShipId: '',
+        currentPage: 1,
+        pageSize: 10,
+        keyword: ''
       },
-      success: (result) => {
+      success: function(result){
         console.log(result);
         Main.setNunjucksTmp({
           tpl_pay_template: '#tmp_client_list',

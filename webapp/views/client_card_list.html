@@ -20,39 +20,42 @@
       <li>操作</li>
       <li class="table-cell-info">操作</li>
     </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>胡彦斌</li>
-      <li>时间卡</li>
-      <li>变更截止日期</li>
-      <li class="table-cell-info">
-        <p>
-          这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
-        </p>
-      </li>
-    </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>胡彦斌</li>
-      <li>时间卡</li>
-      <li>变更截止日期</li>
-      <li class="table-cell-info">
+    <div class="list-box">
+
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
+          <p>
+            这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
+          </p>
+        </li>
+      </ul>
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
           <p>
             这里是说明这里是说明
           </p>
-      </li>
-    </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>胡彦斌</li>
-      <li>时间卡</li>
-      <li>变更截止日期</li>
-      <li class="table-cell-info">
+        </li>
+      </ul>
+      <ul class="content-table">
+        <li class="table-checkbox">1</li>
+        <li>胡彦斌</li>
+        <li>时间卡</li>
+        <li>变更截止日期</li>
+        <li class="table-cell-info">
           <p>
             这里是说明这里是说明
           </p>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
     <nav>
       <ul class="pagination iy-right">
         <li><a href="#">&laquo;</a></li>
@@ -66,22 +69,25 @@
     </nav>
   </div>
 </div>
+
+<script id="tmp_client_list" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <ul class="content-table">
+    <li class="table-checkbox">1</li>
+    <li>胡彦斌</li>
+    <li>时间卡</li>
+    <li>变更截止日期</li>
+    <li class="table-cell-info">
+      <p>
+        这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
+      </p>
+    </li>
+  </ul>
+  {% endfor %}
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block script -%}
-<script>
-  $.ajax({
-    url: '/api/member/getCardOperationsInfo',
-    type: 'get',
-    dataType: 'json',
-    data: {
-      memberShipId: '',
-      currentPage: 1,
-      pageSize: 10,
-      keyword: ''
-    },
-    success: function(result){
-      console.log(result);
-    }
-  });
-</script>
+<script src="/js/client_card_list.js"></script>
 {%- endblock %}
