@@ -9,6 +9,9 @@ module.exports = function(app){
   app.get('/clientCardList', function(req, res){
     res.render('client_card_list.html');
   });
+  app.get('/clientCardListAdd', function(req, res){
+    res.render('client_card_list_add.html');
+  });
   app.get('/clientMemberInfo', function(req, res){
     res.render('client_member_info.html');
   });
