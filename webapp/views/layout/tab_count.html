@@ -24,7 +24,11 @@
   <li>{{breadcrumb}}</li>
 </ol>
 <div class="container-tab">
-  {% include "layout/left_count.html" %}
+  <div class="container-left">
+    <div class="tab-bar-list active"><i class="icon"></i><a href="countClient">客户统计</a></div>
+    <div class="tab-bar-list"><i class="icon"></i><a href="countReserve">课程利用率统计</a></div>
+  </div>
+
   <div class="container-right">
     {% block body -%}
     {%- endblock %}
