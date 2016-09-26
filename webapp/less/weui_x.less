@@ -1,7 +1,51 @@
 .weui-tabbar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
   position: fixed;
+  z-index: 500;
+  bottom: 0;
+  width: 100%;
+  background-color: #f7f7fa;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #C0BFC4;
+    color: #C0BFC4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
 
   .weui-tabbar__item {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 7px 0 0;
+    font-size: 0;
+    color: #999999;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    .weui-tabbar__icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+    }
+    .weui-tabbar__label {
+      text-align: center;
+      color: #999999;
+      font-size: 12px;
+    }
+
+
     .weui-tabbar__icon_on {
       display: none;
     }
@@ -16,4 +60,10 @@
   }
 }
 
-
+.weui-tabbar__icon + .weui-tabbar__label {
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+  color: #09BB07;
+}
