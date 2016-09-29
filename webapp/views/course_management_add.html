@@ -17,13 +17,13 @@
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程名称：</label>
         <div class="col-sm-3">
-          <input type="text" class="form-control" placeholder="请输入内容">
+          <input id="j-cont" type="text" class="form-control" placeholder="请输入内容">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程分类：</label>
         <div class="col-sm-3">
-          <select class="selectpicker">
+          <select id="j-type" class="selectpicker">
             <option>请选择</option>
             <option>1</option>
             <option>2</option>
@@ -33,7 +33,7 @@
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程状态：</label>
         <div class="col-sm-3">
-          <select class="selectpicker">
+          <select id="j-status" class="selectpicker">
             <option>请选择</option>
             <option>1</option>
             <option>2</option>
@@ -43,7 +43,7 @@
       <div class="form-group">
         <label class="col-sm-1-1 control-label">门店：</label>
         <div class="col-sm-3">
-          <select class="selectpicker">
+          <select id="j-store" class="selectpicker">
             <option>请选择</option>
             <option>1</option>
             <option>2</option>
@@ -53,12 +53,11 @@
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程简介：</label>
         <div class="col-sm-6">
-          <textarea class="form-control" rows="5"  placeholder="请输入备注" style="resize: none">
-          </textarea>
+          <textarea id="j-text" class="form-control" rows="5"  placeholder="请输入备注" style="resize: none"></textarea>
         </div>
       </div>
     </form>
-    <button type="button" class="btn btn-info">保存</button>
+    <button id="j-save" type="button" class="btn btn-info">保存</button>
   </div>
 </div>
 {% endblock -%}

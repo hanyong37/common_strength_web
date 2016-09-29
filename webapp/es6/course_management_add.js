@@ -5,18 +5,19 @@ const Main = {
     });
 
     $('#j-save').on('click', function() {
-      var input = $("#j-input").val();
-      var input = $("#j-input").val();
-      var input = $("#j-input").val();
-      var input = $("#j-input").val();
+      var cont = $("#j-cont").val();
+      var type = $("#j-type").val();
+      var status = $("#j-status").val();
+      var store = $("#j-store").val();
+      var text = $("#j-text").val();
 
       Main.saveCourseInfo({
         courseId: '',
-        courseName: '',
-        typeId: '',
-        courseStatus: '',
-        storeId: '',
-        courseDescription: ''
+        courseName: cont,
+        typeId: type,
+        courseStatus: status,
+        storeId: store,
+        courseDescription: text
       });
     });
   },
