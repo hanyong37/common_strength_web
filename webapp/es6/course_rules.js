@@ -9,10 +9,11 @@ const Main = {
     });
 
     $("#j-delDate").datetimepicker({
-      format: 'YYYY-MM-DD hh:mm'
+      format: 'YYYY-MM-DD',
+      useCurrent: false
     });
     $("#j-endDate").datetimepicker({
-      format: 'YYYY-MM-DD hh:mm',
+      format: 'YYYY-MM-DD',
       useCurrent: false
     });
   },
