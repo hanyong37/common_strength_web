@@ -7,6 +7,14 @@ const Main = {
     $("#j-save").on('click', function() {
       Main.saveCourseInfo();
     });
+
+    $("#j-delDate").datetimepicker({
+      format: 'YYYY-MM-DD hh:mm'
+    });
+    $("#j-endDate").datetimepicker({
+      format: 'YYYY-MM-DD hh:mm',
+      useCurrent: false
+    });
   },
   saveCourseInfo: ()=> {
     var seeDay = $.trim($("#j-seeDay").val());
