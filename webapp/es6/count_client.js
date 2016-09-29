@@ -60,7 +60,7 @@ $(function(){
       var $c = $(a.html);
       $c.append(html);
     }
-  }
+  };
 
   Main.init();
 });
