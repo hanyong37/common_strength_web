@@ -5,7 +5,7 @@ $(function() {
     },
     getStoreList: () => {
       $.ajax({
-        url: '/api/member/getMemberShipsInfo',
+        url: '/api/store/getStoresInfo',
         type: 'get',
         dataType: 'json',
         data: {

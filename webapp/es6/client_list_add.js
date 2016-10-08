@@ -33,14 +33,14 @@ const Main = {
       success: (result) => {
         console.log('getStoresInfo', result);
         const dataArr = result.data;
-        Main.setNunjucksTmp({
-          tmpSelector: '#tmp_select_store',
-          boxSelector: 'select.select-store',
-          data: dataArr,
-          callback: () => {
-            $('.select-store').selectpicker('refresh');
-          }
-        });
+        // Main.setNunjucksTmp({
+        //   tmpSelector: '#tmp_select_store',
+        //   boxSelector: 'select.select-store',
+        //   data: dataArr,
+        //   callback: () => {
+        //     $('.select-store').selectpicker('refresh');
+        //   }
+        // });
       }
     });
   },
@@ -78,6 +78,7 @@ const Main = {
     let deadLine = getVal('[name=deadLine]');
     let residueDegree = getVal('[name=residueDegree]');
     let storeId = $('.select-store').selectpicker('val');
+    storeId = 1;
 
     Main.postMemberShipsInfo(
       memberShipId,
@@ -107,7 +108,7 @@ const Main = {
       residueDegree = 0;
     }
 
-    let data = $.toJSON({
+    let data = {
       memberShipId,
       memberShipName,
       memberShipTelephone,
@@ -116,7 +117,7 @@ const Main = {
       deadLine,
       residueDegree,
       storeId
-    });
+    };
     console.log(data);
 
     $.ajax({
