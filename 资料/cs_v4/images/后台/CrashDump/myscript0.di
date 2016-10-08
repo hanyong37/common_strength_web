@@ -1,0 +1,14 @@
+cpu_freq=2594MHz
+cpu_model=Unknown
+cpu_vendor=GenuineIntel_Family6_Model12_Stepping3
+gpu_model=Intel(R) HD Graphics 4600
+gpu_vendor=Intel(R) HD Graphics 4600
+hd_serail=
+mac_address=80:fa:5b:20:ea:99
+os_version=WV_WIN8
+process_number=8
+total_mem=8076MB
+timestamp=14076244
+used_mem=4466MB
+avl_mem=3610MB
+app_mem=758MB

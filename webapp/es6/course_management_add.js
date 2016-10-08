@@ -32,7 +32,7 @@ const Main = {
         storeId: a.storeId,
         courseDescription: a.courseDescription
       },
-      type: 'get',
+      type: 'post',
       dataType:　'json',
       success: function(result) {
         if (result.code == 1) {
