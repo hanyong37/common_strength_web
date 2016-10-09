@@ -19,7 +19,7 @@ const Main = {
         }
       }
     })
-  }
+  },
 };
 
 (function() {
