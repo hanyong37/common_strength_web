@@ -15,6 +15,7 @@ $(function() {
         },
         success: function(result){
           console.log(result);
+          console.log(result.data[0].storeName);
         }
       });
     },

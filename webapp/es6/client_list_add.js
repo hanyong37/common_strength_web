@@ -19,6 +19,7 @@ const Main = {
     });
 
 
+
   },
   getStoreList: () => {
     $.ajax({
@@ -33,14 +34,18 @@ const Main = {
       success: (result) => {
         console.log('getStoresInfo', result);
         const dataArr = result.data;
-        // Main.setNunjucksTmp({
-        //   tmpSelector: '#tmp_select_store',
-        //   boxSelector: 'select.select-store',
-        //   data: dataArr,
-        //   callback: () => {
-        //     $('.select-store').selectpicker('refresh');
-        //   }
-        // });
+        if(dataArr.length <= 0){
+          alert('请先添加门店!');
+          return false;
+        }
+        Main.setNunjucksTmp({
+          tmpSelector: '#tmp_select_store',
+          boxSelector: 'select.select-store',
+          data: dataArr,
+          callback: () => {
+            $('.select-store').selectpicker('refresh');
+          }
+        });
       }
     });
   },
@@ -78,7 +83,11 @@ const Main = {
     let deadLine = getVal('[name=deadLine]');
     let residueDegree = getVal('[name=residueDegree]');
     let storeId = $('.select-store').selectpicker('val');
-    storeId = 1;
+
+    if(!storeId){
+      alert('请先添加门店!');
+      return false;
+    }
 
     Main.postMemberShipsInfo(
       memberShipId,

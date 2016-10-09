@@ -24,7 +24,7 @@ const Main = {
    },
   __ajax: (a)=> {
     $.ajax({
-      url: '/api/store/updateStoreInfo',
+      url: '/api/store/insertStoreInfo',
       data: {
         storeId: a.storeId,
         storeName: a.storeName,
