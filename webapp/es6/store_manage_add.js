@@ -36,7 +36,7 @@ const Main = {
       success: function(result) {
         console.log(result);
         if (result.code == 1) {
-
+          location.href = 'storeManage';
         }
       }
     })
