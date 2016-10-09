@@ -15,9 +15,9 @@
   <div class="content-text">
     <form class="form-horizontal" role="form">
       <div class="form-group">
-        <label for="input3" class="col-sm-1-2 control-label">课程分类名称：</label>
+        <label class="col-sm-1-2 control-label">课程分类名称：</label>
         <div class="col-sm-3">
-          <input type="text" class="form-control" placeholder="请输入分类">
+          <input type="text" id="j-type" class="form-control" placeholder="请输入分类">
         </div>
       </div>
     </form>
@@ -25,14 +25,12 @@
   </div>
 </div>
 {% endblock -%}
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
 {%- block script %}
 <!-- Latest compiled and minified JavaScript -->
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="js/cours_sort_add.js"></script>
-<script type="text/javascript">
-  $('.selectpicker').selectpicker({
-    size: 4
-  });
-</script>
 {%- endblock %}

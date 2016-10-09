@@ -75,7 +75,7 @@ const Main = {
 
     const getVal = Main.getInputValue;
 
-    let memberShipId = '';
+    let memberShipId = 10;
     let memberShipName = getVal('[name=memberShipName]');
     let memberShipTelephone = getVal('[name=memberShipTelephone]');
     let memberShipWechatId = getVal('[name=memberShipWechatId]');
