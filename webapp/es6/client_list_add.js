@@ -84,6 +84,11 @@ const Main = {
     let residueDegree = getVal('[name=residueDegree]');
     let storeId = $('.select-store').selectpicker('val');
 
+    if(deadLine){
+      deadLine = new Date(deadLine);
+    }else {
+      deadLine = new Date();
+    }
     if(!storeId){
       alert('请先添加门店!');
       return false;

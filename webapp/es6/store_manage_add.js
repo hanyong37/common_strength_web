@@ -36,11 +36,17 @@ const Main = {
       success: function(result) {
         console.log(result);
         if (result.code == 1) {
-          location.href = 'storeManage';
+          $('.js-modal-message').html('添加门店成功！');
+          $('.js-btn-close').on('click', function(){
+            location.href = 'storeManage';
+          });
+        }else{
+          $('.js-modal-message').html('添加门店失败！');
         }
+        $('#messageModal').modal();
       }
     })
-  }
+  },
 };
 
 (function(){
