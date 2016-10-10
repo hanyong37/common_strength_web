@@ -4,7 +4,8 @@ $(function() {
       Main.getStoreList({
         currentPage: 1,
         pageSize: 10,
-        keyword: ''
+        keyword: '',
+        ft: true
       });
 
       setTimeout(() => {
@@ -49,16 +50,22 @@ $(function() {
             });
 
             var pageNum = result.totalPage;
-            csTools.setPagination({
-              pageNum: 3,
-              callback: (_index) => {
-                Main.getStoreList({
-                  currentPage: _index,
-                  pageSize: 10,
-                  keyword: ''
-                });
-              }
-            });
+            if (a.ft) {
+              csTools.setPagination({
+                pageNum: 3,
+                pageCallback: (_index) => {
+                  Main.getStoreList({
+                    currentPage: _index,
+                    pageSize: 10,
+                    keyword: '',
+                    ft: false
+                  });
+                },
+                upCallback: () => {
+                  
+                }
+              });
+            }
           }
         }
       });

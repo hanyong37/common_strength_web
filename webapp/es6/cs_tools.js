@@ -30,16 +30,55 @@ const csTools = {
                   + '<li class="pageNext"><a href="javascript:void(0);">&raquo;</a></li>';
     _pagination.append(li_upnext);
     for (let i = 1; i <= options.pageNum; i++) {
-      const html = '<li><a href="javascript:void(0);">'+ i +'</a></li>';
+      let html = '<li><a href="javascript:void(0);">'+ i +'</a></li>';
       $(".pageNext").before(html);
     }
+    $(".pagination li:eq(1)").addClass('active');
+    $(".pagination").on("click", "li", function() {
+      let _self = $(this);
+      let _index = _self.index();
+      console.log(_index);
+      if (!_self.hasClass("pageUp") && !_self.hasClass("pageNext")) {
+        $(".pagination li").removeClass('active');
+        _self.addClass('active');
+        if(options.pageCallback){
+          options.pageCallback(_index);
+        }
+      } else {
 
-    $(".pagination").off("click").on("click", "li", function() {
-      var _index = $(this).index();
-      if(options.callback){
-        options.callback(_index);
+        // 上一页
+        if(_index == 0) {
+          if(options.upCallback){
+            let num = $(".pagination li.active").index();
+            let _index = num - 1;
+            if (_index != 0) {
+              console.log(_index);
+              $(".pagination li").removeClass('active').eq(_index).addClass('active');
+              options.upCallback(_index);
+            }
+          }
+        }
+
+        // 下一页
+        if (_index > options.pageNum) {
+          if (options.nextCallback) {
+            let num = $(".pagination li.active").index();
+            let _index = num + 1;
+            if (_index != 0) {
+              console.log(_index);
+              $(".pagination li").removeClass('active').eq(_index).addClass('active');
+              options.upCallback(_index);
+            }
+          }
+        }
       }
-    })
+    });
+
+    // $(".pageUp").on("click", function() {
+    //   // var
+    //   console.log($(".pagination li.active").index());
+    //
+    // });
   },
   msgModalShow: (options) => {
     if(!options.msg){
