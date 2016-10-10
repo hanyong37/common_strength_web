@@ -11,4 +11,17 @@ const csTools = {
     }
     options.callback();
   },
+  setPagination: (options) => {
+    var _pagination = $('.pagination');
+    _pagination.empty();
+    var li_upnext = '<li class="pageUp"><a href="#">&laquo;</a></li>'
+                  + '<li class="pageNext"><a href="#">&raquo;</a></li>';
+    _pagination.append(li_upnext);
+    for (var i = 0; i < options.pageNum; i++) {
+      const html = '<li><a href="#">1</a></li>';
+      $(".pageUp").after(html);
+    }
+
+    options.callback();
+  }
 };

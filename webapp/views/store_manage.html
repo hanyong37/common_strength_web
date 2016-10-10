@@ -27,24 +27,24 @@
         <li class="table-checkbox" data-id="{{ items.storeId }}">1</li>
         <li>{{ items.storeName }}</li>
         <li>{{ items.storeAddress }}</li>
-        <li>
+        <li data-id="{{ items.storeId }}">
           <a href="#">编辑</a>
-          <a href="#">删除</a>
+          <a class="j-delList" href="javascript:void(0);">删除</a>
           <a href="#">设置课程表</a>
         </li>
       </ul>
       {% endfor %}
     </script>
     {% endraw %}
-    <nav id="j-html">
-      <ul class="pagination iy-right">
-        <li><a href="#">&laquo;</a></li>
+    <nav id="j-html" class="cs-pagination">
+      <ul id="j-pagination" class="pagination iy-right">
+        <li class="pageUp"><a href="#">&laquo;</a></li>
         <li><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
         <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
+        <li class="pageNext"><a href="#">&raquo;</a></li>
       </ul>
     </nav>
   </div>
