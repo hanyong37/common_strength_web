@@ -19,22 +19,25 @@
       <li>分类名称</li>
       <li>操作</li>
     </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>杭州市西湖区</li>
-      <li>
-        <a href="#">编辑</a>
-        <a href="#">删除</a>
-      </li>
-    </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>杭州市西湖区</li>
-      <li>
-        <a href="#">编辑</a>
-        <a href="#">删除</a>
-      </li>
-    </ul>
+    <div class="list-container">
+
+    </div>
+    <!--<ul class="content-table">-->
+      <!--<li class="table-checkbox">1</li>-->
+      <!--<li>杭州市西湖区</li>-->
+      <!--<li>-->
+        <!--<a href="#">编辑</a>-->
+        <!--<a href="#">删除</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<ul class="content-table">-->
+      <!--<li class="table-checkbox">1</li>-->
+      <!--<li>杭州市西湖区</li>-->
+      <!--<li>-->
+        <!--<a href="#">编辑</a>-->
+        <!--<a href="#">删除</a>-->
+      <!--</li>-->
+    <!--</ul>-->
     <nav>
       <ul class="pagination iy-right">
         <li><a href="#">&laquo;</a></li>
@@ -49,6 +52,9 @@
 
   </div>
 {% endblock -%}
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
 {%- block script %}
 <script id="tmp_course_sort" type="text/template">
   {% raw %}

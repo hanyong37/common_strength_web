@@ -9,7 +9,9 @@ const csTools = {
     }else{
       index_container.html(html);
     }
-    options.callback();
+    if(options.callback){
+      options.callback();
+    }
   },
   setPagination: (options) => {
     var _pagination = $('.pagination');

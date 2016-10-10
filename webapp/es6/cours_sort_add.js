@@ -22,7 +22,7 @@ const Main = {
         if (result.code == 1) {
           $('.js-modal-message').html('添加课程分类成功！');
           $('.js-btn-close').on('click', function(){
-            location.href = 'courseSort';
+            location.href = '/courseSort';
           });
         }else{
           $('.js-modal-message').html('添加课程分类失败！');

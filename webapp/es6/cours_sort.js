@@ -15,10 +15,31 @@ const Main = {
       success: function(result) {
         console.log(result);
         if (result.code == 1) {
-
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_course_sort',
+            boxSelector: '.list-container',
+            data: result.data,
+            callback: ()=>{}
+          });
         }
       }
     })
+  },
+  editCourseType: () => {
+
+  },
+  deleteCourseType: (id) => {
+    $.ajax({
+      url: '',
+      type: 'post',
+      dataType: 'json',
+      data: {
+        typeId: id,
+      },
+      success: (result) => {
+
+      }
+    });
   },
 };
 
