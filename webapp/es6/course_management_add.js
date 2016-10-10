@@ -1,8 +1,6 @@
 const Main = {
   init: ()=> {
-    $('.selectpicker').selectpicker({
-      size: 4
-    });
+    $('.select-store').selectpicker();
 
     $('#j-save').on('click', function() {
       var cont = $("#j-cont").val();
@@ -20,6 +18,8 @@ const Main = {
         courseDescription: text
       });
     });
+
+    Main.getStoreList();
   },
   saveCourseInfo: (a)=> {
     $.ajax({
@@ -40,7 +40,36 @@ const Main = {
         }
       }
     })
-  }
+  },
+  getStoreList: () => {
+    $.ajax({
+      url: '/api/store/getStoresInfo',
+      type: 'get',
+      dataType: 'json',
+      data: {
+        currentPage: 0,
+        pageSize: 1,
+        keyword: '',
+      },
+      success: (result) => {
+        console.log('getStoresInfo', result);
+        const dataArr = result.data;
+        if(dataArr.length <= 0){
+          alert('请先添加门店!');
+          return false;
+        }
+        console.log(dataArr);
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tmp_select_store',
+          boxSelector: 'select.select-store',
+          data: dataArr,
+          callback: () => {
+            $('.select-store').selectpicker('refresh');
+          }
+        });
+      }
+    });
+  },
 };
 
 (function(){

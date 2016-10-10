@@ -18,6 +18,7 @@ const Main = {
     });
   },
   getCourseType: (a)=> {
+    /* FIXME typeId需要动态生成，这里等待接口更改 */
     let typeId = 3;
     let ajaxUrl = 'insertCourseTypeInfo';
     if(a.id){

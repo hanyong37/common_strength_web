@@ -41,12 +41,10 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-1-1 control-label">门店：</label>
+        <label class="col-sm-1-1 control-label select-store">门店：</label>
         <div class="col-sm-3">
-          <select id="j-store" class="selectpicker">
-            <option>请选择</option>
-            <option>1</option>
-            <option>2</option>
+          <select id="j-store"  class="form-control select-store">
+            <!--<option value="0">1</option>-->
           </select>
         </div>
       </div>
@@ -60,7 +58,16 @@
     <button id="j-save" type="button" class="btn btn-info">保存</button>
   </div>
 </div>
+
+<script id="tmp_select_store" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 {% endblock -%}
+
 {%- block script %}
 <!-- Latest compiled and minified JavaScript -->
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>

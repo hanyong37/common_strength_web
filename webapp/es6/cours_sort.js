@@ -32,6 +32,10 @@ const Main = {
             data,
             callback: ()=>{
               Main.eventBind();
+              csTools.setPagination({
+                pageNum: result.totalPage,
+
+              });
             }
           });
         }
