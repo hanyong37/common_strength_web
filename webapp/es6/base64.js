@@ -8,7 +8,6 @@ const base64DecodeChars = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -
   37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1,
   -1, -1];
 
-const Token = 'Q29tbW9uU3RyZW5ndGg=';
 
 const BaseCode = {
   base64encode: (str) => {
@@ -112,3 +111,7 @@ const BaseCode = {
     return out
   }
 };
+
+
+
+const Token = 'Q29tbW9uU3RyZW5ndGg=';

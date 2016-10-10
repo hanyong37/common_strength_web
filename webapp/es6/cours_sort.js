@@ -15,29 +15,56 @@ const Main = {
       success: function(result) {
         console.log(result);
         if (result.code == 1) {
+          var data = result.data;
+          for(let i = 0, lg = data.length; i < lg; i++){
+            console.log(data[i].typeId);
+            const typeId = data[i].typeId.toString();
+            const typeName = data[i].typeName;
+            const code = JSON.stringify({
+              typeId,
+              typeName,
+            });
+            data[i].typeCode = csTools.base64encode(code);
+          }
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_course_sort',
             boxSelector: '.list-container',
-            data: result.data,
-            callback: ()=>{}
+            data,
+            callback: ()=>{
+              Main.eventBind();
+            }
           });
         }
       }
     })
   },
-  editCourseType: () => {
-
+  eventBind: () => {
+    $('.js-btn-del').on('click', function(){
+      var id = $(this).data('id');
+      Main.deleteCourseType(id);
+    });
+  },
+  editCourseType: (code) => {
+    location.href = '/courseSortAdd#code=' + code;
   },
   deleteCourseType: (id) => {
     $.ajax({
-      url: '',
+      url: '/api/courseType/deleteCourseTypeInfo',
       type: 'post',
       dataType: 'json',
       data: {
         typeId: id,
       },
       success: (result) => {
-
+        if (result.code == 1) {
+          csTools.msgModalShow({
+            msg: '删除课程分类成功！'
+          });
+        }else{
+          csTools.msgModalShow({
+            msg: '删除课程分类失败！'
+          });
+        }
       }
     });
   },

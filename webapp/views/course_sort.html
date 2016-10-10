@@ -59,12 +59,12 @@
 <script id="tmp_course_sort" type="text/template">
   {% raw %}
   {% for item in data -%}
-  <ul class="content-table" data-id="{{item.typeId}}">
+  <ul class="content-table">
     <li class="table-checkbox">1</li>
     <li>{{item.typeName}}</li>
     <li>
-      <a href="#">编辑</a>
-      <a href="#">删除</a>
+      <a href="/courseSortAdd#code={{item.typeCode}}&text={{item.baseName}}">编辑</a>
+      <a class="js-btn-del" data-id="{{item.typeId}}">删除</a>
     </li>
   </ul>
   {%- endfor %}
