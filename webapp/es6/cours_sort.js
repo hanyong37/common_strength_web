@@ -24,7 +24,7 @@ const Main = {
               typeId,
               typeName,
             });
-            data[i].typeCode = csTools.base64encode(code);
+            data[i].typeCode = csTools.base64encode(csTools.utf16to8(code));
           }
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_course_sort',

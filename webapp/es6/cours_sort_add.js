@@ -2,7 +2,7 @@ const Main = {
   init: ()=>　{
     let code = $.url().fparam('code');
     if(code){
-      code = eval("("+ csTools.base64decode(code) +")");
+      code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
       console.log('code1', code);
       const typeName = code.typeName;
       $('#j-type').val(typeName).data('id', code.typeId);
