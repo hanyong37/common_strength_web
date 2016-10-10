@@ -24,6 +24,8 @@ const csTools = {
       $(".pageUp").after(html);
     }
 
-    options.callback();
+    if(options.callback){
+      options.callback();
+    }
   }
 };
