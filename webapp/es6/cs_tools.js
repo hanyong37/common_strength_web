@@ -26,17 +26,20 @@ const csTools = {
   setPagination: (options) => {
     let _pagination = $('.pagination');
     _pagination.empty();
-    let li_upnext = '<li class="pageUp"><a href="#">&laquo;</a></li>'
-                  + '<li class="pageNext"><a href="#">&raquo;</a></li>';
+    let li_upnext = '<li class="pageUp"><a href="javascript:void(0);">&laquo;</a></li>'
+                  + '<li class="pageNext"><a href="javascript:void(0);">&raquo;</a></li>';
     _pagination.append(li_upnext);
-    for (let i = 0; i < options.pageNum; i++) {
-      const html = '<li><a href="#">1</a></li>';
-      $(".pageUp").after(html);
+    for (let i = 1; i <= options.pageNum; i++) {
+      const html = '<li><a href="javascript:void(0);">'+ i +'</a></li>';
+      $(".pageNext").before(html);
     }
 
-    if(options.callback){
-      options.callback();
-    }
+    $(".pagination").off("click").on("click", "li", function() {
+      var _index = $(this).index();
+      if(options.callback){
+        options.callback(_index);
+      }
+    })
   },
   msgModalShow: (options) => {
     if(!options.msg){

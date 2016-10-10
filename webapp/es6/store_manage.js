@@ -8,7 +8,7 @@ $(function() {
       });
 
       setTimeout(() => {
-        $(".j-delList").on('click', function() {
+        $(".j-delStore").on('click', function() {
           console.log(1);
           var _this = $(this);
           Main.delStoreList({
@@ -18,6 +18,11 @@ $(function() {
             }
           });
         });
+
+
+        $(".editStore").on('click', function() {
+
+        })
       }, 200);
 
     },
@@ -32,8 +37,6 @@ $(function() {
           keyword: a.keyword
         },
         success: function(result){
-          console.log(result);
-          console.log(result.data[0].storeName);
           if(result.code == 1) {
             $(".content-table:not(.title)").remove();
             Main.setNunjucksTmp({
@@ -47,9 +50,13 @@ $(function() {
 
             var pageNum = result.totalPage;
             csTools.setPagination({
-              pageNum: result.totalPage,
-              callback: () => {
-
+              pageNum: 3,
+              callback: (_index) => {
+                Main.getStoreList({
+                  currentPage: _index,
+                  pageSize: 10,
+                  keyword: ''
+                });
               }
             });
           }
