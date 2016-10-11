@@ -1,8 +1,14 @@
 
 const Main = {
   init: () => {
-    $('.select-member-type').selectpicker();
-    $('.select-store').selectpicker();
+    $('.select-member-type').selectpicker({
+      size: 5,
+      liveSearch: true
+    });
+    $('.select-store').selectpicker({
+      size: 5,
+      liveSearch: true
+    });
     $('.end-date').datetimepicker({
       format: 'YYYY-MM-DD',
       stepping: 10

@@ -2,6 +2,7 @@
 {% block style -%}
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="css/course.css">
 {%- endblock %}
 {% set secondary = '课程管理'%}
@@ -23,21 +24,24 @@
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程分类：</label>
         <div class="col-sm-3">
-          <select id="j-type" class="selectpicker">
-            <option>请选择</option>
-            <option>1</option>
-            <option>2</option>
+          <select id="j-type" class="select-course-type">
+            <!--<option>请选择</option>-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
           </select>
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-1-1 control-label">课程状态：</label>
         <div class="col-sm-3">
-          <select id="j-status" class="selectpicker">
-            <option>请选择</option>
-            <option>1</option>
-            <option>2</option>
-          </select>
+          <!--<select id="j-status" class="selectpicker">-->
+            <!--<option>请选择</option>-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
+          <!--</select>-->
+          <div class="switch" data-on="info" data-off="success">
+            <input id="j-status" type="checkbox" checked />
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -66,11 +70,19 @@
   {% endfor %}
   {% endraw %}
 </script>
+<script id="tmp_select_ctype" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.typeId }}">{{ item.typeName }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 {% endblock -%}
 
 {%- block script %}
 <!-- Latest compiled and minified JavaScript -->
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
 <script src="js/course_management_add.js"></script>
 {%- endblock %}

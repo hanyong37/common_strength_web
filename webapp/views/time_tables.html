@@ -224,12 +224,12 @@
           <div class="form-group">
             <label for="select_course">选择课程</label>
             <select id="select_course" class="selectpicker form-control" title="请选择课程" multiple>
-              <option value="0">1</option>
-              <option value="1">2</option>
-              <option value="2">3</option>
-              <option value="3">4</option>
-              <option value="4">5</option>
-              <option value="5">6</option>
+              <!--<option value="0">1</option>-->
+              <!--<option value="1">2</option>-->
+              <!--<option value="2">3</option>-->
+              <!--<option value="3">4</option>-->
+              <!--<option value="4">5</option>-->
+              <!--<option value="5">6</option>-->
             </select>
           </div>
           <div class="form-group">
@@ -239,12 +239,12 @@
           <div class="form-group">
             <label for="select_course">选择门店</label>
             <select id="select_store_add" class="form-control" title="请选择门店" >
-              <option value="0">1</option>
-              <option value="1">2</option>
-              <option value="2">3</option>
-              <option value="3">4</option>
-              <option value="4">5</option>
-              <option value="5">6</option>
+              <!--<option value="0">1</option>-->
+              <!--<option value="1">2</option>-->
+              <!--<option value="2">3</option>-->
+              <!--<option value="3">4</option>-->
+              <!--<option value="4">5</option>-->
+              <!--<option value="5">6</option>-->
             </select>
           </div>
         </form>
@@ -252,12 +252,19 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">新增</button>
+        <button type="button" class="btn btn-primary js-btn-save">新增</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script id="tmp_select_store" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
@@ -265,31 +272,5 @@
 <script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
 <script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script>
-  $(function(){
-    $('.selectpicker').selectpicker({
-      size: 5
-    });
-    $('#select_store_add').selectpicker({
-      size: 5,
-      liveSearch: true
-    });
-    var $startDatetime = $('.start_datetime');
-    var $overDatetime = $('.over_datetime');
-    $startDatetime.datetimepicker({
-      format: 'YYYY-MM-DD hh:mm'
-    });
-    $overDatetime.datetimepicker({
-      format: 'YYYY-MM-DD hh:mm',
-      useCurrent: false
-    });
-    $startDatetime.on("dp.change", function (e) {
-      $overDatetime.data("DateTimePicker").minDate(e.date);
-    });
-
-    $('.select-store').on('change', function () {
-      $('.c-c-info').removeClass('box-hidden');
-    });
-  });
-</script>
+<script src="/js/time_tables.js"></script>
 {%- endblock %}
