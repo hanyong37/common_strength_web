@@ -48,28 +48,28 @@ const csTools = {
 
         // 上一页
         if(_index == 0) {
-          if(options.upCallback){
+          // if(options.upCallback){
             let num = $(".pagination li.active").index();
             let _index = num - 1;
             if (_index != 0) {
               console.log(_index);
               $(".pagination li").removeClass('active').eq(_index).addClass('active');
-              options.upCallback(_index);
+              options.pageCallback(_index);
             }
-          }
+          // }
         }
 
         // 下一页
         if (_index > options.pageNum) {
-          if (options.nextCallback) {
+          // if (options.nextCallback) {
             let num = $(".pagination li.active").index();
             let _index = num + 1;
             if (_index != 0) {
               console.log(_index);
               $(".pagination li").removeClass('active').eq(_index).addClass('active');
-              options.upCallback(_index);
+              options.pageCallback(_index);
             }
-          }
+          // }
         }
       }
     });

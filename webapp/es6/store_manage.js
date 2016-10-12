@@ -60,9 +60,6 @@ $(function() {
                     keyword: '',
                     ft: false
                   });
-                },
-                upCallback: () => {
-                  
                 }
               });
             }

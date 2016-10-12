@@ -15,14 +15,14 @@ const Main = {
       var _storeAddress = $.trim($("#j-address").val());
       var _storeDescription = $.trim($("#j-text").val());
 
-      Main.__ajax({
+      Main.insertStoreInfo({
         storeId: '',
         storeName: _storeName,
         storeAddress: _storeAddress,
         storeDescription: _storeDescription
       });
    },
-  __ajax: (a)=> {
+  insertStoreInfo: (a)=> {
     $.ajax({
       url: '/api/store/insertStoreInfo',
       data: {
@@ -47,6 +47,31 @@ const Main = {
       }
     })
   },
+  updateStoreInfo: (a) => {
+    $.ajax({
+      url: '/api/store/updateStoreInfo',
+      data: {
+        storeId: a.storeId,
+        storeName: a.storeName,
+        storeAddress: a.storeAddress,
+        storeDescription: a.storeDescription
+      },
+      type: 'post',
+      dataType: 'json',
+      success: function(result) {
+        console.log(result);
+        if (result.code == 1) {
+          $('.js-modal-message').html('修改门店成功！');
+          $('.js-btn-close').on('click', function(){
+            location.href = 'storeManage';
+          });
+        }else{
+          $('.js-modal-message').html('修改门店失败！');
+        }
+        $('#messageModal').modal();
+      }
+    })
+  }
 };
 
 (function(){
