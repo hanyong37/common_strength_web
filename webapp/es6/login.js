@@ -34,18 +34,25 @@ const Main = {
     let password = $.trim($('.input-password').val());
 
     $.ajax({
-      url: '/api/user/getUser',
+      url: '/api/admin/sessions',
       type: 'POST',
       dataType: 'json',
       data: {
-        userName,
-        password
+        'user[full_name]': userName,
+        'user[password]': password
       },
       success: (result) => {
         console.log(result);
-        if(result.code == 1){
+        if(result.data){
+          sessionStorage.userToken = result.data.attributes.token;
           location.href = 'storeManage';
         }else{
+          $('.modal-alert').modal();
+          Main.addValidateError('.input-username');
+          Main.addValidateError('.input-password');
+        }
+      },error: (xhr, textStatus, errorThrown) => {
+        if(xhr.status == 401){
           $('.modal-alert').modal();
           Main.addValidateError('.input-username');
           Main.addValidateError('.input-password');

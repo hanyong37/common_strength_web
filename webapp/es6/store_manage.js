@@ -29,41 +29,40 @@ $(function() {
     },
     getStoreList: (a) => {
       $.ajax({
-        url: '/api/store/getStoresInfo',
+        url: '/api/admin/stores',
         type: 'get',
         dataType: 'json',
-        data: {
-          currentPage: a.currentPage,
-          pageSize: a.pageSize,
-          keyword: a.keyword
+        headers: {
+          'X-Api-Key': csTools.token,
         },
         success: function(result){
-          if(result.code == 1) {
-            $(".content-table:not(.title)").remove();
-            Main.setNunjucksTmp({
-              tmpSelector: $("#temp"),
-              boxSelector: $('#j-html'),
-              isAppend: "before",
-              data: {
-                data: result.data
-              }
-            });
-
-            var pageNum = result.totalPage;
-            if (a.ft) {
-              csTools.setPagination({
-                pageNum: 3,
-                pageCallback: (_index) => {
-                  Main.getStoreList({
-                    currentPage: _index,
-                    pageSize: 10,
-                    keyword: '',
-                    ft: false
-                  });
-                }
-              });
-            }
-          }
+          console.log(result);
+          // if(result.code == 1) {
+          //   $(".content-table:not(.title)").remove();
+          //   Main.setNunjucksTmp({
+          //     tmpSelector: $("#temp"),
+          //     boxSelector: $('#j-html'),
+          //     isAppend: "before",
+          //     data: {
+          //       data: result.data
+          //     }
+          //   });
+          //
+          //   var pageNum = result.totalPage;
+          //   if (a.ft) {
+          //     csTools.setPagination({
+          //       pageNum: 3,
+          //       pageCallback: (_index) => {
+          //         Main.getStoreList({
+          //           currentPage: _index,
+          //           pageSize: 10,
+          //           keyword: '',
+          //           ft: false
+          //         });
+          //       }
+          //     });
+          //   }
+          // }
         }
       });
     },

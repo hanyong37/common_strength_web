@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // interface proxy
 app.use('/api', proxy({
-  target: 'http://123.207.151.199:8080/SpringDemo', // target host
+  target: 'http://123.207.151.199:3000', // target host
   changeOrigin: true,            // needed for virtual hosted sites
   ws: true,                      // proxy websockets
   cookieRewrite: true,
@@ -60,7 +60,7 @@ app.use('/wxapi', proxy({
   ws: true,                      // proxy websockets
   cookieRewrite: true,
   pathRewrite: {
-    '^/api/': '/'
+    '^/wxapi/': '/'
   }
 }));
 
