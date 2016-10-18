@@ -74,7 +74,7 @@
 
 ```
 {
-  scheduleId
+  storeId
   courseId
   startTime
   endTime
