@@ -4,25 +4,25 @@ const Main = {
   },
   getCourseType: ()=> {
     $.ajax({
-      url: '/api/courseType/getCourseTypesInfo',
-      data: {
-        currentPage: 0,
-        pageSize: 10,
-        keyword: ''
-      },
+      url: '/api/admin/course_types',
       type: 'get',
       dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
       success: function(result) {
         console.log(result);
-        if (result.code == 1) {
-          var data = result.data;
+        let data = result.data;
+        if (data) {
           for(let i = 0, lg = data.length; i < lg; i++){
-            console.log(data[i].typeId);
-            const typeId = data[i].typeId.toString();
-            const typeName = data[i].typeName;
+            console.log(data[i].id);
+            const typeId = data[i].id.toString();
+            const typeName = data[i].attributes.name;
+            const description = data[i].attributes.description;
             const code = JSON.stringify({
               typeId,
               typeName,
+              description
             });
             data[i].typeCode = csTools.base64encode(csTools.utf16to8(code));
           }
@@ -32,10 +32,6 @@ const Main = {
             data,
             callback: ()=>{
               Main.eventBind();
-              csTools.setPagination({
-                pageNum: result.totalPage,
-
-              });
             }
           });
         }
@@ -45,7 +41,12 @@ const Main = {
   eventBind: () => {
     $('.js-btn-del').on('click', function(){
       var id = $(this).data('id');
-      Main.deleteCourseType(id);
+      csTools.msgConfirmShow({
+        msg: '确认删除课程?',
+        callback: () => {
+          Main.deleteCourseType(id);
+        }
+      });
     });
   },
   editCourseType: (code) => {
@@ -53,16 +54,20 @@ const Main = {
   },
   deleteCourseType: (id) => {
     $.ajax({
-      url: '/api/courseType/deleteCourseTypeInfo',
-      type: 'post',
+      url: '/api/admin/course_types/' + id,
+      type: 'DELETE',
       dataType: 'json',
-      data: {
-        typeId: id,
+      headers: {
+        "X-Api-Key": csTools.token
       },
-      success: (result) => {
-        if (result.code == 1) {
+      complete: (result) => {
+        console.log(result);
+        if (result.status == 204) {
           csTools.msgModalShow({
-            msg: '删除课程分类成功！'
+            msg: '删除课程分类成功！',
+            callback: () => {
+              Main.getCourseType();
+            }
           });
         }else{
           csTools.msgModalShow({

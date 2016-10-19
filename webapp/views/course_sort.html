@@ -38,17 +38,17 @@
         <!--<a href="#">删除</a>-->
       <!--</li>-->
     <!--</ul>-->
-    <nav>
-      <ul class="pagination iy-right">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
-    </nav>
+    <!--<nav>-->
+      <!--<ul class="pagination iy-right">-->
+        <!--<li><a href="#">&laquo;</a></li>-->
+        <!--<li><a href="#">1</a></li>-->
+        <!--<li><a href="#">2</a></li>-->
+        <!--<li><a href="#">3</a></li>-->
+        <!--<li><a href="#">4</a></li>-->
+        <!--<li><a href="#">5</a></li>-->
+        <!--<li><a href="#">&raquo;</a></li>-->
+      <!--</ul>-->
+    <!--</nav>-->
 
   </div>
 {% endblock -%}
@@ -61,10 +61,10 @@
   {% for item in data -%}
   <ul class="content-table">
     <li class="table-checkbox">1</li>
-    <li>{{item.typeName}}</li>
+    <li>{{item.attributes.name}}</li>
     <li>
-      <a href="/courseSortAdd#code={{item.typeCode}}&text={{item.baseName}}">编辑</a>
-      <a class="js-btn-del" data-id="{{item.typeId}}">删除</a>
+      <a href="/courseSortAdd#code={{item.typeCode}}">编辑</a>
+      <a class="js-btn-del" data-id="{{item.id}}">删除</a>
     </li>
   </ul>
   {%- endfor %}

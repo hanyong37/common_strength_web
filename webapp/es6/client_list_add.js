@@ -29,25 +29,24 @@ const Main = {
   },
   getStoreList: () => {
     $.ajax({
-      url: '/api/store/getStoresInfo',
+      url: '/api/admin/stores',
       type: 'get',
       dataType: 'json',
-      data: {
-        currentPage: 0,
-        pageSize: 1,
-        keyword: '',
+      headers: {
+        'X-Api-Key': csTools.token,
       },
       success: (result) => {
         console.log('getStoresInfo', result);
-        const dataArr = result.data;
-        if(dataArr.length <= 0){
+        const data = result.data;
+        console.log(data);
+        if(!data){
           alert('请先添加门店!');
           return false;
         }
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_select_store',
           boxSelector: 'select.select-store',
-          data: dataArr,
+          data: data,
           callback: () => {
             $('.select-store').selectpicker('refresh');
           }
@@ -129,10 +128,9 @@ const Main = {
     }
 
     let data = {
-      memberShipId,
-      memberShipName,
-      memberShipTelephone,
-      memberShipWechatId,
+      'customer[name]': memberShipName,
+      'customer[mobile]':memberShipTelephone,
+      'customer[weixin]':memberShipWechatId,
       memberShipCardType,
       deadLine,
       residueDegree,
@@ -141,7 +139,7 @@ const Main = {
     console.log(data);
 
     $.ajax({
-      url: '/api/member/insertMemberShipInfo',
+      url: '/api/admin/customers/',
       type: 'post',
       dataType: 'json',
       data: data,

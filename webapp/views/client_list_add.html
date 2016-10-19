@@ -76,7 +76,7 @@
 <script id="tmp_select_store" type="text/template">
   {% raw %}
   {% for item in data %}
-    <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+    <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
   {% endraw %}
 </script>

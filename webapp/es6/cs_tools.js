@@ -91,12 +91,27 @@ const csTools = {
       options.msg = '未知错误';
     }
     $('.js-modal-message').html(options.msg);
-    if(options.href){
-      $('.js-btn-close').on('click', function(){
+
+    $('#messageModal').modal().on('hidden.bs.modal', () => {
+      if(options.callback){
+        options.callback();
+      }
+      if(options.href){
         location.href = options.href;
+      }
+    });
+  },
+  msgConfirmShow: (options) => {
+    if(!options.msg){
+      options.msg = '确认操作';
+    }
+    $('.js-confirm-message').html(options.msg);
+    if(options.callback){
+      $('.js-btn-primary').on('click', function(){
+        options.callback();
       });
     }
-    $('#messageModal').modal();
+    $('#messageConfirm').modal();
   },
   base64encode: (str) => {
     let out,i,len,base64EncodeChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
