@@ -1,0 +1,75 @@
+{% extends 'layout/tab_course.html'%}
+{% block style -%}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/css/course.css">
+{%- endblock %}
+{% set secondary = '课程管理'%}
+{% set breadcrumb = '课程规则'%}
+{% set courseRules = 'active'%}
+{% block body -%}
+<div class="storeadd-box">
+  <div class="content-title">
+    <h4>设置课程规则</h3>
+  </div>
+  <div class="content-text">
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">查看课程天数：</label>
+        <div class="col-sm-4">
+          <input id="j-seeDay" type="text" class="form-control" placeholder="请输入内容">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">预约课程天数：</label>
+        <div class="col-sm-4">
+          <select id="j-aboutDay" class="selectpicker">
+            <option>请选择</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">课程取消时间：</label>
+        <div class="col-sm-4">
+            <div class='input-group date datetimepicker start_datetime iy-left'>
+              <input type='text' id="j-delDate" class="form-control" placeholder="请选择取消时间">
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">允许排队人数：</label>
+        <div class="col-sm-4">
+          <select id="j-menNum" class="selectpicker">
+            <option>请选择</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="input3" class="col-sm-2 control-label">预约截止时间：</label>
+        <div class="col-sm-4">
+            <div class='input-group date datetimepicker start_datetime iy-left'>
+              <input type='text' id="j-endDate" class="form-control" placeholder="请选择截止时间">
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+        </div>
+      </div>
+    </form>
+    <button id="j-save" type="button" class="btn btn-info" style="margin-left: 12.22%">保存</button>
+  </div>
+</div>
+{% endblock -%}
+{%- block script %}
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/course_rules_operate.js"></script>
+{%- endblock %}

@@ -4,6 +4,10 @@ module.exports = function(app){
     res.render('course_rules.html');
   });
 
+  app.get("/courserRulesOper", function(req, res) {
+    res.render('course_rules_operate.html');
+  });
+
   app.get("/courseManagement", function(req, res) {
     res.render('course_management.html');
   });

@@ -1,12 +1,7 @@
 $(function() {
   const Main = {
     init: () => {
-      Main.getStoreList({
-        currentPage: 1,
-        pageSize: 10,
-        keyword: '',
-        ft: true
-      });
+      Main.getStoreList();
 
       setTimeout(() => {
         $(".j-delStore").on('click', function() {
