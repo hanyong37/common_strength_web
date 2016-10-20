@@ -2,7 +2,7 @@ let pageCurrent = 1;
 let pageNumber = 10;
 let pageCount = 1;
 let filterText = '';
-const Main = {
+let Main = {
   init: () => {
     Main.getMemberShipsInfo(pageCurrent, pageNumber, filterText);
   },

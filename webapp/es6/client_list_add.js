@@ -1,5 +1,5 @@
 
-const Main = {
+let Main = {
   customers: null,
   init: () => {
     $('.select-member-type').selectpicker();

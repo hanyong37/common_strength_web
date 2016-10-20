@@ -5,10 +5,10 @@
 {% set breadcrumb = '会员详情' %}
 {% block body -%}
 <div class="container-title">会员详情</div>
-<div class="member-block">
-  <div class="member-title">会员名称</div>
-  <div class="member-row"><span>电话：13376250246</span><span>微信号：13376250246</span></div>
-  <div class="member-row"><span>状态：正常</span><span>门店：门店一，门店二</span></div>
+<div class="member-block js-member-info">
+  <!--<div class="member-title">会员名称</div>-->
+  <!--<div class="member-row"><span>电话：13376250246</span><span>微信号：13376250246</span></div>-->
+  <!--<div class="member-row"><span>状态：正常</span><span>门店：门店一，门店二</span></div>-->
 </div>
 <div class="tab-box">
   <div class="tab-bar">
@@ -124,7 +124,14 @@
 
   </div>
 </div>
+<script id="tmp_member_info" type="text/template">
+  {% raw %}
+  <div class="member-title">{{ data.name }}</div>
+  <div class="member-row"><span>电话：{{ data.mobile }}</span><span>微信号：{{ data.weixin }}</span></div>
+  <div class="member-row"><span>状态：</span><span>门店：{{ data.store_name }}</span></div>
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block script -%}
-
+<script src="js/client_member_info.js"></script>
 {%- endblock %}
