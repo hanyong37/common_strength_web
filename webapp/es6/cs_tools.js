@@ -107,7 +107,7 @@ const csTools = {
     }
     $('.js-confirm-message').html(options.msg);
     if(options.callback){
-      $('.js-btn-primary').on('click', function(){
+      $('.js-btn-primary').off('click').on('click', function(){
         options.callback();
       });
     }
