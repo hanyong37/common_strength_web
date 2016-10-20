@@ -10,19 +10,25 @@ $(function() {
 
       setTimeout(() => {
         $(".j-delStore").on('click', function() {
-          console.log(1);
           var _this = $(this);
-          Main.delStoreList({
-            id: _this.parent().data("id"),
-            callback: () => {
-              _this.parents(".content-table").remove();
+          console.log(1);
+          csTools.msgConfirmShow({
+            msg: '确定删除门店吗!',
+            callback: function() {
+              Main.delStoreList({
+                id: _this.parent().data("id"),
+                callback: () => {
+                  _this.parents(".content-table").remove();
+                }
+              });
             }
           });
         });
 
 
-        $(".editStore").on('click', function() {
-
+        $(".j-editStore").on('click', function() {
+          let _id = $(this).parent().data('id');
+          location.href = '/storeManageAdd?id=' + _id;
         })
       }, 200);
 
@@ -37,48 +43,28 @@ $(function() {
         },
         success: function(result){
           console.log(result);
-          // if(result.code == 1) {
-          //   $(".content-table:not(.title)").remove();
-          //   Main.setNunjucksTmp({
-          //     tmpSelector: $("#temp"),
-          //     boxSelector: $('#j-html'),
-          //     isAppend: "before",
-          //     data: {
-          //       data: result.data
-          //     }
-          //   });
-          //
-          //   var pageNum = result.totalPage;
-          //   if (a.ft) {
-          //     csTools.setPagination({
-          //       pageNum: 3,
-          //       pageCallback: (_index) => {
-          //         Main.getStoreList({
-          //           currentPage: _index,
-          //           pageSize: 10,
-          //           keyword: '',
-          //           ft: false
-          //         });
-          //       }
-          //     });
-          //   }
-          // }
+          Main.setNunjucksTmp({
+            tmpSelector: $("#temp"),
+            boxSelector: $('.content-text'),
+            isAppend: "append",
+            data: {
+              data: result.data
+            }
+          });
         }
       });
     },
     delStoreList: (a) => {
       $.ajax({
-        url: '/api//store/deleteStoreInfoByStoreId',
-        type: 'get',
+        url: '/api/admin/stores/' + a.id,
+        type: 'DELETE',
         dataType: 'json',
-        data: {
-          storeId: a.id
+        headers: {
+          'X-Api-Key': csTools.token,
         },
         success: function(result) {
-          if (result.code == 1) {
-            console.log(result);
-            a.callback();
-          }
+          console.log(result);
+          a.callback();
         }
       })
     },

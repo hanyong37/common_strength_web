@@ -11,39 +11,51 @@ const Main = {
   saveStoreInfo: ()=> {
       // var uname = $.trim($('.input-username').val());
       // var pwd = $.trim($('.input-password').val());
-      var _storeName = $.trim($('#j-name').val());
-      var _storeAddress = $.trim($("#j-address").val());
-      var _storeDescription = $.trim($("#j-text").val());
+      const _name = $.trim($('#j-name').val());
+      const _address = $.trim($("#j-address").val());
+      const _telphone = $.trim($("#j-phone").val());
 
       Main.insertStoreInfo({
-        storeId: '',
-        storeName: _storeName,
-        storeAddress: _storeAddress,
-        storeDescription: _storeDescription
+        id: '',
+        name: _name,
+        address: _address,
+        telphone: _telphone,
+        type: 'post'
       });
    },
   insertStoreInfo: (a)=> {
     $.ajax({
-      url: '/api/store/insertStoreInfo',
+      url: '/api/admin/stores/' + a.id,
       data: {
-        storeId: a.storeId,
-        storeName: a.storeName,
-        storeAddress: a.storeAddress,
-        storeDescription: a.storeDescription
+        'store[name]': a.name,
+        'store[address]': a.address,
+        'store[telphone]': a.telphone
       },
-      type: 'post',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      type: a.type,
       dataType: 'json',
       success: function(result) {
         console.log(result);
-        if (result.code == 1) {
-          $('.js-modal-message').html('添加门店成功！');
-          $('.js-btn-close').on('click', function(){
-            location.href = 'storeManage';
+        if (result.data) {
+          let msgTop = '';
+          if (a.id) {
+            msgTop = '修改';
+          } else {
+            msgTop = '添加';
+          }
+
+          csTools.msgModalShow({
+            href: '/storeManage',
+            msg: msgTop + '门店成功!'
           });
         }else{
-          $('.js-modal-message').html('添加门店失败！');
+          csTools.msgModalShow({
+            // href: '/storeManage',
+            msg: msgTop + '门店失败!'
+          });
         }
-        $('#messageModal').modal();
       }
     })
   },

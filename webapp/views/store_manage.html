@@ -24,10 +24,10 @@
     <script type="text/template" id="temp">
     {% for items in data %}
       <ul class="content-table">
-        <li class="table-checkbox" data-id="{{ items.storeId }}">1</li>
-        <li>{{ items.storeName }}</li>
-        <li>{{ items.storeAddress }}</li>
-        <li data-id="{{ items.storeId }}">
+        <li class="table-checkbox" data-id="{{ items.id }}">1</li>
+        <li>{{ items.attributes.name }}</li>
+        <li>{{ items.attributes.address }}</li>
+        <li data-id="{{ items.id }}">
           <a class="j-editStore" href="javascript:void(0);">编辑</a>
           <a class="j-delStore" href="javascript:void(0);">删除</a>
           <a href="#">设置课程表</a>
@@ -36,7 +36,7 @@
       {% endfor %}
     </script>
     {% endraw %}
-    <nav id="j-html" class="cs-pagination">
+    <!-- <nav id="j-html" class="cs-pagination">
       <ul id="j-pagination" class="pagination iy-right">
         <li class="pageUp"><a href="#">&laquo;</a></li>
         <li><a href="#">1</a></li>
@@ -46,9 +46,12 @@
         <li><a href="#">5</a></li>
         <li class="pageNext"><a href="#">&raquo;</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 {% endblock -%}
+{% block modal -%}
+  {% include 'layout/modal.html' %}
+{%- endblock %}
 {%- block script %}
 <script src="js/store_manage.js"></script>
 {%- endblock %}
