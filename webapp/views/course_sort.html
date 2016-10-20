@@ -60,10 +60,10 @@
   {% raw %}
   {% for item in data -%}
   <ul class="content-table">
-    <li class="table-checkbox">1</li>
+    <li class="table-checkbox">{{ loop.index }}</li>
     <li>{{item.attributes.name}}</li>
     <li>
-      <a href="/courseSortAdd#code={{item.typeCode}}">编辑</a>
+      <a href="courseSortAdd#code={{item.typeCode}}">编辑</a>
       <a class="js-btn-del" data-id="{{item.id}}">删除</a>
     </li>
   </ul>

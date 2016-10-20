@@ -1,10 +1,8 @@
 
 const Main = {
+  customers: null,
   init: () => {
-    $('.select-member-type').selectpicker({
-      size: 5,
-      liveSearch: true
-    });
+    $('.select-member-type').selectpicker();
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
@@ -13,18 +11,22 @@ const Main = {
       format: 'YYYY-MM-DD',
       stepping: 10
     }).change(function(e){
-      console.log(e.date);
+      // console.log(e.date);
     });
 
     Main.getStoreList();
     Main.memberTypeChange();
     Main.formValidator();
 
+    let code = $.url().fparam('code');
+    if(code){
+      code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
+      Main.getCustomers(code);
+    }
+
     $('.btn-save').on('click', function(){
       Main.addValidator();
     });
-
-
 
   },
   getStoreList: () => {
@@ -36,9 +38,7 @@ const Main = {
         'X-Api-Key': csTools.token,
       },
       success: (result) => {
-        console.log('getStoresInfo', result);
         const data = result.data;
-        console.log(data);
         if(!data){
           alert('请先添加门店!');
           return false;
@@ -51,6 +51,41 @@ const Main = {
             $('.select-store').selectpicker('refresh');
           }
         });
+      },
+      error: (xhr, textStatus, errorThrown) => {
+        if(xhr.status == 403){
+          location.href = 'login';
+        }
+      }
+    });
+  },
+  getCustomers: (id) => {
+    Main.customers = id;
+    $.ajax({
+      url: '/api/admin/customers/' + id,
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: (result) => {
+
+        let attributes = result.data.attributes;
+        $('[name=memberShipName]').val(attributes['name']);
+        $('[name=memberShipTelephone]').val(attributes['mobile']);
+        $('[name=memberShipWechatId]').val(attributes['weixin']);
+        $('.select-member-type').selectpicker('val', attributes['membership-type']);
+        $('[name=deadLine]').val(attributes['membership-duedate']);
+        $('[name=residueDegree]').val(attributes['membership-remaining-times']);
+        $('.select-store').selectpicker('val', attributes['store-id']);
+
+      },
+      error: (xhr, textStatus, errorThrown) => {
+        if(xhr.status == 403){
+          location.href = 'login';
+        }else if(xhr.status == 404){
+          location.href = 'clientList';
+        }
       }
     });
   },
@@ -58,7 +93,7 @@ const Main = {
     const $memberType = $('.select-member-type');
     $memberType.on('changed.bs.select', () => {
       let memberType = $memberType.selectpicker('val');
-      if(memberType == '时间卡'){
+      if(memberType == 'time_card'){
         $('.form-dead-line').slideDown();
         $('.form-residue-degree').slideUp();
       }else{
@@ -73,14 +108,14 @@ const Main = {
       // 修复记忆的组件不验证
       data.validate();
       if (!data.isValid()) {
-        console.log('action error');
+        // console.log('action error');
         return false;
       }
     }
 
     const getVal = Main.getInputValue;
 
-    let memberShipId = 10;
+    let memberShipId = Main.customers;
     let memberShipName = getVal('[name=memberShipName]');
     let memberShipTelephone = getVal('[name=memberShipTelephone]');
     let memberShipWechatId = getVal('[name=memberShipWechatId]');
@@ -89,11 +124,6 @@ const Main = {
     let residueDegree = getVal('[name=residueDegree]');
     let storeId = $('.select-store').selectpicker('val');
 
-    if(deadLine){
-      deadLine = new Date(deadLine);
-    }else {
-      deadLine = new Date();
-    }
     if(!storeId){
       alert('请先添加门店!');
       return false;
@@ -127,24 +157,67 @@ const Main = {
       residueDegree = 0;
     }
 
-    let data = {
-      'customer[name]': memberShipName,
-      'customer[mobile]':memberShipTelephone,
-      'customer[weixin]':memberShipWechatId,
-      memberShipCardType,
-      deadLine,
-      residueDegree,
-      storeId
-    };
-    console.log(data);
+    let data = {};
+    if(memberShipCardType == 'time_card'){
+      deadLine = new Date(deadLine);
+      data = {
+        'customer[name]': memberShipName,
+        'customer[mobile]':memberShipTelephone,
+        'customer[weixin]':memberShipWechatId,
+        'customer[membership_type]': memberShipCardType,
+        'customer[membership_duedate]': deadLine,
+        'customer[store_id]': storeId
+      };
+    }else {
+      data = {
+        'customer[name]': memberShipName,
+        'customer[mobile]':memberShipTelephone,
+        'customer[weixin]':memberShipWechatId,
+        'customer[membership_type]': memberShipCardType,
+        'customer[membership_remaining_times]': residueDegree,
+        'customer[store_id]': storeId
+      };
+    }
+
+    let _customerId = '';
+    let ajaxType = 'POST';
+    if(memberShipId){
+      _customerId = memberShipId;
+      ajaxType = 'PUT';
+    }
 
     $.ajax({
-      url: '/api/admin/customers/',
-      type: 'post',
+      url: '/api/admin/customers/' + _customerId,
+      type:  ajaxType,
       dataType: 'json',
       data: data,
-      success: (result) => {
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      complete: (result) => {
         console.log(result);
+        if(result.status == 403){
+          location.href = 'login';
+          return false;
+        }else if(result.status == 201){
+          csTools.msgModalShow({
+            msg:'添加会员成功！',
+            href: 'clientList'
+          });
+        }else if(result.status == 200 && memberShipId){
+          csTools.msgModalShow({
+            msg:'更新会员成功！',
+            href: 'clientList'
+          });
+        }else{
+          let msg = '添加会员失败！';
+          if(memberShipId){
+            msg = '更新会员失败！';
+          }
+          csTools.msgModalShow({
+            msg
+          });
+        }
       }
     });
   },

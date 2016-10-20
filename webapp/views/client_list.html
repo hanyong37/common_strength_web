@@ -137,18 +137,30 @@
   {% raw %}
   {% for item in data %}
   <ul class="content-table">
-    <li class="table-checkbox">{{ item.id }}</li>
-    <li><a href="clientMemberInfo#code={{ item.id }}">{{ item.attributes.name }}</a></li>
-    <li>时间卡</li>
+    <li class="table-checkbox">{{ loop.index }}</li>
+    <li><a href="clientMemberInfo#code={{ item.code }}">{{ item.attributes.name }}</a></li>
+    <li>
+      {% if item.attributes.membership_type == 'time_card' %}
+        时间卡
+      {% else %}
+        次卡
+      {% endif %}
+    </li>
     <li>{{ item.attributes.mobile }}</li>
     <li>{{ item.attributes.weixin }}</li>
-    <li>2016-05-29</li>
+    <li>
+      {% if item.attributes.membership_type == 'time_card' %}
+        {{ item.attributes.membership_duedate }}
+      {% else %}
+        {{ item.attributes.membership_remaining_times }}
+      {% endif %}
+    </li>
     <li class="table-cell-auto">
-      <a href="#">编辑</a>
+      <a href="clientListAdd#code={{ item.code }}">编辑</a>
       <a href="#">变更记录</a>
       <a href="#">训练记录</a>
       <a href="#">锁定</a>
-      <a href="#">会员卡操作</a>
+      <a href="clientListAdd#code={{ item.code }}">会员卡操作</a>
     </li>
   </ul>
   {% endfor %}

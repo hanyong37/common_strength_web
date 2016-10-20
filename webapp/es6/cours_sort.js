@@ -50,7 +50,7 @@ const Main = {
     });
   },
   editCourseType: (code) => {
-    location.href = '/courseSortAdd#code=' + code;
+    location.href = 'courseSortAdd#code=' + code;
   },
   deleteCourseType: (id) => {
     $.ajax({

@@ -51,7 +51,8 @@ const Main = {
           Main.addValidateError('.input-username');
           Main.addValidateError('.input-password');
         }
-      },error: (xhr, textStatus, errorThrown) => {
+      },
+      error: (xhr, textStatus, errorThrown) => {
         if(xhr.status == 401){
           $('.modal-alert').modal();
           Main.addValidateError('.input-username');
