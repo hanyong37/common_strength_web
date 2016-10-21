@@ -1,0 +1,57 @@
+{% extends 'layout/tab_course.html'%}
+{% block style -%}
+<link rel="stylesheet" href="css/course.css">
+{%- endblock %}
+{% set secondary = '后台管理'%}
+{% set breadcrumb = '管理员统计'%}
+{% set storeManage = 'active'%}
+{% block body -%}
+  <div class="content-add">
+    <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
+    <div class="input-group iy-right">
+      <input type="text" class="form-control" placeholder="请输入关键词">
+      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
+    </div>
+  </div>
+  <div class="content-text">
+    <ul class="content-table title">
+      <li class="table-checkbox">1</li>
+      <li>门店名称</li>
+      <li>地址</li>
+      <li>操作</li>
+    </ul>
+    {% raw %}
+    <script type="text/template" id="temp">
+    {% for items in data %}
+      <ul class="content-table">
+        <li class="table-checkbox" data-id="{{ items.id }}">1</li>
+        <li>{{ items.attributes.name }}</li>
+        <li>{{ items.attributes.address }}</li>
+        <li data-id="{{ items.id }}">
+          <a class="j-editStore" href="javascript:void(0);">编辑</a>
+          <a class="j-delStore" href="javascript:void(0);">删除</a>
+          <a href="#">设置课程表</a>
+        </li>
+      </ul>
+      {% endfor %}
+    </script>
+    {% endraw %}
+    <!-- <nav id="j-html" class="cs-pagination">
+      <ul id="j-pagination" class="pagination iy-right">
+        <li class="pageUp"><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li class="pageNext"><a href="#">&raquo;</a></li>
+      </ul>
+    </nav> -->
+  </div>
+{% endblock -%}
+{% block modal -%}
+  {% include 'layout/modal.html' %}
+{%- endblock %}
+{%- block script %}
+<script src="js/store_manage.js"></script>
+{%- endblock %}

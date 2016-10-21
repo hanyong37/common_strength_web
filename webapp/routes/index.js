@@ -49,6 +49,7 @@ module.exports = function(app) {
     'training/training',
     'mobile/index',
     'mobile/index2',
+    'admin/index'
   ];
   apps.forEach(function(item) {
     require('./' + item)(app);
