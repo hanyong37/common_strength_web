@@ -52,7 +52,7 @@
     <li class="table-checkbox">{{ loop.index }}</li>
     <li>{{ item.attributes.name }}</li>
     <li>
-      {% if item.attributes.membership_type == 'time_card' %}
+      {% if item.attributes['membership-type'] == 'time_card' %}
         时间卡
       {% else %}
         次卡
@@ -61,17 +61,17 @@
     <li>{{ item.attributes.mobile }}</li>
     <li>{{ item.attributes.weixin }}</li>
     <li>
-      {% if item.attributes.membership_type == 'time_card' %}
-        {{ item.attributes.membership_duedate }}
+      {% if item.attributes['membership-type'] == 'time_card' %}
+        {{ item.attributes['membership-duedate'] }}
       {% else %}
-        {{ item.attributes.membership_remaining_times }}
+        {{ item.attributes['membership-remaining-times'] }}
       {% endif %}
     </li>
     <li class="table-cell-auto">
       <a href="clientListAdd#code={{ item.code }}">编辑</a>
       <a href="clientMemberInfo#code={{ item.code }}&type=unactive">变更记录</a>
       <a href="clientMemberInfo#code={{ item.code }}&type=active">训练记录</a>
-      {% if item.attributes.is_locked %}
+      {% if item.attributes['is-locked'] %}
       <a class="j-unlocked" data-id="{{item.id}}">取消锁定</a>
       {% else %}
       <a class="j-locked" data-id="{{item.id}}">锁定</a>

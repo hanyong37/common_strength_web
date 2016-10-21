@@ -17,20 +17,12 @@ const Main = {
           let data = result.data;
           for(let i = 0, lg = data.length; i < lg; i++){
             data[i].code = csTools.base64encode(csTools.utf16to8(data[i].id));
-
-            data[i].attributes.store_id = data[i].attributes['store-id'];
-            // data[i].attributes.store_name = data[i].attributes['store-name'];
-            data[i].attributes.type_id = data[i].attributes['type-id'];
-            // data[i].attributes.type_name = data[i].attributes['type-name'];
-            data[i].attributes.default_capacity = data[i].attributes['default-capacity'];
           }
           csTools.setNunjucksTmp({
             tmpSelector: '#temp',
             boxSelector: '.list-container',
             data,
             callback: ()=>{
-
-
 
             }
           });
