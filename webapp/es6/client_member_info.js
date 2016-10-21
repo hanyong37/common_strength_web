@@ -1,12 +1,40 @@
 let Main = {
+  urlPath: '',
   init: () => {
-    let code = $.url().fparam('code');
+    let Url = $.url();
+    let code = Url.fparam('code');
     if(code){
       code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
       Main.getCustomers(code);
     }else{
       location.href = 'clientList';
     }
+
+    let path = Url.attr('path');
+    Main.urlPath = path + '#code=' + code;
+
+    Main.tabChange();
+    let type = Url.fparam('type');
+    if(type == 'unactive'){
+      $('.tab-bar .tab-bar-block').eq(1).trigger('click');
+    }else{
+      $('.tab-bar .tab-bar-block').eq(0).trigger('click');
+    }
+  },
+  tabChange: () => {
+    let $tabBlock = $('.tab-bar .tab-bar-block');
+    $tabBlock.on('click', function(){
+      let index = $(this).index();
+      let url = Main.urlPath;
+      if(index == 0){
+        url += '&type=active';
+      }else{
+        url += '&type=unactive';
+      }
+      history.replaceState({ foo: 'bar'}, 'tab ' + index, url);
+      $tabBlock.removeClass('active').eq(index).addClass('active');
+      $('.tab-container .tab-container-block').hide().eq(index).show();
+    });
   },
   getCustomers: (id) => {
     Main.customers = id;

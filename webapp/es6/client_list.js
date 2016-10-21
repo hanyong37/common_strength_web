@@ -54,7 +54,7 @@ let Main = {
       type:  'PUT',
       dataType: 'json',
       data: {
-        "customer['is_locked']": isLocked,
+        "customer[is_locked]": isLocked,
       },
       headers: {
         "X-Api-Key": csTools.token
