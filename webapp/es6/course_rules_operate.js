@@ -3,42 +3,71 @@ const Main = {
     $('.selectpicker').selectpicker({
       size: 4
     });
+    Main.getCourseInfo();
+    $(".j-save").on('click', function() {
+      let _self = $(this);
+      let _key = _self.siblings('label').data('key');
+      let _name = _self.siblings('label').text();
+      let _text = _self.siblings('.col-sm-4').find('input').val();
+      if ($.trim(_text) == "") {
+        csTools.msgModalShow({
+          msg: _name + '不能为空!',
+        });
 
-    $("#j-save").on('click', function() {
-      Main.saveCourseInfo();
-    });
+        return false;
+      }
 
-    $("#j-delDate").datetimepicker({
-      format: 'YYYY-MM-DD',
-      useCurrent: false
-    });
-    $("#j-endDate").datetimepicker({
-      format: 'YYYY-MM-DD',
-      useCurrent: false
+      csTools.msgConfirmShow({
+        msg: '确认修改' + _name + '为' + _text + '吗？',
+        callback: () => {
+          Main.saveCourseInfo({
+            key: _key,
+            value: _text
+          });
+        }
+      })
     });
   },
-  saveCourseInfo: ()=> {
-    var seeDay = $.trim($("#j-seeDay").val());
-    var aboutDay = $.trim($("#j-aboutDay").val());
-    var delDate = $.trim($("#j-delDate").val());
-    var menNum = $.trim($("#j-menNum").val());
-    var endDate = $.trim($("#j-endDate").val());
-
+  saveCourseInfo: (a) => {
     $.ajax({
-      url: '/api/rule/setCourseRule',
+      url: '/api/admin/settings/' +　a.key,
       data: {
-        viewCourseDays: seeDay,
-        reservationCourseDays: aboutDay,
-        cancelCourseDatetime: delDate,
-        allowLineDatetime: menNum,
-        reservationDeadline: endDate
+        'setting[key]': a.key,
+        'setting[value]': a.value
       },
-      type: 'post',
+      type: 'put',
       dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
       success: function(result) {
         console.log(result);
       }
     });
+  },
+  getCourseInfo: (a) => {
+    $.ajax({
+      url: '/api/admin/settings/',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: function (result) {
+        console.log(result);
+        if (result.data) {
+          var Data = result.data;
+          for (var key in Data) {
+            console.log(Data[key].attributes.key);
+            let labelKey = $('.form-horizontal label').eq(key).data('key');
+            console.log('labelKey: ' + labelKey);
+            if (Data[key].attributes.key == labelKey) {
+              $('.col-sm-4 input').eq(key).val(Data[key].attributes.value);
+            }
+          }
+        }
+      }
+    })
   }
 };
 

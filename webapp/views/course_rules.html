@@ -27,11 +27,18 @@
   {% for items in data %}
     <ul class="content-table">
       <li class="table-checkbox" data-id="{{ items.id }}">1</li>
-      <li>{{ items.attributes.name }}</li>
-      <li>{{ items.attributes.address }}</li>
+      {% if (items.attributes.key == 'booking_limit_days') %}
+      <li>课程预约时间限制(天)</li>
+      {% elif (items.attributes.key == 'course_view_days') %}
+      <li>课程浏览时间限制(天)</li>
+      {% elif (items.attributes.key == 'cancle_limit_minutes') %}
+      <li>课程冻结时间(分钟)</li>
+      {% elif (items.attributes.key == 'queue_limit_number') %}
+      <li>允许排队人数(个)</li>
+      {% endif %}
+      <li>{{ items.attributes.value }}</li>
       <li data-id="{{ items.id }}">
         <a class="j-editStore" href="javascript:void(0);">编辑</a>
-        <a class="j-delStore" href="javascript:void(0);">删除</a>
         <a href="#">设置课程表</a>
       </li>
     </ul>

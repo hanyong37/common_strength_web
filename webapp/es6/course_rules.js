@@ -6,7 +6,7 @@
       setTimeout(() => {
         $(".j-editStore").on('click', function() {
           let _id = $(this).parent().data('id');
-          location.href = '/courserRulesOper?id=' + _id;
+          location.href = '/courserRulesOper';
         })
       }, 200);
 
