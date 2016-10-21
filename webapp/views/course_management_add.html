@@ -39,9 +39,15 @@
             <!--<option>1</option>-->
             <!--<option>2</option>-->
           <!--</select>-->
-          <div class="switch" data-on="info" data-off="success">
+          <div id="status_switch" class="switch" data-on="info" data-off="success">
             <input id="j-status" type="checkbox" checked />
           </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-1-1 control-label">课程容量：</label>
+        <div class="col-sm-3">
+          <input id="default_capacity" type="number" min="0" class="form-control" placeholder="请输入默认容量">
         </div>
       </div>
       <div class="form-group">
@@ -63,22 +69,26 @@
   </div>
 </div>
 
+
 <script id="tmp_select_store" type="text/template">
   {% raw %}
   {% for item in data %}
-  <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
   {% endraw %}
 </script>
 <script id="tmp_select_ctype" type="text/template">
   {% raw %}
   {% for item in data %}
-  <option value="{{ item.typeId }}">{{ item.typeName }}</option>
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
   {% endraw %}
 </script>
 {% endblock -%}
 
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
 {%- block script %}
 <!-- Latest compiled and minified JavaScript -->
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>

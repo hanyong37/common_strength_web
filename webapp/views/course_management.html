@@ -15,7 +15,7 @@
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"> </li>
       <li>课程名称</li>
       <li>门店</li>
       <li>课程分类</li>
@@ -23,19 +23,28 @@
       <li>课程状态</li>
       <li>操作</li>
     </ul>
+    <div class="list-container">
+
+    </div>
     {% raw %}
     <script type="text/template" id="temp">
       {% for items in data %}
-      <ul class="content-table" data-id="{{ items.courseId }}">
-        <li class="table-checkbox">1</li>
-        <li>{{ items.courseName }}</li>
-        <li>{{ items.storeName }}</li>
-        <li>{{ items.typeName }}</li>
-        <li>6</li>
-        <li>√</li>
+      <ul class="content-table" data-id="{{ items.id }}">
+        <li class="table-checkbox">{{loop.index}}</li>
+        <li>{{ items.attributes.name }}</li>
+        <li>{{ items.attributes.store_id }}</li>
+        <li>{{ items.attributes.type_id }}</li>
+        <li>{{ items.attributes.default_capacity }}</li>
         <li>
-          <a href="#">编辑</a>
-          <a href="#">删除</a>
+          {% if items.attributes.status == 'active' %}
+          √
+          {% else %}
+          ×
+          {% endif %}
+        </li>
+        <li>
+          <a href="courseManagementAdd#code={{items.code}}">编辑</a>
+          <a data-id="{{items.id}}">删除</a>
         </li>
       </ul>
       {% endfor %}
@@ -54,6 +63,9 @@
     </nav>
 
   </div>
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
 {% endblock -%}
 {%- block script %}
 <script src="js/course_management.js"></script>
