@@ -1,10 +1,17 @@
-let pageCurrent = 1;
-let pageNumber = 10;
-let pageCount = 1;
-let filterText = '';
+
 let Main = {
   init: () => {
-    Main.getMemberShipsInfo(pageCurrent, pageNumber, filterText);
+    Main.getMemberShipsInfo();
+
+    let $listBox = $('.list-box');
+    $listBox.on('click', '.j-locked',function(){
+      let id = $(this).data('id');
+      Main.lockedOrUnlocked(id, true);
+    });
+    $listBox.on('click', '.j-unlocked', function(){
+      let id = $(this).data('id');
+      Main.lockedOrUnlocked(id, false);
+    });
   },
   getMemberShipsInfo: (currentPage, pageSize, keyword) => {
     $.ajax({
@@ -15,7 +22,6 @@ let Main = {
         'X-Api-Key': csTools.token,
       },
       success: (result) => {
-        console.log(result);
         let data = result.data;
         for(let i = 0, lg = data.length; i < lg; i++){
           data[i].code = csTools.base64encode(csTools.utf16to8(data[i].id));
@@ -25,6 +31,7 @@ let Main = {
           data[i].attributes.membership_type = data[i].attributes['membership-type'];
           data[i].attributes.membership_remaining_times = data[i].attributes['membership-remaining-times'];
           data[i].attributes.membership_duedate = data[i].attributes['membership-duedate'];
+          data[i].attributes.is_locked= data[i].attributes['is-locked'];
         }
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_client_list',
@@ -37,6 +44,37 @@ let Main = {
       }
     });
   },
+  lockedOrUnlocked: (id, isLocked) => {
+    let msg = '锁定';
+    if(!isLocked){
+      msg = '取消锁定';
+    }
+    $.ajax({
+      url: '/api/admin/customers/' + id,
+      type:  'PUT',
+      dataType: 'json',
+      data: {
+        "customer['is_locked']": isLocked,
+      },
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      complete: (result) => {
+        if(result.status == 200){
+          csTools.msgModalShow({
+            msg: msg + '会员成功！',
+            callback: () => {
+              Main.getMemberShipsInfo();
+            }
+          });
+        }else{
+          csTools.msgModalShow({
+            msg: msg + '会员失败！'
+          });
+        }
+      }
+    });
+  }
 };
 
 (function(){

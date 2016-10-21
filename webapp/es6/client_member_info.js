@@ -32,13 +32,6 @@ let Main = {
           boxSelector: '.js-member-info',
           data: attributes
         });
-        // $('[name=memberShipName]').val(attributes['name']);
-        // $('[name=memberShipTelephone]').val(attributes['mobile']);
-        // $('[name=memberShipWechatId]').val(attributes['weixin']);
-        // $('.select-member-type').selectpicker('val', attributes['membership-type']);
-        // $('[name=deadLine]').val(attributes['membership-duedate']);
-        // $('[name=residueDegree]').val(attributes['membership-remaining-times']);
-        // $('.select-store').selectpicker('val', attributes['store-id']);
 
       },
       error: (xhr, textStatus, errorThrown) => {

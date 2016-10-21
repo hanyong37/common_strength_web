@@ -15,7 +15,7 @@
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"> </li>
       <li>会员名称</li>
       <li>会员卡类型</li>
       <li>电话</li>
@@ -26,97 +26,6 @@
 
     <div class="list-box">
 
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li><a href="clientMemberInfo?code=1">胡彦斌</a></li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>2016-05-29</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li>胡彦斌</li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>2016-05-29</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li>胡彦斌</li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>2016-05-29</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li>胡彦斌</li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>6</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li>胡彦斌</li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>7</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-      <!--<ul class="content-table">-->
-        <!--<li class="table-checkbox">1</li>-->
-        <!--<li>胡彦斌</li>-->
-        <!--<li>时间卡</li>-->
-        <!--<li>13376250246</li>-->
-        <!--<li>yiranfeng319</li>-->
-        <!--<li>12</li>-->
-        <!--<li class="table-cell-auto">-->
-          <!--<a href="#">编辑</a>-->
-          <!--<a href="#">变更记录</a>-->
-          <!--<a href="#">训练记录</a>-->
-          <!--<a href="#">锁定</a>-->
-          <!--<a href="#">会员卡操作</a>-->
-        <!--</li>-->
-      <!--</ul>-->
     </div>
 
     <nav>
@@ -133,12 +42,15 @@
   </div>
 </div>
 
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
 <script id="tmp_client_list" type="text/template">
   {% raw %}
   {% for item in data %}
   <ul class="content-table">
     <li class="table-checkbox">{{ loop.index }}</li>
-    <li><a href="clientMemberInfo#code={{ item.code }}">{{ item.attributes.name }}</a></li>
+    <li>{{ item.attributes.name }}</li>
     <li>
       {% if item.attributes.membership_type == 'time_card' %}
         时间卡
@@ -157,9 +69,13 @@
     </li>
     <li class="table-cell-auto">
       <a href="clientListAdd#code={{ item.code }}">编辑</a>
-      <a href="#">变更记录</a>
-      <a href="#">训练记录</a>
-      <a href="#">锁定</a>
+      <a href="clientMemberInfo#code={{ item.code }}&type=unactive">变更记录</a>
+      <a href="clientMemberInfo#code={{ item.code }}&type=active">训练记录</a>
+      {% if item.attributes.is_locked %}
+      <a class="j-unlocked" data-id="{{item.id}}">取消锁定</a>
+      {% else %}
+      <a class="j-locked" data-id="{{item.id}}">锁定</a>
+      {% endif %}
       <a href="clientListAdd#code={{ item.code }}">会员卡操作</a>
     </li>
   </ul>
