@@ -1,6 +1,15 @@
 
 let Main = {
   init: () => {
+    $('.select-store').selectpicker({
+      size: 5,
+      liveSearch: true
+    }).on('changed.bs.select', function(e){
+      console.log('change');
+      Main.getMemberShipsInfo();
+    });
+
+    Main.getStoreList();
     Main.getMemberShipsInfo();
 
     let $listBox = $('.list-box');
@@ -12,10 +21,51 @@ let Main = {
       let id = $(this).data('id');
       Main.lockedOrUnlocked(id, false);
     });
+
+    $('.btn-query').on('click', function(){
+      Main.getMemberShipsInfo();
+    });
+    $('.query-string').on('keypress', function(e){
+      Main.getMemberShipsInfo();
+    });
   },
-  getMemberShipsInfo: (currentPage, pageSize, keyword) => {
+  getStoreList: () => {
     $.ajax({
-      url: '/api/admin/customers',
+      url: '/api/admin/stores',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: (result) => {
+        const data = result.data;
+        if(!data){
+          alert('请先添加门店!');
+          return false;
+        }
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tmp_select_store',
+          boxSelector: 'select.select-store',
+          data: data,
+          isAppend: true,
+          callback: () => {
+            $('.select-store').selectpicker('refresh');
+          }
+        });
+      },
+      error: (xhr, textStatus, errorThrown) => {
+        if(xhr.status == 403){
+          location.href = 'login';
+        }
+      }
+    });
+  },
+  getMemberShipsInfo: () => {
+    let storeId = $('.select-store').selectpicker('val');
+    let qstring = $('.query-string').val();
+    console.log(storeId);
+    $.ajax({
+      url: '/api/admin/customers?store_id=' + storeId + '&qstring=' + qstring,
       type: 'get',
       dataType: 'json',
       headers: {

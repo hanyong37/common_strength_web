@@ -1,5 +1,6 @@
 {% extends 'layout/tab_course.html'%}
 {% block style -%}
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="css/course.css">
 {%- endblock %}
 {% set secondary = '课程管理'%}
@@ -7,10 +8,15 @@
 {% set courseManagement = 'active'%}
 {% block body -%}
   <div class="content-add">
-    <a href="courseManagementAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
-    <div class="input-group iy-right">
-      <input type="text" class="form-control" placeholder="请输入关键词">
-      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
+    <a href="courseManagementAdd" class="btn btn-large btn-block btn-info iy-left">添加</a>
+    <!--<div class="input-group iy-right">-->
+      <!--<input type="text" class="form-control" placeholder="请输入关键词">-->
+      <!--<span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>-->
+    <!--</div>-->
+    <div class="input-group select-store-box iy-right">
+      <select class="form-control select-store">
+        <option></option>
+      </select>
     </div>
   </div>
   <div class="content-text">
@@ -63,10 +69,19 @@
     </nav>
 
   </div>
+<script id="tmp_select_store" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 {% block modal -%}
 {% include 'layout/modal.html' %}
 {%- endblock %}
 {% endblock -%}
 {%- block script %}
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="js/course_management.js"></script>
 {%- endblock %}

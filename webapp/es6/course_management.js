@@ -1,11 +1,20 @@
 const Main = {
   init: ()=> {
     Main.__ajax();
+    $('.select-store').selectpicker({
+      size: 5,
+      liveSearch: true
+    }).on('changed.bs.select', function(e){
+      console.log('change');
+      Main.__ajax();
+    });
+    Main.getStoreList();
 
   },
   __ajax: ()=> {
+    let storeId = $('.select-store').selectpicker('val');
     $.ajax({
-      url: '/api/admin/courses/',
+      url: '/api/admin/courses?store_id=' + storeId,
       headers: {
         "X-Api-Key": csTools.token
       },
@@ -29,6 +38,37 @@ const Main = {
         }
       }
     })
+  },
+  getStoreList: () => {
+    $.ajax({
+      url: '/api/admin/stores',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: (result) => {
+        const data = result.data;
+        if(!data){
+          alert('请先添加门店!');
+          return false;
+        }
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tmp_select_store',
+          boxSelector: 'select.select-store',
+          data: data,
+          isAppend: true,
+          callback: () => {
+            $('.select-store').selectpicker('refresh');
+          }
+        });
+      },
+      error: (xhr, textStatus, errorThrown) => {
+        if(xhr.status == 403){
+          location.href = 'login';
+        }
+      }
+    });
   },
   deleteCourse: (id) => {
     $.ajax({

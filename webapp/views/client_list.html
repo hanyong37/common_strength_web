@@ -1,5 +1,6 @@
 {% extends 'layout/tab_client.html' %}
 {% block style -%}
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="css/client_list.css">
 {%- endblock %}
 {% set breadcrumb = '会员列表' %}
@@ -9,8 +10,13 @@
   <div class="content-add">
     <a href="clientListAdd" class="btn btn-large btn-block btn-info iy-left">添加</a>
     <div class="input-group iy-right">
-      <input type="text" class="form-control" placeholder="请输入关键词">
-      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
+      <input type="text" class="form-control query-string" placeholder="请输入关键词">
+      <span class="input-group-addon btn-query"><em class="glyphicon glyphicon-search"></em></span>
+    </div>
+    <div class="input-group select-store-box iy-right">
+      <select class="form-control select-store">
+        <option></option>
+      </select>
     </div>
   </div>
   <div class="content-text">
@@ -28,23 +34,30 @@
 
     </div>
 
-    <nav>
-      <ul class="pagination iy-right">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
-    </nav>
+    <!--<nav>-->
+      <!--<ul class="pagination iy-right">-->
+        <!--<li><a href="#">&laquo;</a></li>-->
+        <!--<li><a href="#">1</a></li>-->
+        <!--<li><a href="#">2</a></li>-->
+        <!--<li><a href="#">3</a></li>-->
+        <!--<li><a href="#">4</a></li>-->
+        <!--<li><a href="#">5</a></li>-->
+        <!--<li><a href="#">&raquo;</a></li>-->
+      <!--</ul>-->
+    <!--</nav>-->
   </div>
 </div>
 
 {% block modal -%}
 {% include 'layout/modal.html' %}
 {%- endblock %}
+<script id="tmp_select_store" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
 <script id="tmp_client_list" type="text/template">
   {% raw %}
   {% for item in data %}
@@ -84,5 +97,7 @@
 </script>
 {%- endblock %}
 {% block script -%}
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="/js/client_list.js"></script>
 {%- endblock %}
