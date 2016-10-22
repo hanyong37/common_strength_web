@@ -15,7 +15,7 @@
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"></li>
       <li>管理员名称</li>
       <!-- <li>管理员密码</li> -->
       <!-- <li>管理员描述</li> -->
@@ -25,7 +25,7 @@
     <script type="text/template" id="temp">
     {% for items in data %}
       <ul class="content-table">
-        <li class="table-checkbox" data-id="{{ items.id }}">1</li>
+        <li class="table-checkbox" data-id="{{ items.id }}">{{loop.index}}</li>
         <li>{{ items.attributes["full-name"]}}</li>
         <!-- <li>{{ items.attributes["description"]}}</li> -->
         <li data-id="{{ items.id }}">
