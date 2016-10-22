@@ -1,13 +1,13 @@
-{% extends 'layout/tab_course.html'%}
+{% extends 'layout/tab_admin.html'%}
 {% block style -%}
 <link rel="stylesheet" href="css/course.css">
 {%- endblock %}
 {% set secondary = '后台管理'%}
 {% set breadcrumb = '管理员统计'%}
-{% set storeManage = 'active'%}
+{% set countAdmin = 'active'%}
 {% block body -%}
   <div class="content-add">
-    <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
+    <a href="adminListOper" class="btn btn-large btn-block btn-info iy-left">+ 添加</a>
     <div class="input-group iy-right">
       <input type="text" class="form-control" placeholder="请输入关键词">
       <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
@@ -16,8 +16,9 @@
   <div class="content-text">
     <ul class="content-table title">
       <li class="table-checkbox">1</li>
-      <li>门店名称</li>
-      <li>地址</li>
+      <li>管理员名称</li>
+      <!-- <li>管理员密码</li> -->
+      <!-- <li>管理员描述</li> -->
       <li>操作</li>
     </ul>
     {% raw %}
@@ -25,8 +26,8 @@
     {% for items in data %}
       <ul class="content-table">
         <li class="table-checkbox" data-id="{{ items.id }}">1</li>
-        <li>{{ items.attributes.name }}</li>
-        <li>{{ items.attributes.address }}</li>
+        <li>{{ items.attributes["full-name"]}}</li>
+        <!-- <li>{{ items.attributes["description"]}}</li> -->
         <li data-id="{{ items.id }}">
           <a class="j-editStore" href="javascript:void(0);">编辑</a>
           <a class="j-delStore" href="javascript:void(0);">删除</a>
@@ -53,5 +54,5 @@
   {% include 'layout/modal.html' %}
 {%- endblock %}
 {%- block script %}
-<script src="js/store_manage.js"></script>
+<script src="js/admin_list.js"></script>
 {%- endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="format-detection" content="telephone=no"/>
+  <title>{{breadcrumb}}</title>
+  {% if basePath -%}
+  <base href="{{basePath}}">
+  {%- endif -%}
+  {%- block head -%}
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  {%- block style -%}
+
+  {%- endblock %}
+  {%- endblock %}
+</head>
+<body ontouchstart>
+{% include "layout/head.html" %}
+
+<ol class="breadcrumb">
+  <li>首页</li>
+  <li>{{secondary}}</li>
+  <li>{{breadcrumb}}</li>
+</ol>
+<div class="container-tab">
+  <div class="container-left">
+    <div class="tab-bar-list {{ countAdmin }}"><i class="icon"></i><a href="adminList">管理员统计</a></div>
+  </div>
+  <div class="container-right">
+    {% block body -%}
+    {%- endblock %}
+  </div>
+</div>
+{%- block modal -%}
+{%- endblock -%}
+{%- block tail -%}
+<script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
+<script src="/js/cs_tools.js"></script>
+{%- block script -%}
+
+{%- endblock %}
+{%- endblock %}
+</body>
+</html>

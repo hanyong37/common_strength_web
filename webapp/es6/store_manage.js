@@ -6,7 +6,6 @@ $(function() {
       setTimeout(() => {
         $(".j-delStore").on('click', function() {
           var _this = $(this);
-          console.log(1);
           csTools.msgConfirmShow({
             msg: '确定删除门店吗!',
             callback: function() {

@@ -1,0 +1,48 @@
+{% extends 'layout/tab_admin.html'%}
+{% block style -%}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="css/course.css">
+{%- endblock %}
+{% set secondary = '后台管理'%}
+{% set breadcrumb = '管理员统计'%}
+{% set countAdmin = 'active'%}
+{% block body -%}
+<div class="storeadd-box">
+  <div class="content-title">
+    <h4>添加/修改 管理员信息</h4>
+  </div>
+  <div class="content-text">
+    <form class="form-horizontal" role="form">
+      <div class="form-group display-show">
+        <label class="col-sm-1-2 control-label">管理员名称</label>
+        <div class="col-sm-3">
+          <input type="text" id="j-name" class="form-control" placeholder="请输入管理员账户">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-1-2 control-label">管理员密码</label>
+        <div class="col-sm-3">
+          <input type="text" id="j-psw" class="form-control" placeholder="请输入管理员密码">
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="col-sm-1-2 control-label">管理员描述</label>
+        <div class="col-sm-3">
+          <input type="text" id="j-psw" class="form-control" placeholder="请输入管理员密码">
+        </div>
+      </div> -->
+    </form>
+    <button id="j-save" type="button" class="btn btn-info">保存</button>
+  </div>
+</div>
+{% endblock -%}
+{% block modal -%}
+{% include 'layout/modal.html' %}
+{%- endblock %}
+{%- block script %}
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="js/admin_list_operate.js"></script>
+{%- endblock %}
