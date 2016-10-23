@@ -4,8 +4,9 @@ let Main = {
     let Url = $.url();
     let code = Url.fparam('code');
     if(code){
-      code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
-      Main.getCustomers(code);
+      let id = csTools.utf8to16(csTools.base64decode(code));
+      Main.getCustomers(id);
+      Main.getOperations(id);
     }else{
       location.href = 'clientList';
     }
@@ -37,7 +38,7 @@ let Main = {
     });
   },
   getCustomers: (id) => {
-    Main.customers = id;
+    console.log(id);
     $.ajax({
       url: '/api/admin/customers/' + id,
       type: 'get',
@@ -49,11 +50,6 @@ let Main = {
         console.log(result);
 
         let attributes = result.data.attributes;
-        attributes.store_id = attributes['store-id'];
-        attributes.store_name = attributes['store-name'];
-        attributes.membership_type = attributes['membership-type'];
-        attributes.membership_remaining_times = attributes['membership-remaining-times'];
-        attributes.membership_duedate = attributes['membership-duedate'];
 
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_member_info',
@@ -68,6 +64,19 @@ let Main = {
         }else if(xhr.status == 404){
           location.href = 'clientList';
         }
+      }
+    });
+  },
+  getOperations: (id) => {
+    $.ajax({
+      url: '/api/admin/customers?customer_id' + id,
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: (result) => {
+        console.log('getOperations', result);
       }
     });
   },

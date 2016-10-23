@@ -5,21 +5,34 @@
   display: none !important;
 }
 
-.form-bar {
-  margin-bottom: 10px;
+.content-add {
+  margin-top: 5px;
+  margin-bottom: 5px;
 
-  .btn-add-store {
-    float: left;
-    margin-right: 10px;
+  .btn-block {
+    width: 10%;
+    background-color: #2DB7F5;
   }
-  .store-list {
-    float: right;
-    width: 220px;
+
+  .input-group {
+    width: 40%;
   }
-  &:after {
+  .input-group.select-store-box {
+    width: 30%;
+    margin-right: 20px;
+  }
+
+  &::after {
     .clearFix();
   }
 }
+.iy-left {
+  float: left;
+}
+.iy-right {
+  float: right;
+}
+
 .calendar-bar {
   margin-bottom: 5px;
 }
@@ -51,12 +64,12 @@
 
   .c-c-column {
     .cellFlex(1);
-    border-right: 1px solid @borderColor;
     text-align: center;
 
     .column-cell {
       width: 100%;
       height: @cellHeight;
+      border-right: 1px solid @borderColor;
       border-bottom: 1px solid @borderColor;
       display: table;
 

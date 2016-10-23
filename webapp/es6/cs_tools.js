@@ -255,4 +255,31 @@ const csTools = {
     }
     return out;
   },
+  getWeekDay: (_date) => {
+    let mDate = new Date();
+    if(_date){
+      mDate = new Date(_date);
+    }
+    let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    let tWeek = mDate.getDay();
+    let tDay = mDate.getDate();
+    let tYear = mDate.getYear() + 1900;
+    let tMonth = mDate.getMonth() + 1;
+
+    if(tWeek === 0){
+      tWeek = 7;
+    }
+    let sDay = tDay - tWeek + 1;
+
+    let dateArr = [];
+    for(let i = 0; i < 7; i++){
+      let oDate = tYear + '/' + tMonth + '/' + (sDay + i);
+      let obj = {
+        date: oDate,
+        week: weekArr[i]
+      };
+      dateArr.push(obj);
+    }
+    return dateArr;
+  },
 };

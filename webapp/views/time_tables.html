@@ -8,17 +8,11 @@
 {% set breadcrumb = '排课程表'%}
 {% set timeTable = 'active'%}
 {% block body -%}
-<div class="form-bar">
-  <div class="btn btn-large btn-info btn-add-store"
+<div class="content-add">
+  <div class="btn btn-large btn-info btn-add-store iy-left"
        data-toggle="modal" data-target="#course_modal">添加课程</div>
-  <div class="store-list">
-    <select class="selectpicker select-store" title="请选择门店">
-      <option value="0">1</option>
-      <option value="1">2</option>
-      <option value="2">3</option>
-      <option value="3">4</option>
-      <option value="4">5</option>
-      <option value="5">6</option>
+  <div class="input-group select-store-box iy-right">
+    <select class="form-control select-store" title="请选择门店">
     </select>
   </div>
 </div>
@@ -28,7 +22,6 @@
 </div>
 <div class="calendar-box">
   <div class="calendar-row calendar-date">
-    <div class="calendar-row-info">时间</div>
     <div class="calendar-row-info">8月22号</div>
     <div class="calendar-row-info">8月23号</div>
     <div class="calendar-row-info">8月24号</div>
@@ -38,7 +31,6 @@
     <div class="calendar-row-info">8月28号</div>
   </div>
   <div class="calendar-row calendar-week">
-    <div class="calendar-row-info"> </div>
     <div class="calendar-row-info">周一</div>
     <div class="calendar-row-info">周二</div>
     <div class="calendar-row-info">周三</div>
@@ -48,90 +40,6 @@
     <div class="calendar-row-info">周日</div>
   </div>
   <div class="calendar-container c-c-bg">
-    <div class="c-c-column calendar-time">
-      <div class="column-cell"><span>7:00 - 8:00</span></div>
-      <div class="column-cell"><span>8:00 - 9:00</span></div>
-      <div class="column-cell"><span>9:00 - 10:00</span></div>
-      <div class="column-cell"><span>10:00 - 11:30</span></div>
-      <div class="column-cell"><span>1:00 - 2:00</span></div>
-      <div class="column-cell"><span>2:00 - 3:30</span></div>
-      <div class="column-cell"><span>4:00 - 5:00</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"> </div>
-    </div>
-  </div>
-
-  <div class="calendar-container c-c-info box-hidden">
-    <div class="c-c-column calendar-time">
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-      <div class="column-cell"><span></span></div>
-    </div>
     <div class="c-c-column calendar-course">
       <div class="column-cell"><span>下肢蹲</span></div>
       <div class="column-cell"><span>下肢蹲</span></div>
@@ -140,6 +48,8 @@
       <div class="column-cell"> </div>
       <div class="column-cell"><span>基础课</span></div>
       <div class="column-cell"><span>基础课</span></div>
+      <div class="column-cell"><span>基础课</span></div>
+      <div class="column-cell"><span>基础课</span></div>
     </div>
     <div class="c-c-column calendar-course">
       <div class="column-cell"><span>下肢蹲</span></div>
@@ -196,6 +106,7 @@
       <div class="column-cell"><span>基础课</span></div>
     </div>
   </div>
+
 </div>
 
 <div id="course_modal" class="modal fade">
@@ -208,44 +119,39 @@
       <div class="modal-body">
         <form role="form">
           <div class="form-group">
-            <label for="start_datetime">课程开始时间</label>
+            <label for="course_date">上课日期</label>
+            <div class='input-group date datetimepicker'>
+              <input type='text' id="course_date" class="form-control start_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="start_datetime">开始时间</label>
             <div class='input-group date datetimepicker'>
               <input type='text' id="start_datetime" class="form-control start_datetime" />
               <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
             </div>
           </div>
           <div class="form-group">
-            <label for="over_datetime">课程结束时间</label>
+            <label for="over_datetime">结束时间</label>
             <div class='input-group date datetimepicker '>
               <input type='text' id="over_datetime" class="form-control over_datetime" />
               <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
             </div>
           </div>
           <div class="form-group">
+            <label for="select_store_add">选择门店</label>
+            <select id="select_store_add" class="form-control" title="请选择门店" >
+            </select>
+          </div>
+          <div class="form-group">
             <label for="select_course">选择课程</label>
-            <select id="select_course" class="selectpicker form-control" title="请选择课程" multiple>
-              <!--<option value="0">1</option>-->
-              <!--<option value="1">2</option>-->
-              <!--<option value="2">3</option>-->
-              <!--<option value="3">4</option>-->
-              <!--<option value="4">5</option>-->
-              <!--<option value="5">6</option>-->
+            <select id="select_course" class="form-control" title="请选择课程">
             </select>
           </div>
           <div class="form-group">
             <label for="course_number">课程人数</label>
             <input type="number" class="form-control" id="course_number" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="select_course">选择门店</label>
-            <select id="select_store_add" class="form-control" title="请选择门店" >
-              <!--<option value="0">1</option>-->
-              <!--<option value="1">2</option>-->
-              <!--<option value="2">3</option>-->
-              <!--<option value="3">4</option>-->
-              <!--<option value="4">5</option>-->
-              <!--<option value="5">6</option>-->
-            </select>
           </div>
         </form>
 
@@ -261,10 +167,20 @@
 <script id="tmp_select_store" type="text/template">
   {% raw %}
   {% for item in data %}
-  <option value="{{ item.storeId }}">{{ item.storeName }}</option>
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
   {% endraw %}
 </script>
+<script id="tmp_select_course" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.id }}" data-default-capacity="{{item.attributes['default-capacity']}}">{{ item.attributes.name }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
+{%- endblock %}
+{% block modal -%}
+{% include 'layout/modal.html' %}
 {%- endblock %}
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
