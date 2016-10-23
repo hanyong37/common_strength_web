@@ -60,7 +60,7 @@ a {
   }
   .nav-menu-bar {
     float: left;
-    width: @width - 280px;
+    width: @width - 380px;
     font-size: 15px;
 
     .menu-list {
@@ -102,7 +102,7 @@ a {
     }
   }
   .user-block {
-    float: left;
+    float: right;
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -112,6 +112,12 @@ a {
     max-width: 100px;
     padding: 0 10px;
     font-size: 15px;
+
+    &.sign-out {
+      padding: 0;
+      font-size: 12px;
+      cursor: pointer;
+    }
   }
   &:after {
     .clearFix();

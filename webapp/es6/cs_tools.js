@@ -9,8 +9,26 @@ const base64DecodeChars = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -
   -1, -1];
 
 let token = sessionStorage.userToken;
+let userName = sessionStorage.userName;
 if(location.pathname != '/login' && !token){
   location.href = '/login';
+}else{
+  $('.user-block .user-name').text(userName);
+  $('.user-block.sign-out').on('click', function(){
+    $.ajax({
+      url: '/api/admin/sessions',
+      type: 'DELETE',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": token
+      },
+      complete: (result) => {
+        console.log(result);
+        sessionStorage.clear();
+        location.href = '/login';
+      }
+    });
+  });
 }
 
 const csTools = {

@@ -45,6 +45,7 @@ const Main = {
         console.log(result);
         if(result.data){
           sessionStorage.userToken = result.data.attributes.token;
+          sessionStorage.userName = result.data.attributes['full-name'];
           location.href = 'storeManage';
         }else{
           $('.modal-alert').modal();
