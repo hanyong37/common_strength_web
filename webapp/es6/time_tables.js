@@ -30,10 +30,10 @@ const Main = {
     var $startDatetime = $('#start_datetime');
     var $overDatetime = $('#over_datetime');
     $startDatetime.datetimepicker({
-      format: 'hh:mm'
+      format: 'HH:mm'
     });
     $overDatetime.datetimepicker({
-      format: 'hh:mm',
+      format: 'HH:mm',
       useCurrent: false
     });
     $startDatetime.on("dp.change", function (e) {
@@ -180,6 +180,9 @@ const Main = {
               $('#start_datetime').val('');
               $('#over_datetime').val('');
               $('#course_number').val('');
+
+              let sid = $('.select-store').selectpicker('val');
+              Main.getSchedules(sid);
             }
           });
         }else{
