@@ -1,4 +1,5 @@
 const Main = {
+  theDate: moment().format('YYYY-MM-DD'),
   init: () => {
     $('.select-store').selectpicker({
       size: 5,
@@ -43,6 +44,49 @@ const Main = {
     $('.js-btn-save').on('click', function(){
       Main.postSchedules();
     });
+
+    Main.setWeekTitle();
+
+    $('.btn-calendar-prev').on('click', function(){
+      let nextDate = Main.prevWeek();
+      Main.setWeekTitle(nextDate);
+    });
+    $('.btn-calendar-next').on('click', function(){
+      let nextDate = Main.nextWeek();
+      Main.setWeekTitle(nextDate);
+    });
+  },
+  setWeekTitle: (_date) => {
+    let weekArr = csTools.getWeekDay(_date);
+    csTools.setNunjucksTmp({
+      tmpSelector: '#tmp_date_block',
+      boxSelector: '#date_box',
+      data: weekArr,
+    });
+    csTools.setNunjucksTmp({
+      tmpSelector: '#tmp_week_block',
+      boxSelector: '#week_box',
+      data: weekArr,
+    });
+
+    let sid = $('.select-store').selectpicker('val');
+    Main.getSchedules(sid);
+  },
+  prevWeek: () => {
+    let tDate = Main.theDate;
+    console.log(tDate);
+    let prevDate = moment(tDate).weekday(-7);
+    let pDate = moment(prevDate).format('YYYY-MM-DD');
+    Main.theDate = pDate;
+    return pDate;
+  },
+  nextWeek: () => {
+    let tDate = Main.theDate;
+    console.log(tDate);
+    let nextDate = moment(tDate).weekday(7);
+    let nDate = moment(nextDate).format('YYYY-MM-DD');
+    Main.theDate = nDate;
+    return nDate;
   },
   getInputValue: (selector) => {
     return $.trim($(selector).val());
@@ -56,7 +100,6 @@ const Main = {
         'X-Api-Key': csTools.token
       },
       success: (result) => {
-        console.log('getStoresInfo', result);
         const dataArr = result.data;
         if(dataArr.length <= 0){
           alert('请先添加门店!');
@@ -84,7 +127,6 @@ const Main = {
       type: 'get',
       dataType: 'json',
       success: function(result) {
-        console.log(result);
         if (result.data) {
           let data = result.data;
           csTools.setNunjucksTmp({
@@ -150,8 +192,13 @@ const Main = {
     });
   },
   getSchedules: (sid) => {
+    if(!sid){
+      return false;
+    }
     let storeId = sid;
-    let weekDay = moment().format('YYYY-MM-DD');
+    let weekDay = Main.theDate;
+    $('#schedules_list').empty();
+    let weekArr = csTools.getWeekDay(weekDay);
 
     $.ajax({
       url: '/api/admin/schedules?storeid=' + storeId + '&by_week=' + weekDay,
@@ -161,7 +208,30 @@ const Main = {
         "X-Api-Key": csTools.token
       },
       success: (result) => {
-        console.log('course list', result);
+        let rData = result.data;
+        for(let i =0, lg = rData.length; i < lg; i++){
+          rData[i] = {
+            id: rData[i].id,
+            attributes: rData[i].attributes,
+            thisDate: moment(rData[i].attributes['start-time'].toString()).format('YYYY/MM/DD'),
+            startTime: moment(rData[i].attributes['start-time'].toString()).format('HH:mm'),
+            endTime: moment(rData[i].attributes['end-time'].toString()).format('HH:mm'),
+          };
+          //rData[i].thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/MM/DD');
+          console.log(rData[i].thisDate);
+        }
+        for(let i2 = 0, lg2 = weekArr.length; i2 < lg2; i2++){
+          let data = {
+              resouce: rData,
+              tDate: weekArr[i2].date
+          };
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_shcedules',
+            boxSelector: '#schedules_list',
+            data,
+            isAppend: true
+          });
+        }
       }
     });
   },
@@ -169,5 +239,5 @@ const Main = {
 };
 
 $(function(){
- Main.init();
+   Main.init();
 });

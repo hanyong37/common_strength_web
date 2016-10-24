@@ -21,26 +21,15 @@
   <div class="btn btn-default btn-calendar-next"><i class="glyphicon glyphicon-chevron-right"></i></div>
 </div>
 <div class="calendar-box">
-  <div class="calendar-row calendar-date">
-    <div class="calendar-row-info">8月22号</div>
-    <div class="calendar-row-info">8月23号</div>
-    <div class="calendar-row-info">8月24号</div>
-    <div class="calendar-row-info">8月25号</div>
-    <div class="calendar-row-info">8月26号</div>
-    <div class="calendar-row-info">8月27号</div>
-    <div class="calendar-row-info">8月28号</div>
+  <div id="date_box" class="calendar-row calendar-date">
+
   </div>
-  <div class="calendar-row calendar-week">
-    <div class="calendar-row-info">周一</div>
-    <div class="calendar-row-info">周二</div>
-    <div class="calendar-row-info">周三</div>
-    <div class="calendar-row-info">周四</div>
-    <div class="calendar-row-info">周五</div>
-    <div class="calendar-row-info">周六</div>
-    <div class="calendar-row-info">周日</div>
+  <div id="week_box" class="calendar-row calendar-week">
+
   </div>
-  <div class="calendar-container c-c-bg">
-    <div class="c-c-column calendar-course">
+  <div id="schedules_list" class="calendar-container c-c-bg">
+
+    <!-- <div class="c-c-column calendar-course">
       <div class="column-cell"><span>下肢蹲</span></div>
       <div class="column-cell"><span>下肢蹲</span></div>
       <div class="column-cell"> </div>
@@ -50,61 +39,8 @@
       <div class="column-cell"><span>基础课</span></div>
       <div class="column-cell"><span>基础课</span></div>
       <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
-    <div class="c-c-column calendar-course">
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"><span>下肢蹲</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>功能蹲+平衡训练</span></div>
-      <div class="column-cell"> </div>
-      <div class="column-cell"><span>基础课</span></div>
-      <div class="column-cell"><span>基础课</span></div>
-    </div>
+    </div> -->
+
   </div>
 
 </div>
@@ -164,6 +100,20 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script id="tmp_shcedules" type="text/template">
+  {% raw %}
+  <div class="c-c-column calendar-course">
+  {% for item in data.resouce %}
+    {% if data.tDate == item.thisDate %}
+    <div class="column-cell" data-id="{{item.id}}">
+      <span>{{item.startTime}}~{{item.endTime}}</span>
+      <span>{{item.attributes['course-name']}}</span>
+    </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+  {% endraw %}
+</script>
 <script id="tmp_select_store" type="text/template">
   {% raw %}
   {% for item in data %}
@@ -178,6 +128,22 @@
   {% endfor %}
   {% endraw %}
 </script>
+
+<script id="tmp_date_block" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <div class="calendar-row-info">{{item.date}}</div>
+  {% endfor %}
+  {% endraw %}
+</script>
+<script id="tmp_week_block" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <div class="calendar-row-info">{{item.week}}</div>
+  {% endfor %}
+  {% endraw %}
+</script>
+
 {%- endblock %}
 {% block modal -%}
 {% include 'layout/modal.html' %}
