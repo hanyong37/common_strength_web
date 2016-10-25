@@ -141,9 +141,9 @@
   {% raw %}
   <div class="c-c-column calendar-course">
   {% for item in data.resouce %}
-    {% if data.tDate == item.thisDate %}
+    {% if data.tDate == item.attributes.thisDate %}
     <div class="column-cell" data-id="{{item.id}}">
-      <span>{{item.startTime}}~{{item.endTime}}</span>
+      <span>{{item.attributes.startTime}}~{{item.attributes.endTime}}</span>
       <span>{{item.attributes['course-name']}}</span>
     </div>
     {% endif %}

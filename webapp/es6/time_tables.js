@@ -328,16 +328,12 @@ const Main = {
       success: (result) => {
         let rData = result.data;
         for(let i =0, lg = rData.length; i < lg; i++){
-          rData[i] = {
-            id: rData[i].id,
-            attributes: rData[i].attributes,
-            thisDate: moment(rData[i].attributes['start-time'].toString()).format('YYYY/MM/DD'),
-            startTime: moment(rData[i].attributes['start-time'].toString()).format('HH:mm'),
-            endTime: moment(rData[i].attributes['end-time'].toString()).format('HH:mm'),
-          };
-          //rData[i].thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/MM/DD');
-          console.log(rData[i].thisDate);
+            rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
+            rData[i].attributes.startTime = moment(rData[i].attributes['start-time'].toString()).format('HH:mm');
+            rData[i].attributes.endTime = moment(rData[i].attributes['end-time'].toString()).format('HH:mm');
+
         }
+        console.log(rData);
         for(let i2 = 0, lg2 = weekArr.length; i2 < lg2; i2++){
           let data = {
               resouce: rData,

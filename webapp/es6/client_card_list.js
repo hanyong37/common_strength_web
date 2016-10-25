@@ -4,37 +4,29 @@ const Main = {
   },
   getClientCardList: () => {
     $.ajax({
-      url: '/api/member/getCardOperationsInfo',
+      url: '/api/admin/operations',
       type: 'get',
       dataType: 'json',
-      data: {
-        memberShipId: '',
-        currentPage: 1,
-        pageSize: 10,
-        keyword: ''
+      headers: {
+        'X-Api-Key': csTools.token
       },
       success: function(result){
         console.log(result);
-        Main.setNunjucksTmp({
-          tpl_pay_template: '#tmp_client_list',
-          index_container: '.list-box',
-          data: result.data
-        });
+        if(result.data){
+          // csTools.setNunjucksTmp({
+          //   tmpSelector: '',
+          //   boxSelector: '',
+          //   data: result.data,
+          //   callback: () => {
+          //
+          //   }
+          // });
+        }
+
       }
     });
   },
-  setNunjucksTmp: (options) => {
-    const tpl_pay_template = $(options.tmpSelector).html();
-    const html = nunjucks.renderString(tpl_pay_template, {data: options.data});
-    const index_container = $(options.boxSelector);
 
-    if(options.isAppend){
-      index_container.append(html);
-    }else{
-      index_container.html(html);
-    }
-    options.callback();
-  },
 };
 
 (function(){
