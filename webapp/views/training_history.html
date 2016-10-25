@@ -9,14 +9,14 @@
 {% block body -%}
 <div class="member-list">
   <div class="content-add form-add">
-    <div class='input-group date datetimepicker start_datetime iy-left'>
+    <!-- <div class='input-group date datetimepicker start_datetime iy-left'>
       <input type='text' id="start_datetime" class="form-control" placeholder="请输入开始时间">
       <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
     </div>
     <div class='input-group date datetimepicker over_datetime iy-left'>
       <input type='text' id="over_datetime" class="form-control" placeholder="请输入结束时间">
       <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-    </div>
+    </div> -->
     <select id="select-course" class="selectpicker select-control" title="请选择课程">
       {% raw %}
       <script type="text/template" id="temp_courseList">
@@ -37,13 +37,13 @@
       {% endraw %}
     </select>
 
-    <div class='input-group search-control iy-left'>
+    <!-- <div class='input-group search-control iy-left'>
       <input type='text' id="search_input" class="form-control" placeholder="请输入关键字">
+    </div> -->
+    <div class="btn-bar iy-left">
+      <div class="btn btn-large btn-info">搜索</div>
+      <div class="btn btn-large btn-info">导出</div>
     </div>
-  </div>
-  <div class="btn-bar">
-    <div class="btn btn-large btn-info">搜索</div>
-    <div class="btn btn-large btn-info">导出</div>
   </div>
   <div class="content-text">
     <ul class="content-table title">

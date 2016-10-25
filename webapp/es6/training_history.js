@@ -1,5 +1,9 @@
 const Main = {
   init: () => {
+    Main.getTraninings({
+      store_id: '',
+      customer_id: ''
+    });
     $('#select-store').selectpicker({
       size: 5
     });
@@ -9,9 +13,33 @@ const Main = {
       size: 5
     });
     Main.getCustomerList();
-  },
-  getTraninings: () => {
 
+
+  },
+  getTraninings: (a) => {
+    if (a.store_id == undefined) {
+      a.store_id = "";
+    }
+
+    if (a.customer_id == undefined) {
+      a.customer_id = "";
+    }
+
+    $.ajax({
+      url: '/api/admin/trainings?store_id=' + a.store_id + "&customer_id=" + a.customer_id,
+      data:{
+        'store_id': a.store_id,
+        'customer_id': a.customer_id
+      },
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      type: 'get',
+      dataType: 'json',
+      success: (result) => {
+        console.log(result)
+      }
+    })
   },
   getStoreList: () => {
       $.ajax({
@@ -45,7 +73,6 @@ const Main = {
       });
     },
     getCustomerList: () => {
-      console.log(1);
       $.ajax({
         url: '/api/admin/customers',
         type: 'get',
@@ -54,7 +81,6 @@ const Main = {
           'X-Api-Key': csTools.token,
         },
         success: (result) => {
-          console.log(result);
           const data = result.data;
           csTools.setNunjucksTmp({
             tmpSelector: '#temp_courseList',
@@ -65,6 +91,11 @@ const Main = {
               $('#select-course').selectpicker('refresh');
             }
           });
+        },
+        error: (xhr, textStatus, errorThrown) => {
+          if(xhr.status == 403){
+            location.href = 'login';
+          }
         }
       })
     }
