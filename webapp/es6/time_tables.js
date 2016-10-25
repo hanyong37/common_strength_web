@@ -27,6 +27,12 @@ const Main = {
     $('#course_date').datetimepicker({
       format: 'YYYY-MM-DD'
     });
+    $('#copy_datetime').datetimepicker({
+      format: 'YYYY-MM-DD'
+    });
+    $('#parse_datetime').datetimepicker({
+      format: 'YYYY-MM-DD'
+    });
     var $startDatetime = $('#start_datetime');
     var $overDatetime = $('#over_datetime');
     $startDatetime.datetimepicker({
@@ -43,6 +49,21 @@ const Main = {
     Main.getStoreList();
     $('.js-btn-save').on('click', function(){
       Main.postSchedules();
+    });
+
+    $('.js-btn-copy').on('click', function(){
+      let copy_datetime = $('#copy_datetime').val();
+      let parse_datetime = $('#parse_datetime').val();
+      Main.copySchedules(copy_datetime, parse_datetime);
+    });
+    $('.js-btn-delete').on('click', function(){
+    let delete_datetime = Main.theDate;
+      csTools.msgConfirmShow({
+        msg: '确认清空当前课程表?',
+        callback: () => {
+          Main.deleteSchedules(delete_datetime);
+        }
+      });
     });
 
     Main.setWeekTitle();
@@ -194,6 +215,100 @@ const Main = {
       }
     });
   },
+  copySchedules: (copy_datetime, parse_datetime) => {
+    console.log(copy_datetime, parse_datetime);
+    let storeId = $('.select-store').selectpicker('val');
+    if(!storeId){
+      $('#copy_modal').modal('hide');
+      csTools.msgModalShow({
+        msg: '请先选择门店！',
+      });
+      return false;
+    }
+    $.ajax({
+      url: '/api/admin/stores/'+ storeId +'/schedules_by_week',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        from_week: copy_datetime,
+        to_week: parse_datetime
+      },
+      headers: {
+        'X-Api-Key': csTools.token
+      },
+      complete: (result) => {
+        if(result.status == 200){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '复制课程表成功！',
+            callback: () => {
+              Main.getSchedules(storeId);
+            }
+          });
+        }else if(result.status == 409){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '目标时间已存在课程表记录，请删除后复制！'
+          });
+        }else if(result.status == 403){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '所选时间没有制定课程！'
+          });
+        }else{
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '未知失败原因！'
+          });
+        }
+      }
+    });
+  },
+  deleteSchedules: (delete_datetime) => {
+    console.log(delete_datetime);
+    let storeId = $('.select-store').selectpicker('val');
+    if(!storeId){
+      $('#copy_modal').modal('hide');
+      csTools.msgModalShow({
+        msg: '请先选择门店！',
+      });
+      return false;
+    }
+    $.ajax({
+      url: '/api/admin/stores/'+ storeId +'/schedules_by_week/' + delete_datetime,
+      type: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token
+      },
+      complete: (result) => {
+        if(result.status == 204){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '清空课程表成功！',
+            callback: () => {
+              Main.getSchedules(storeId);
+            }
+          });
+        }else if(result.status == 409){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '当前课程表存在记录，删除失败！'
+          });
+        }else if(result.status == 403){
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '当前课程表没有制定课程！'
+          });
+        }else{
+          $('#copy_modal').modal('hide');
+          csTools.msgModalShow({
+            msg: '未知失败原因！'
+          });
+        }
+      }
+    });
+  },
   getSchedules: (sid) => {
     if(!sid){
       return false;
@@ -204,7 +319,7 @@ const Main = {
     let weekArr = csTools.getWeekDay(weekDay);
 
     $.ajax({
-      url: '/api/admin/schedules?storeid=' + storeId + '&by_week=' + weekDay,
+      url: '/api/admin/stores/' + storeId + '/schedules_by_week/' + weekDay,
       type: 'get',
       dataType: 'json',
       headers: {

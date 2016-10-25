@@ -18,35 +18,13 @@
   <div class="tab-container">
     <div class="content-text tab-container-block trainings-block">
       <ul class="content-table title">
+        <li class="table-checkbox"> </li>
         <li>时间</li>
         <li>门店</li>
         <li class="table-cell-info">课程名称</li>
         <li>状态</li>
       </ul>
-      <ul class="content-table">
-        <li>2015-12-30</li>
-        <li>门店一，门店二</li>
-        <li class="table-cell-info">课程一，课程二</li>
-        <li>完成</li>
-      </ul>
-      <ul class="content-table">
-        <li>2015-12-30</li>
-        <li>门店一，门店二</li>
-        <li class="table-cell-info">课程一，课程二</li>
-        <li>取消预约</li>
-      </ul>
-      <ul class="content-table">
-        <li>2015-12-30</li>
-        <li>门店一，门店二</li>
-        <li class="table-cell-info">课程一，课程二</li>
-        <li>排队</li>
-      </ul>
-      <ul class="content-table">
-        <li>2015-12-30</li>
-        <li>门店一，门店二</li>
-        <li class="table-cell-info">课程一，课程二</li>
-        <li>完成</li>
-      </ul>
+      <div class="training-container"></div>
       <nav>
         <ul class="pagination iy-right">
           <li><a href="#">&laquo;</a></li>
@@ -69,45 +47,14 @@
 
     <div class="content-text tab-container-block operating-block">
       <ul class="content-table title">
-        <li class="table-checkbox">1</li>
-        <li>会员名称</li>
-        <li>会员卡类型</li>
-        <li>操作</li>
-        <li class="table-cell-info">操作</li>
+        <li class="table-checkbox"> </li>
+        <li>操作人</li>
+        <li>变更用户</li>
+        <li>操作时间</li>
+        <li class="table-cell-info">操作说明</li>
       </ul>
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
+      <div class="opt-container"></div>
+
       <nav>
         <ul class="pagination iy-right">
           <li><a href="#">&laquo;</a></li>
@@ -131,7 +78,49 @@
   <div class="member-row"><span>状态：{%if data['is-locked']%}正常{% else %}锁定{%endif%}</span><span>门店：{{ data['store-name'] }}</span></div>
   {% endraw %}
 </script>
+
+<script id="tmp_opt_block" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <ul class="content-table">
+    <li class="table-checkbox">{{loop.index}}</li>
+    <li>{{ item.attributes['customer-name'] }}</li>
+    <li>{{ item.attributes['user-name'] }}</li>
+    <li>{{ item.attributes['created-at'] }}</li>
+    <li class="table-cell-info">
+      <p>
+        {{item.attributes['description']}}
+      </p>
+    </li>
+  </ul>
+  {% endfor %}
+  {% endraw %}
+</script>
+
+<script id="tmp_training_block" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <ul class="content-table">
+    <li class="table-checkbox">{{loop.index}}</li>
+    <li>{{item.attributes['updated_at']}}</li>
+    <li>{{item.attributes['store_name']}}</li>
+    <li class="table-cell-info">{{item.attributes['course_name']}}</li>
+    <li>
+      {% if item.attributes['training_status'] === 'complete' %}
+      完成
+      {% elif item.attributes['training_status'] === 'absence' %}
+      缺席
+      {% elif item.attributes['training_status'] === 'be_late' %}
+      迟到
+      {% endif %}
+    </li>
+  </ul>
+  {% endfor %}
+  {% endraw %}
+</script>
+
 {%- endblock %}
 {% block script -%}
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
 <script src="js/client_member_info.js"></script>
 {%- endblock %}

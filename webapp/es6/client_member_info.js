@@ -1,12 +1,13 @@
 let Main = {
+  customersId: '',
   urlPath: '',
   init: () => {
     let Url = $.url();
     let code = Url.fparam('code');
     if(code){
       let id = csTools.utf8to16(csTools.base64decode(code));
+      Main.customersId = id;
       Main.getCustomers(id);
-      Main.getOperations(id);
     }else{
       location.href = 'clientList';
     }
@@ -27,10 +28,13 @@ let Main = {
     $tabBlock.on('click', function(){
       let index = $(this).index();
       let url = Main.urlPath;
+      let id = Main.customersId;
       if(index == 0){
         url += '&type=active';
+        Main.getTrainings(id);
       }else{
         url += '&type=unactive';
+        Main.getOperations(id);
       }
       history.replaceState({ foo: 'bar'}, 'tab ' + index, url);
       $tabBlock.removeClass('active').eq(index).addClass('active');
@@ -69,7 +73,7 @@ let Main = {
   },
   getOperations: (id) => {
     $.ajax({
-      url: '/api/admin/customers?customer_id' + id,
+      url: '/api/admin/customers/' + id +'/operations',
       type: 'get',
       dataType: 'json',
       headers: {
@@ -77,6 +81,42 @@ let Main = {
       },
       success: (result) => {
         console.log('getOperations', result);
+        if(result.data){
+          let data = result.data;
+          for(let i =0, lg = data.length; i<lg; i++){
+            data.attributes['created-at'] = memont(data.attributes['created-at']).format('YYYY-MM-DD');
+          }
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_opt_block',
+            boxSelector: '.opt-container',
+            data: result.data
+          });
+        }
+      }
+    });
+  },
+  getTrainings: (id) => {
+    $.ajax({
+      url: '/api/admin/customers/' + id +'/trainings',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token,
+      },
+      success: (result) => {
+        console.log('getTrainings', result);
+        if(result.data){
+          let data = result.data;
+          for(let i =0, lg = data.length; i<lg; i++){
+            data.attributes['updated_at'] = memont(data.attributes['updated_at']).format('YYYY-MM-DD');
+          }
+
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_training_block',
+            boxSelector: '.training-container',
+            data: result.data
+          });
+        }
       }
     });
   },

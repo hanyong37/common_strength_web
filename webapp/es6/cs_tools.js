@@ -255,25 +255,31 @@ const csTools = {
     }
     return out;
   },
+  getDateStr: (dayDate, AddDayCount) => {
+      var dd = new Date(dayDate);
+      dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+      var y = dd.getFullYear();
+      var m = dd.getMonth()+1;//获取当前月份的日期
+      var d = dd.getDate();
+      return y+"/"+m+"/"+d;
+  },
   getWeekDay: (_date) => {
     let mDate = new Date();
+    let getDateStr = csTools.getDateStr;
     if(_date){
       mDate = new Date(_date);
     }
-    let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     let tWeek = mDate.getDay();
-    let tDay = mDate.getDate();
-    let tYear = mDate.getYear() + 1900;
-    let tMonth = mDate.getMonth() + 1;
-
+    let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     if(tWeek === 0){
       tWeek = 7;
     }
-    let sDay = tDay - tWeek + 1;
+    let changCount = 1 - tWeek;
+    let sDay = getDateStr(mDate, changCount);
 
     let dateArr = [];
     for(let i = 0; i < 7; i++){
-      let oDate = tYear + '/' + tMonth + '/' + (sDay + i);
+      let oDate = getDateStr(sDay, i);
       let obj = {
         date: oDate,
         week: weekArr[i]
