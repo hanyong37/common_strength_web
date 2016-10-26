@@ -41,23 +41,59 @@
       <input type='text' id="search_input" class="form-control" placeholder="请输入关键字">
     </div> -->
     <div class="btn-bar iy-left">
-      <div class="btn btn-large btn-info">搜索</div>
+      <div id="j-search" class="btn btn-large btn-info">搜索</div>
       <div class="btn btn-large btn-info">导出</div>
     </div>
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"></li>
       <li>会员名称</li>
       <li>门店</li>
       <li class="table-cell-2">课程</li>
       <li class="table-cell-3">上课时间</li>
       <li  class="table-cell-2">电话</li>
       <li>状态</li>
-      <li>容量</li>
+      <!-- <li>容量</li> -->
       <li class="table-cell-2">操作</li>
     </ul>
-    <ul class="content-table content-table-member">
+
+    {% raw %}
+    <script type="text/template" id="tempList">
+      {% for items in data %}
+      <ul class="content-table content-table-member">
+        <li class="table-checkbox">{{ loop.index }}</li>
+        <li>{{ items.attributes['customer-name'] }}</li>
+        <li>{{ items.attributes['store-name'] }}</li>
+        <li class="table-cell-2">{{ items.attributes['course-name'] }}</li>
+        <li class="table-cell-3">{{ items.attributes['start-time'] }}</li>
+        <li class="table-cell-2">{{ items.attributes['booking-status'] }}</li>
+
+        {% if items.attributes['booking-status'] == 'booked' and items.attributes['training-status'] == 'not_start' %}
+        <li>容量未满</li>
+        {% elif items.attributes['booking-status'] == 'waiting ' and items.attributes['training-status'] == 'not_start' %}
+        <li>容量已满</li>
+        {% elif items.attributes['booking-status'] == 'cancelled ' and items.attributes['training-status'] == 'not_start' %}
+        <li>取消预约</li>
+        {% elif items.attributes['booking-status'] == 'booked' and items.attributes['training-status'] == 'complete' %}
+        <li>完成</li>
+        {% elif items.attributes['booking-status'] == 'booked' and items.attributes['training-status'] == 'absence' %}
+        <li>缺席</li>
+        {% elif items.attributes['booking-status'] == 'booked' and items.attributes['training-status'] == 'be_late' %}
+        <li>迟到</li>
+        {% elif items.attributes['booking-status'] == 'no_booking' and items.attributes['training-status'] == 'complete' %}
+        <li>未预约</li>
+        {% endif %}
+
+        <li class="table-cell-2">
+          <a href="#">完成</a>
+          <a href="#">缺勤</a>
+        </li>
+      </ul>
+      {% endfor %}
+    </script>
+    {% endraw %}
+    <!-- <ul class="content-table content-table-tourist">
       <li class="table-checkbox">1</li>
       <li>胡彦斌</li>
       <li>门店名称</li>
@@ -84,21 +120,7 @@
         <a href="#">完成</a>
         <a href="#">缺勤</a>
       </li>
-    </ul>
-    <ul class="content-table content-table-tourist">
-      <li class="table-checkbox">1</li>
-      <li>胡彦斌</li>
-      <li>门店名称</li>
-      <li class="table-cell-2">课程名称</li>
-      <li class="table-cell-3">2015-08-09 7:30 - 8:30</li>
-      <li class="table-cell-2">13376252234</li>
-      <li>状态</li>
-      <li>5</li>
-      <li class="table-cell-2">
-        <a href="#">完成</a>
-        <a href="#">缺勤</a>
-      </li>
-    </ul>
+    </ul> -->
 
     <nav>
       <ul class="pagination iy-right">
@@ -121,19 +143,4 @@
 <script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/js/training_history.js"></script>
-<script>
-
-  var $startDatetime = $('.start_datetime');
-  var $overDatetime = $('.over_datetime');
-  $startDatetime.datetimepicker({
-    format: 'YYYY-MM-DD hh:mm'
-  });
-  $overDatetime.datetimepicker({
-    format: 'YYYY-MM-DD hh:mm',
-    useCurrent: false
-  });
-  $startDatetime.on("dp.change", function (e) {
-    $overDatetime.data("DateTimePicker").minDate(e.date);
-  });
-</script>
 {%- endblock %}

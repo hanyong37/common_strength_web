@@ -4,6 +4,7 @@ const Main = {
       store_id: '',
       customer_id: ''
     });
+
     $('#select-store').selectpicker({
       size: 5
     });
@@ -14,19 +15,21 @@ const Main = {
     });
     Main.getCustomerList();
 
+    setTimeout(() => {
+      $("#j-search").on('click', function() {
+        let _storeId = $("#select-store").val();
+        let _customerId = $("#select-course").val();
 
+        Main.getTraninings({
+          store_id: _storeId,
+          customer_id: _customerId
+        });
+      });
+    }, 200);
   },
   getTraninings: (a) => {
-    if (a.store_id == undefined) {
-      a.store_id = "";
-    }
-
-    if (a.customer_id == undefined) {
-      a.customer_id = "";
-    }
-
     $.ajax({
-      url: '/api/admin/trainings?store_id=' + a.store_id + "&customer_id=" + a.customer_id,
+      url: '/api/admin/trainings/',
       data:{
         'store_id': a.store_id,
         'customer_id': a.customer_id
@@ -37,7 +40,14 @@ const Main = {
       type: 'get',
       dataType: 'json',
       success: (result) => {
-        console.log(result)
+        console.log(result);
+        var data = result.data;
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tempList',
+          boxSelector: '.content-table.title',
+          isAppend: 'after',
+          data: data
+        });
       }
     })
   },

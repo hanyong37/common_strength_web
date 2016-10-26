@@ -38,14 +38,30 @@ const csTools = {
     const html = nunjucks.renderString(tpl_pay_template, {data: options.data});
     const index_container = $(options.boxSelector);
 
-    if(options.isAppend){
+    if(options.isAppend == "append"){
+      // 元素结尾
       index_container.append(html);
-    }else{
-      index_container.html(html);
+    } else if (options.isAppend == "prepend"){
+      // 元素开头
+      index_container.prepend(html);
+    } else if (options.isAppend  == "before"){
+      // 元素之前
+      index_container.before(html);
+    } else if (options.isAppend  == "after") {
+      // 元素之后
+      index_container.after(html);
+    } else {
+      if(options.isAppend){
+        index_container.append(html);
+      }else{
+        index_container.html(html);
+      }
     }
+
     if(options.callback){
       options.callback();
     }
+
   },
   setPagination: (options) => {
     let _pagination = $('.pagination');
