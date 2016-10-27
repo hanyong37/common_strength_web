@@ -74,44 +74,47 @@ const csTools = {
       $(".pageNext").before(html);
     }
     $(".pagination li:eq(1)").addClass('active');
-    $(".pagination").on("click", "li", function() {
+    $(".pagination").off('click').on("click", "li", function() {
       let _self = $(this);
       let _index = _self.index();
       console.log(_index);
-      if (!_self.hasClass("pageUp") && !_self.hasClass("pageNext")) {
-        $(".pagination li").removeClass('active');
-        _self.addClass('active');
-        if(options.pageCallback){
-          options.pageCallback(_index);
-        }
-      } else {
+      if (_index != options.pageNum || _index != 0) {
+        if (!_self.hasClass("pageUp") && !_self.hasClass("pageNext")) {
+          $(".pagination li").removeClass('active');
+          _self.addClass('active');
+          if(options.pageCallback){
+            options.pageCallback(_index);
+          }
+        } else {
 
-        // 上一页
-        if(_index == 0) {
-          // if(options.upCallback){
-            let num = $(".pagination li.active").index();
-            let _index = num - 1;
-            if (_index != 0) {
-              console.log(_index);
-              $(".pagination li").removeClass('active').eq(_index).addClass('active');
-              options.pageCallback(_index);
-            }
-          // }
-        }
+          // 上一页
+          if(_index == 0) {
+            // if(options.upCallback){
+              let num = $(".pagination li.active").index();
+              let _index = num - 1;
+              if (_index != 0) {
+                console.log(_index);
+                $(".pagination li").removeClass('active').eq(_index).addClass('active');
+                options.pageCallback(_index);
+              }
+            // }
+          }
 
-        // 下一页
-        if (_index > options.pageNum) {
-          // if (options.nextCallback) {
-            let num = $(".pagination li.active").index();
-            let _index = num + 1;
-            if (_index != 0) {
-              console.log(_index);
-              $(".pagination li").removeClass('active').eq(_index).addClass('active');
-              options.pageCallback(_index);
-            }
-          // }
+          // 下一页
+          if (_index > options.pageNum) {
+            // if (options.nextCallback) {
+              let num = $(".pagination li.active").index();
+              let _index = num + 1;
+              if (_index != 0) {
+                console.log(_index);
+                $(".pagination li").removeClass('active').eq(_index).addClass('active');
+                options.pageCallback(_index);
+              }
+            // }
+          }
         }
       }
+
     });
 
     // $(".pageUp").on("click", function() {

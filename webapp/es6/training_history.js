@@ -57,13 +57,23 @@ const Main = {
         });
 
         csTools.setPagination({
-          pageNum: result.meta['total-pages']
+          pageNum: result.meta['total-pages'],
+          pageCallback: (_index) => {
+            Main.getTraninings({
+              store_id: a.store_id,
+              customer_id: a.customer_id,
+              page: _index,
+              listNum: 10
+            });
+          }
         });
       }
     })
   },
   updateTraninings: () => {
-
+    $.ajax({
+      url: ''
+    })
   },
   getStoreList: () => {
       $.ajax({
