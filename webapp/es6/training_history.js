@@ -2,7 +2,9 @@ const Main = {
   init: () => {
     Main.getTraninings({
       store_id: '',
-      customer_id: ''
+      customer_id: '',
+      listNum: 10,
+      page: 1
     });
 
     $('#select-store').selectpicker({
@@ -22,7 +24,9 @@ const Main = {
 
         Main.getTraninings({
           store_id: _storeId,
-          customer_id: _customerId
+          customer_id: _customerId,
+          page: 1,
+          listNum: 10
         });
       });
     }, 200);
@@ -32,7 +36,9 @@ const Main = {
       url: '/api/admin/trainings/',
       data:{
         'store_id': a.store_id,
-        'customer_id': a.customer_id
+        'customer_id': a.customer_id,
+        'per_page': a.listNum,
+        'page': a.page
       },
       headers: {
         'X-Api-Key': csTools.token,
@@ -42,14 +48,22 @@ const Main = {
       success: (result) => {
         console.log(result);
         var data = result.data;
+        $(".temp-list").remove();
         csTools.setNunjucksTmp({
           tmpSelector: '#tempList',
           boxSelector: '.content-table.title',
           isAppend: 'after',
           data: data
         });
+
+        csTools.setPagination({
+          pageNum: result.meta['total-pages']
+        });
       }
     })
+  },
+  updateTraninings: () => {
+
   },
   getStoreList: () => {
       $.ajax({

@@ -52,7 +52,7 @@
       <li>门店</li>
       <li class="table-cell-2">课程</li>
       <li class="table-cell-3">上课时间</li>
-      <li  class="table-cell-2">电话</li>
+      <!-- <li  class="table-cell-2">电话</li> -->
       <li>状态</li>
       <!-- <li>容量</li> -->
       <li class="table-cell-2">操作</li>
@@ -61,13 +61,13 @@
     {% raw %}
     <script type="text/template" id="tempList">
       {% for items in data %}
-      <ul class="content-table content-table-member">
+      <ul class="content-table temp-list">
         <li class="table-checkbox">{{ loop.index }}</li>
         <li>{{ items.attributes['customer-name'] }}</li>
         <li>{{ items.attributes['store-name'] }}</li>
         <li class="table-cell-2">{{ items.attributes['course-name'] }}</li>
         <li class="table-cell-3">{{ items.attributes['start-time'] }}</li>
-        <li class="table-cell-2">{{ items.attributes['booking-status'] }}</li>
+        <!-- <li class="table-cell-2">{{ items.attributes['booking-status'] }}</li> -->
 
         {% if items.attributes['booking-status'] == 'booked' and items.attributes['training-status'] == 'not_start' %}
         <li>容量未满</li>
