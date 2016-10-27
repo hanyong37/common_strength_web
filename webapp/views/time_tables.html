@@ -97,62 +97,26 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary js-btn-save">新增</button>
+        <button type="button" class="btn btn-primary js-btn-save">保存</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="course_edit_modal" class="modal fade">
+<div id="course_show_modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">修改课程</h4>
       </div>
-      <div class="modal-body">
-        <form role="form">
-          <div class="form-group">
-            <label for="course_date">上课日期</label>
-            <div class='input-group date datetimepicker'>
-              <input type='text' id="edit_course_date" class="form-control start_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="start_datetime">开始时间</label>
-            <div class='input-group date datetimepicker'>
-              <input type='text' id="edit_start_datetime" class="form-control start_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="over_datetime">结束时间</label>
-            <div class='input-group date datetimepicker '>
-              <input type='text' id="edit_over_datetime" class="form-control over_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="select_store_add">选择门店</label>
-            <select id="edit_select_store_add" class="form-control" title="请选择门店" >
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="select_course">选择课程</label>
-            <select id="edit_select_course" class="form-control" title="请选择课程">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="course_number">课程人数</label>
-            <input type="number" class="form-control" id="edit_course_number" placeholder="">
-          </div>
-        </form>
+      <div id="course_show_body" class="modal-body">
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary js-btn-save">修改</button>
+        <button type="button" class="btn btn-danger js-btn-del">删除</button>
+        <button type="button" class="btn btn-primary js-btn-update">修改</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -193,7 +157,7 @@
 </div><!-- /.modal -->
 
 
-<script id="tmp_shcedules" type="text/template">
+<script id="tmp_schedules" type="text/template">
   {% raw %}
   <div class="c-c-column calendar-course">
   {% for item in data.resouce %}
@@ -236,7 +200,27 @@
   {% endfor %}
   {% endraw %}
 </script>
-
+<script id="tmp_show_block" type="text/template">
+  {% raw %}
+  <form role="form" data-id="{{data.id}}">
+    <div class="form-group">
+      <label>开始时间:</label>{{ data.courseDate }} {{ data.startTime }}
+    </div>
+    <div class="form-group">
+      <label>结束时间:</label>{{ data.courseDate }} {{ data.endTime }}
+    </div>
+    <div class="form-group" data-id="{{ data.storeId }}">
+      <label>门店名称:</label>{{ data.storeName }}
+    </div>
+    <div class="form-group" data-id="{{ data.courseId }}">
+      <label>课程名称:</label>{{ data.courseName }}
+    </div>
+    <div class="form-group">
+      <label>课程人数:</label>{{ data.capacity }}
+    </div>
+  </form>
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block modal -%}
 {% include 'layout/modal.html' %}

@@ -1,5 +1,6 @@
 const Main = {
   theDate: moment().format('YYYY-MM-DD'),
+  scheduleData: {},
   init: () => {
     $('.select-store').selectpicker({
       size: 5,
@@ -50,6 +51,20 @@ const Main = {
     $('.js-btn-save').on('click', function(){
       Main.postSchedules();
     });
+    $('.js-btn-del').on('click', function(){
+      csTools.msgConfirmShow({
+        msg: '确认删除此节课?',
+        callback: () => {
+          let id =$('#course_show_modal').data('id');
+          Main.deleteSchedule(id);
+        }
+      });
+    });
+    $('.js-btn-update').on('click', function(){
+      $('#course_show_modal').modal('hide');
+      $('#course_modal').modal('show');
+      Main.setSchedule();
+    });
 
     $('.js-btn-copy').on('click', function(){
       let copy_datetime = $('#copy_datetime').val();
@@ -75,6 +90,11 @@ const Main = {
     $('.btn-calendar-next').on('click', function(){
       let nextDate = Main.nextWeek();
       Main.setWeekTitle(nextDate);
+    });
+
+    $('#schedules_list').on('click', '.column-cell', function(){
+      let id = $(this).data('id');
+      Main.editSchedule(id);
     });
   },
   setWeekTitle: (_date) => {
@@ -138,7 +158,7 @@ const Main = {
       }
     });
   },
-  getCourseList: ()=> {
+  getCourseList: (id)=> {
     let storeId = $('#select_store_add').selectpicker('val');
     $.ajax({
       url: '/api/admin/courses?store_id=' + storeId,
@@ -157,6 +177,9 @@ const Main = {
             isAppend: true,
             callback: ()=>{
               $('#select_course').selectpicker('refresh');
+              if(id){
+                $('#select_course').selectpicker('val', id);
+              }
             }
           });
         }
@@ -166,6 +189,16 @@ const Main = {
   createDate: (str) => {
     let rdate = new Date(str);
     return rdate;
+  },
+  setSchedule: () => {
+    let data = Main.scheduleData;
+    $('#course_modal').data('id', data.id);
+    $('#course_date').val(data.courseDate);
+    $('#start_datetime').val(data.startTime);
+    $('#over_datetime').val(data.endTime);
+    $('#select_store_add').selectpicker('val', data.storeId);
+    Main.getCourseList(data.courseId);
+    $('#course_number').val(data.capacity);
   },
   postSchedules: () => {
     let cDate = Main.createDate;
@@ -180,20 +213,29 @@ const Main = {
       "schedule[end_time]": cDate(end_time),
       "schedule[capacity]": $('#course_number').val()
     };
+    let type = 'POST';
+    let dataId = $('#course_modal').data('id');
+    let msg = '添加课程';
+    if(dataId){
+      type = 'PUT';
+      msg = '修改课程';
+    }else{
+      dataId = '';
+    }
 
     $.ajax({
-      url: '/api/admin/schedules/',
+      url: '/api/admin/schedules/' + dataId,
       headers: {
         "X-Api-Key": csTools.token
       },
-      type: 'POST',
+      type,
       dataType: 'json',
       data,
       complete: (result) => {
-        if(result.status == 201){
+        if(result.status == 201 || result.status == 200){
           $('#course_modal').modal('hide');
           csTools.msgModalShow({
-            msg: '添加课程成功！',
+            msg: msg + '成功！',
             callback: () => {
               $('#select_store_add').selectpicker('val', '');
               $('#select_course').selectpicker('val', '');
@@ -208,7 +250,7 @@ const Main = {
           });
         }else{
           csTools.msgModalShow({
-            msg: '添加课程失败！'
+            msg: msg + '失败！'
           });
         }
 
@@ -264,6 +306,38 @@ const Main = {
       }
     });
   },
+  deleteSchedule: (id) => {
+    $.ajax({
+      url: '/api/admin/schedules/' + id,
+      type: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': csTools.token
+      },
+      complete: (result) => {
+        if(result.status == 204){
+          csTools.msgModalShow({
+            msg: '删除成功！',
+            callback: () => {
+              $('#course_show_modal').modal('hide');
+            }
+          });
+        }else if(result.status == 404){
+          csTools.msgModalShow({
+            msg: '课程已被删除！',
+            callback: () => {
+              $('#course_show_modal').modal('hide');
+            }
+          });
+        }else{
+          csTools.msgModalShow({
+            msg: '删除课程失败！',
+          });
+        }
+
+      }
+    });
+  },
   deleteSchedules: (delete_datetime) => {
     console.log(delete_datetime);
     let storeId = $('.select-store').selectpicker('val');
@@ -309,6 +383,55 @@ const Main = {
       }
     });
   },
+  editSchedule: (id) => {
+    Main.scheduleData = {};
+    $.ajax({
+      url: '/api/admin/schedules/' + id,
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      success: (result) => {
+        console.log(result);
+        if(result.data){
+          let id = result.data.id;
+          let attributes = result.data.attributes;
+          let courseDate = moment(attributes['start-time']).format('YYYY-MM-DD');
+          let startTime = moment(attributes['start-time']).format('HH:mm');
+          let endTime = moment(attributes['end-time']).format('HH:mm');
+          let capacity = attributes.capacity;
+          let storeId = attributes['store-id'];
+          let storeName = attributes['store-name'];
+          let courseId = attributes['course-id'];
+          let courseName = attributes['course-name'];
+
+          let tmpData = {
+            id,
+            courseDate,
+            startTime,
+            endTime,
+            storeId,
+            storeName,
+            courseId,
+            courseName,
+            capacity,
+          };
+
+          Main.scheduleData = tmpData;
+
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_show_block',
+            boxSelector: '#course_show_body',
+            data: tmpData,
+            callback: () => {
+              $('#course_show_modal').modal('show');
+            }
+          });
+        }
+      }
+    });
+  },
   getSchedules: (sid) => {
     if(!sid){
       return false;
@@ -340,7 +463,7 @@ const Main = {
               tDate: weekArr[i2].date
           };
           csTools.setNunjucksTmp({
-            tmpSelector: '#tmp_shcedules',
+            tmpSelector: '#tmp_schedules',
             boxSelector: '#schedules_list',
             data,
             isAppend: true
