@@ -7,87 +7,66 @@
 {% block body -%}
 <div class="member-list">
   <div class="content-add">
-    <div class="input-group iy-right">
-      <input type="text" class="form-control" placeholder="请输入关键词">
-      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
-    </div>
+    <!--<div class="input-group iy-right">-->
+      <!--<input type="text" class="form-control" placeholder="请输入关键词">-->
+      <!--<span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>-->
+    <!--</div>-->
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"> </li>
       <li>会员名称</li>
       <li>会员卡类型</li>
-      <li>操作</li>
-      <li class="table-cell-info">说明</li>
+      <li>操作人</li>
+      <li>操作时间</li>
+      <li class="table-cell-4">说明</li>
     </ul>
     <div class="list-box">
 
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
-      <ul class="content-table">
-        <li class="table-checkbox">1</li>
-        <li>胡彦斌</li>
-        <li>时间卡</li>
-        <li>变更截止日期</li>
-        <li class="table-cell-info">
-          <p>
-            这里是说明这里是说明
-          </p>
-        </li>
-      </ul>
     </div>
-    <nav>
-      <ul class="pagination iy-right">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
-    </nav>
+    <!--<nav>-->
+      <!--<ul class="pagination iy-right">-->
+        <!--<li><a href="#">&laquo;</a></li>-->
+        <!--<li><a href="#">1</a></li>-->
+        <!--<li><a href="#">2</a></li>-->
+        <!--<li><a href="#">3</a></li>-->
+        <!--<li><a href="#">4</a></li>-->
+        <!--<li><a href="#">5</a></li>-->
+        <!--<li><a href="#">&raquo;</a></li>-->
+      <!--</ul>-->
+    <!--</nav>-->
   </div>
 </div>
 
-<script id="tmp_client_list" type="text/template">
+
+<script id="tmp_opt_block" type="text/template">
   {% raw %}
   {% for item in data %}
   <ul class="content-table">
-    <li class="table-checkbox">1</li>
-    <li>胡彦斌</li>
-    <li>时间卡</li>
-    <li>变更截止日期</li>
-    <li class="table-cell-info">
+    <li class="table-checkbox">{{loop.index}}</li>
+    <li>{{ item.attributes['customer-name'] }}</li>
+    <li>
+      {% if item.attributes['membership-type'] == 'time_card' %}
+      时间卡
+      {% else %}
+      次卡
+      {% endif %}
+    </li>
+    <li>{{ item.attributes['user-name'] }}</li>
+    <li>{{ item.attributes['created_at'] }}</li>
+    <li class="table-cell-4 table-cell-info" title="{{item.attributes['description']}}">
       <p>
-        这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明这里是说明
+        {{item.attributes['description']}}
       </p>
     </li>
   </ul>
   {% endfor %}
   {% endraw %}
 </script>
+
 {%- endblock %}
 {% block script -%}
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
 <script src="/js/client_card_list.js"></script>
 {%- endblock %}

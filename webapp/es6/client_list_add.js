@@ -71,10 +71,16 @@ let Main = {
       success: (result) => {
 
         let attributes = result.data.attributes;
+        let memberType = attributes['membership-type'];
+        if(memberType != 'time_card'){
+          $('.form-dead-line').hide();
+          $('.form-residue-degree').show();
+        }
+
         $('[name=memberShipName]').val(attributes['name']);
         $('[name=memberShipTelephone]').val(attributes['mobile']);
         $('[name=memberShipWechatId]').val(attributes['weixin']);
-        $('.select-member-type').selectpicker('val', attributes['membership-type']);
+        $('.select-member-type').selectpicker('val', memberType);
         $('[name=deadLine]').val(attributes['membership-duedate']);
         $('[name=residueDegree]').val(attributes['membership-remaining-times']);
         $('.select-store').selectpicker('val', attributes['store-id']);

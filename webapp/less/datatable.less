@@ -62,12 +62,11 @@
       }
       &.table-cell-4 {
         .cellFlex(4);
+        padding: 5px;
       }
-      &.table-cell-info,
       &.table-cell-5 {
         .cellFlex(5);
         padding: 5px;
-        line-height: 30px;
       }
     }
 
@@ -87,13 +86,16 @@
 .table-cell-info {
   text-align: left;
   vertical-align: middle;
+  padding: 5px;
 
   p {
     display:-webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    margin: 0;
     overflow: hidden;
     text-align: left;
+    line-height: 30px;
   }
 }
 

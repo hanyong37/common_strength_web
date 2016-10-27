@@ -1,28 +1,28 @@
 const Main = {
   init: () => {
-    Main.getClientCardList();
+    Main.getOperations();
   },
-  getClientCardList: () => {
+  getOperations: () => {
     $.ajax({
       url: '/api/admin/operations',
       type: 'get',
       dataType: 'json',
       headers: {
-        'X-Api-Key': csTools.token
+        'X-Api-Key': csTools.token,
       },
-      success: function(result){
-        console.log(result);
+      success: (result) => {
+        console.log('getOperations', result);
         if(result.data){
-          // csTools.setNunjucksTmp({
-          //   tmpSelector: '',
-          //   boxSelector: '',
-          //   data: result.data,
-          //   callback: () => {
-          //
-          //   }
-          // });
+          let data = result.data;
+          for(let i =0, lg = data.length; i<lg; i++){
+            data[i].attributes['created_at'] = moment(data[i].attributes['created-at']).format('YYYY-MM-DD HH:mm');
+          }
+          csTools.setNunjucksTmp({
+            tmpSelector: '#tmp_opt_block',
+            boxSelector: '.list-box',
+            data: result.data
+          });
         }
-
       }
     });
   },

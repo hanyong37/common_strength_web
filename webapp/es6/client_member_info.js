@@ -84,7 +84,7 @@ let Main = {
         if(result.data){
           let data = result.data;
           for(let i =0, lg = data.length; i<lg; i++){
-            data.attributes['created-at'] = memont(data.attributes['created-at']).format('YYYY-MM-DD');
+            data[i].attributes['created_at'] = moment(data[i].attributes['created-at']).format('YYYY-MM-DD HH:mm');
           }
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_opt_block',
@@ -108,7 +108,7 @@ let Main = {
         if(result.data){
           let data = result.data;
           for(let i =0, lg = data.length; i<lg; i++){
-            data.attributes['updated_at'] = memont(data.attributes['updated_at']).format('YYYY-MM-DD');
+            data[i].attributes['updated_at'] = moment(data[i].attributes['updated-at']).format('YYYY-MM-DD HH:mm');
           }
 
           csTools.setNunjucksTmp({
