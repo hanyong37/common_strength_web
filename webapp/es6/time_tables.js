@@ -9,6 +9,10 @@ const Main = {
       let sid = $(this).selectpicker('val');
       Main.getSchedules(sid);
     });
+    $('#trainings_select').selectpicker({
+      size: 5,
+      liveSearch: true
+    });
 
     $('#select_store_add').selectpicker({
       size: 5,
@@ -100,6 +104,45 @@ const Main = {
     $('.btn-publish').on('click', function(){
       let hasClass = $(this).hasClass('unpublish');
       Main.publishEvent(hasClass);
+    });
+
+    $('.js-btn-create').on('click', function(){
+      let customer_id = $('#trainings_select').selectpicker('val');
+      let schedule_id = $(this).data('id');
+      let store_id = $('.select-store').selectpicker('val');
+      let booking_status = 'no_booking';
+      let training_status = 'not_start';
+      $.ajax({
+        url: '/api/admin/trainings/',
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          "X-Api-Key": csTools.token
+        },
+        data: {
+          "training[schedule_id]": schedule_id,
+          "training[customer_id]": customer_id,
+          "training[store_id]": store_id,
+          "training[booking_status]": booking_status,
+          "training[training_status]": training_status
+        },
+        complete: (result) => {
+          console.log(result);
+          //trainings_box
+          if(result.status == 201){
+            csTools.msgModalShow({
+              msg: '添加训练成功！',
+              callback: () => {
+                $('#trainings_modal').modal('hide');
+              }
+            });
+          }else{
+            csTools.msgModalShow({
+              msg: '添加训练失败！'
+            });
+          }
+        }
+      });
     });
   },
   setWeekTitle: (_date) => {
@@ -327,16 +370,9 @@ const Main = {
               $('#course_show_modal').modal('hide');
             }
           });
-        }else if(result.status == 404){
-          csTools.msgModalShow({
-            msg: '课程已被删除！',
-            callback: () => {
-              $('#course_show_modal').modal('hide');
-            }
-          });
         }else{
           csTools.msgModalShow({
-            msg: '删除课程失败！',
+            msg: '删除课程失败！'
           });
         }
 
@@ -431,9 +467,52 @@ const Main = {
             data: tmpData,
             callback: () => {
               $('#course_show_modal').modal('show');
+              Main.getTrainings(id);
             }
           });
         }
+      }
+    });
+  },
+  getTrainings: (id) => {
+
+    $('.js-btn-create').data('id', id);
+    $.ajax({
+      url: '/api/admin/schedules/' + id + '/trainings',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      success: (result) => {
+        console.log('trainings_box', result);
+        //trainings_box
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tmp_trainings_box',
+          boxSelector: '#trainings_box',
+          data: result.data
+        });
+      }
+    });
+
+    $.ajax({
+      url: '/api/admin/customers',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      success: (result) => {
+        console.log(result);
+        //trainings_box
+        csTools.setNunjucksTmp({
+          tmpSelector: '#tmp_select_customers',
+          boxSelector: '#trainings_select',
+          data: result.data,
+          callback: () => {
+            $('#trainings_select').selectpicker('refresh');
+          }
+        });
       }
     });
   },

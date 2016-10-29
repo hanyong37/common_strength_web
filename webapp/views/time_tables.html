@@ -57,7 +57,7 @@
   {% for item in data.resouce %}
     {% if data.tDate == item.attributes.thisDate %}
     <div class="column-cell" data-id="{{item.id}}">
-      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes.capacity}}/{{item.attributes.capacity}}</span></p>
+      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes['booked-number']}}/{{item.attributes.capacity}}</span></p>
       <p>{{item.attributes['course-name']}}</p>
     </div>
     {% endif %}
@@ -76,6 +76,13 @@
   {% raw %}
   {% for item in data %}
   <option value="{{ item.id }}" data-default-capacity="{{item.attributes['default-capacity']}}">{{ item.attributes.name }}</option>
+  {% endfor %}
+  {% endraw %}
+</script>
+<script id="tmp_select_customers" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
   {% endraw %}
 </script>
@@ -115,9 +122,40 @@
   </form>
   {% endraw %}
 </script>
+<script id="tmp_trainings_box" type="text/template">
+  {% raw %}
+  {% for item in data %}
+  <ul class="content-table">
+    <li>{{loop.index}}</li>
+    <li class="table-cell-2">{{ item.attributes['customer-name'] }}</li>
+    <li class="table-cell-2">
+      {% if item.attributes['booking-status'] == 'cancelled' %}
+        {% if item.attributes['training-status'] == 'not_start' %}
+          取消预约
+        {% endif %}
+      {% elif item.attributes['booking-status'] == 'waiting' %}
+        {% if item.attributes['training-status'] == 'not_start' %}
+          排队
+        {% endif %}
+      {% elif item.attributes['booking-status'] == 'booked' %}
+        {% if item.attributes['training-status'] == 'not_start' %}
+          预约
+        {% elif item.attributes['training-status'] == 'complete' %}
+          完成
+        {% elif item.attributes['training-status'] == 'absence' %}
+          缺席
+        {% elif item.attributes['training-status'] == 'be_late' %}
+          迟到
+        {% endif %}
+      {% endif %}
+    </li>
+    <li class="table-cell-4" data-id="{{ item.id }}"><a >取消预约</a><a >迟到</a><a >缺勤</a><a >完成</a></li>
+  </ul>
+  {% endfor %}
+  {% endraw %}
+</script>
 {%- endblock %}
 {% block modal -%}
-{% include 'layout/modal.html' %}
 
 <div id="course_modal" class="modal fade">
   <div class="modal-dialog">
@@ -183,6 +221,8 @@
       </div>
       <div class="modal-body">
         <div id="course_show_body"></div>
+          <div class="btn btn-large btn-info"
+               data-toggle="modal" data-target="#trainings_modal">添加用户</div>
         <div class="content-text">
           <ul class="content-table title">
             <li> </li>
@@ -190,19 +230,34 @@
             <li class="table-cell-2">训练状态</li>
             <li class="table-cell-4">操作</li>
           </ul>
+          <div id="trainings_box">
 
-          <ul class="content-table">
-            <li>1</li>
-            <li class="table-cell-2">张三</li>
-            <li class="table-cell-2">训练状态</li>
-            <li class="table-cell-4"><a href="#">取消预约</a><a href="#">迟到</a><a href="#">缺勤</a><a href="#">完成</a></li>
-          </ul>
+          </div>
+
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         <button type="button" class="btn btn-danger js-btn-del">删除</button>
         <button type="button" class="btn btn-primary js-btn-update">修改</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="trainings_modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">添加训练</h4>
+      </div>
+      <div class="modal-body">
+        <select id="trainings_select"></select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary js-btn-create">保存</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -241,6 +296,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+{% include 'layout/modal.html' %}
 {%- endblock %}
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
