@@ -96,6 +96,11 @@ const Main = {
       let id = $(this).data('id');
       Main.editSchedule(id);
     });
+
+    $('.btn-publish').on('click', function(){
+      let hasClass = $(this).hasClass('unpublish');
+      Main.publishEvent(hasClass);
+    });
   },
   setWeekTitle: (_date) => {
     let weekArr = csTools.getWeekDay(_date);
@@ -438,7 +443,6 @@ const Main = {
     }
     let storeId = sid;
     let weekDay = Main.theDate;
-    $('#schedules_list').empty();
     let weekArr = csTools.getWeekDay(weekDay);
 
     $.ajax({
@@ -449,13 +453,21 @@ const Main = {
         "X-Api-Key": csTools.token
       },
       success: (result) => {
+        $('#schedules_list').empty();
         let rData = result.data;
-        for(let i =0, lg = rData.length; i < lg; i++){
-            rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
-            rData[i].attributes.startTime = moment(rData[i].attributes['start-time'].toString()).format('HH:mm');
-            rData[i].attributes.endTime = moment(rData[i].attributes['end-time'].toString()).format('HH:mm');
+        let $btnPulish = $('.btn-publish');
+        $btnPulish.removeClass('unpublish');
 
+        for(let i =0, lg = rData.length; i < lg; i++){
+          rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
+          rData[i].attributes.startTime = moment(rData[i].attributes['start-time'].toString()).format('HH:mm');
+          rData[i].attributes.endTime = moment(rData[i].attributes['end-time'].toString()).format('HH:mm');
+
+          if(rData[i].attributes['is-published'] || rData[i].attributes['is-published'] == 'true'){
+            $btnPulish.text('取消发布本周课程').addClass('unpublish');
+          }
         }
+        $btnPulish.removeClass('hide');
         console.log(rData);
         for(let i2 = 0, lg2 = weekArr.length; i2 < lg2; i2++){
           let data = {
@@ -472,7 +484,49 @@ const Main = {
       }
     });
   },
+  publishEvent: (unPublish) => {
+    let url = 'publish_all';
+    let sid = $('.select-store').selectpicker('val');
+    let weekDay = Main.theDate;
+    let msg = '发布';
+    if(unPublish){
+      url = 'unpublish_all';
+      msg = '取消发布';
+    }
 
+    $.ajax({
+      url: '/api/admin/stores/' + sid + '/schedules_by_week/' + weekDay + '/' + url,
+      type: 'POST',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      complete: (result) => {
+        if (result.status == 204) {
+          msg += '本周课程成功！',
+          csTools.msgModalShow({
+            msg: msg + '本周课程成功！',
+            callback: () => {
+              Main.getSchedules(sid);
+            }
+          });
+        }else if(result.status == 409){
+          msg = '已有训练参生，不可取消发布！';
+        }else if(result.status == 404){
+          msg = '本周没有课程！';
+        }else{
+          msg += '本周课程失败！';
+        }
+
+        csTools.msgModalShow({
+          msg,
+          callback: () => {
+            Main.getSchedules(sid);
+          }
+        });
+      }
+    });
+  },
 };
 
 $(function(){

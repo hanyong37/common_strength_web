@@ -22,6 +22,7 @@
 <div class="calendar-bar">
   <div class="btn btn-default btn-calendar-prev"><i class="glyphicon glyphicon-chevron-left"></i></div>
   <div class="btn btn-default btn-calendar-next"><i class="glyphicon glyphicon-chevron-right"></i></div>
+  <div class="btn btn-large btn-info btn-publish hide" >发布本周课程</div>
 </div>
 <div class="calendar-box">
   <div id="date_box" class="calendar-row calendar-date">
@@ -48,113 +49,6 @@
 
 </div>
 
-<div id="course_modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">添加课程</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form">
-          <div class="form-group">
-            <label for="course_date">上课日期</label>
-            <div class='input-group date datetimepicker'>
-              <input type='text' id="course_date" class="form-control start_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="start_datetime">开始时间</label>
-            <div class='input-group date datetimepicker'>
-              <input type='text' id="start_datetime" class="form-control start_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="over_datetime">结束时间</label>
-            <div class='input-group date datetimepicker '>
-              <input type='text' id="over_datetime" class="form-control over_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="select_store_add">选择门店</label>
-            <select id="select_store_add" class="form-control" title="请选择门店" >
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="select_course">选择课程</label>
-            <select id="select_course" class="form-control" title="请选择课程">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="course_number">课程人数</label>
-            <input type="number" class="form-control" id="course_number" placeholder="">
-          </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary js-btn-save">保存</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="course_show_modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">修改课程</h4>
-      </div>
-      <div id="course_show_body" class="modal-body">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-danger js-btn-del">删除</button>
-        <button type="button" class="btn btn-primary js-btn-update">修改</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="copy_modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">复制课程表</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form">
-          <div class="form-group">
-            <label for="copy_datetime">复制课程表时间</label>
-            <div class='input-group date datetimepicker'>
-              <input type='text' id="copy_datetime" class="form-control start_datetime" />
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-            </div>
-          </div>
-            <div class="form-group">
-              <label for="parse_datetime">目标课程表时间</label>
-              <div class='input-group date datetimepicker'>
-                <input type='text' id="parse_datetime" class="form-control start_datetime" />
-                <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-              </div>
-            </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary js-btn-copy">复制</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
 <script id="tmp_schedules" type="text/template">
@@ -163,8 +57,8 @@
   {% for item in data.resouce %}
     {% if data.tDate == item.attributes.thisDate %}
     <div class="column-cell" data-id="{{item.id}}">
-      <span>{{item.attributes.startTime}}~{{item.attributes.endTime}}</span>
-      <span>{{item.attributes['course-name']}}</span>
+      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes.capacity}}/{{item.attributes.capacity}}</span></p>
+      <p>{{item.attributes['course-name']}}</p>
     </div>
     {% endif %}
   {% endfor %}
@@ -216,7 +110,7 @@
       <label>课程名称:</label>{{ data.courseName }}
     </div>
     <div class="form-group">
-      <label>课程人数:</label>{{ data.capacity }}
+      <label>课程容量:</label>{{ data.capacity }}
     </div>
   </form>
   {% endraw %}
@@ -224,6 +118,129 @@
 {%- endblock %}
 {% block modal -%}
 {% include 'layout/modal.html' %}
+
+<div id="course_modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">添加课程</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="course_date">上课日期</label>
+            <div class='input-group date datetimepicker'>
+              <input type='text' id="course_date" class="form-control start_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="start_datetime">开始时间</label>
+            <div class='input-group date datetimepicker'>
+              <input type='text' id="start_datetime" class="form-control start_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="over_datetime">结束时间</label>
+            <div class='input-group date datetimepicker '>
+              <input type='text' id="over_datetime" class="form-control over_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="select_store_add">选择门店</label>
+            <select id="select_store_add" class="form-control" title="请选择门店" >
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select_course">选择课程</label>
+            <select id="select_course" class="form-control" title="请选择课程">
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="course_number">课程容量</label>
+            <input type="number" class="form-control" id="course_number" placeholder="">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary js-btn-save">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="course_show_modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">修改课程</h4>
+      </div>
+      <div class="modal-body">
+        <div id="course_show_body"></div>
+        <div class="content-text">
+          <ul class="content-table title">
+            <li> </li>
+            <li class="table-cell-2">会员名称</li>
+            <li class="table-cell-2">训练状态</li>
+            <li class="table-cell-4">操作</li>
+          </ul>
+
+          <ul class="content-table">
+            <li>1</li>
+            <li class="table-cell-2">张三</li>
+            <li class="table-cell-2">训练状态</li>
+            <li class="table-cell-4"><a href="#">取消预约</a><a href="#">迟到</a><a href="#">缺勤</a><a href="#">完成</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-danger js-btn-del">删除</button>
+        <button type="button" class="btn btn-primary js-btn-update">修改</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="copy_modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">复制课程表</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="copy_datetime">复制课程表时间</label>
+            <div class='input-group date datetimepicker'>
+              <input type='text' id="copy_datetime" class="form-control start_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="parse_datetime">目标课程表时间</label>
+            <div class='input-group date datetimepicker'>
+              <input type='text' id="parse_datetime" class="form-control start_datetime" />
+              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary js-btn-copy">复制</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {%- endblock %}
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>

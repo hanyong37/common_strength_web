@@ -34,7 +34,7 @@ const Main = {
     let password = $.trim($('.input-password').val());
 
     $.ajax({
-      url: '/api/admin/sessions',
+      url: '/api/admin/session',
       type: 'POST',
       dataType: 'json',
       data: {
