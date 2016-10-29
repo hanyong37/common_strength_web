@@ -144,6 +144,36 @@ const Main = {
         }
       });
     });
+    let $trainingsBox = $('#trainings_box');
+    $trainingsBox.on('click', '.cancal-training', function(){
+      let id = $(this).parent().data('id');
+      let data = {
+        "training[booking_status]": 'cancelled',
+        "training[training_status]": 'not_start'
+      };
+      Main.setTrainings(id, data, '取消预约');
+    });
+    $trainingsBox.on('click', '.later-training', function(){
+      let id = $(this).parent().data('id');
+      let data = {
+        "training[training_status]": 'be_late'
+      };
+      Main.setTrainings(id, data, '更新状态');
+    });
+    $trainingsBox.on('click', '.absence-training', function(){
+      let id = $(this).parent().data('id');
+      let data = {
+        "training[training_status]": 'absence'
+      };
+      Main.setTrainings(id, data, '更新状态');
+    });
+    $trainingsBox.on('click', '.complete-training', function(){
+      let id = $(this).parent().data('id');
+      let data = {
+        "training[training_status]": 'complete'
+      };
+      Main.setTrainings(id, data, '更新状态');
+    });
   },
   setWeekTitle: (_date) => {
     let weekArr = csTools.getWeekDay(_date);
@@ -468,6 +498,39 @@ const Main = {
             callback: () => {
               $('#course_show_modal').modal('show');
               Main.getTrainings(id);
+              Main.getCustomersModal(id);
+            }
+          });
+        }
+      }
+    });
+  },
+  setTrainings: (id, data, msg) => {
+    $.ajax({
+      url: '/api/admin/trainings/' + id,
+      type: 'PUT',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      data,
+      complete: (result) => {
+        console.log('trainings_update', result);
+
+        if(result.status == 200){
+          csTools.msgModalShow({
+            msg: msg+'成功！',
+            callback: () => {
+              let schId = $('.js-btn-create').data('id');
+              Main.getTrainings(schId);
+            }
+          });
+        }else{
+          csTools.msgModalShow({
+            msg: msg+'不成功！',
+            callback: () => {
+              let schId = $('.js-btn-create').data('id');
+              Main.getTrainings(schId);
             }
           });
         }
@@ -475,7 +538,6 @@ const Main = {
     });
   },
   getTrainings: (id) => {
-
     $('.js-btn-create').data('id', id);
     $.ajax({
       url: '/api/admin/schedules/' + id + '/trainings',
@@ -495,6 +557,8 @@ const Main = {
       }
     });
 
+  },
+  getCustomersModal: (id) => {
     $.ajax({
       url: '/api/admin/customers',
       type: 'get',

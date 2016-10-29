@@ -130,16 +130,22 @@
     <li class="table-cell-2">{{ item.attributes['customer-name'] }}</li>
     <li class="table-cell-2">
       {% if item.attributes['booking-status'] == 'cancelled' %}
-        {% if item.attributes['training-status'] == 'not_start' %}
-          取消预约
-        {% endif %}
+        取消预约
       {% elif item.attributes['booking-status'] == 'waiting' %}
-        {% if item.attributes['training-status'] == 'not_start' %}
-          排队
-        {% endif %}
+        容量已满
       {% elif item.attributes['booking-status'] == 'booked' %}
         {% if item.attributes['training-status'] == 'not_start' %}
-          预约
+          客户预约
+        {% elif item.attributes['training-status'] == 'complete' %}
+          完成
+        {% elif item.attributes['training-status'] == 'absence' %}
+          缺席
+        {% elif item.attributes['training-status'] == 'be_late' %}
+          迟到
+        {% endif %}
+      {% elif item.attributes['booking-status'] == 'no_booking' %}
+        {% if item.attributes['training-status'] == 'not_start' %}
+          管理员预约
         {% elif item.attributes['training-status'] == 'complete' %}
           完成
         {% elif item.attributes['training-status'] == 'absence' %}
@@ -149,7 +155,7 @@
         {% endif %}
       {% endif %}
     </li>
-    <li class="table-cell-4" data-id="{{ item.id }}"><a >取消预约</a><a >迟到</a><a >缺勤</a><a >完成</a></li>
+    <li class="table-cell-4" data-id="{{ item.id }}"><a class="cancal-training">取消预约</a><a class="later-training">迟到</a><a class="absence-training">缺勤</a><a class="complete-training">完成</a></li>
   </ul>
   {% endfor %}
   {% endraw %}
