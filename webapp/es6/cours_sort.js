@@ -11,11 +11,9 @@ const Main = {
         'X-Api-Key': csTools.token,
       },
       success: function(result) {
-        console.log(result);
         let data = result.data;
         if (data) {
           for(let i = 0, lg = data.length; i < lg; i++){
-            console.log(data[i].id);
             const typeId = data[i].id.toString();
             const typeName = data[i].attributes.name;
             const description = data[i].attributes.description;
@@ -24,7 +22,7 @@ const Main = {
               typeName,
               description
             });
-            data[i].typeCode = csTools.base64encode(csTools.utf16to8(code));
+            data[i].typeCode = encodeURIComponent(csTools.utf16to8(code));
           }
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_course_sort',
@@ -61,7 +59,6 @@ const Main = {
         "X-Api-Key": csTools.token
       },
       complete: (result) => {
-        console.log(result);
         if (result.status == 204) {
           csTools.msgModalShow({
             msg: '删除课程分类成功！',

@@ -2,7 +2,7 @@ const Main = {
   init: ()=>　{
     let code = $.url().fparam('code');
     if(code){
-      code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
+      code = eval("("+ csTools.utf8to16(decodeURIComponent(code)) +")");
       console.log('code1', code);
       const typeName = code.typeName;
       const description = code.description;
