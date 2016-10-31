@@ -21,8 +21,19 @@ $(function() {
 
 
         $(".j-editStore").on('click', function() {
-          let _id = $(this).parent().data('id');
-          location.href = '/storeManageAdd?id=' + _id;
+          let _thisLi = $(this).parents('.content-table').find('li');
+          let id = _thisLi.eq(0).data('id');
+          let name = _thisLi.eq(1).html();
+          let address = _thisLi.eq(2).html();
+          let storeData = {
+            id,
+            name,
+            address
+          }
+
+          console.log(storeData);
+          storeData = JSON.stringify(storeData);
+          location.href = '/storeManageAdd#data=' + storeData;
         })
       }, 200);
 

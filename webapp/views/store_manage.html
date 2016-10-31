@@ -18,6 +18,7 @@
       <li class="table-checkbox"></li>
       <li>门店名称</li>
       <li>地址</li>
+      <li>电话</li>
       <li>操作</li>
     </ul>
     {% raw %}
@@ -27,6 +28,7 @@
         <li class="table-checkbox" data-id="{{ items.id }}">{{loop.index}}</li>
         <li>{{ items.attributes.name }}</li>
         <li>{{ items.attributes.address }}</li>
+        <li>{{ items.attributes.telphone }}</li>
         <li data-id="{{ items.id }}">
           <a class="j-editStore" href="javascript:void(0);">编辑</a>
           <a class="j-delStore" href="javascript:void(0);">删除</a>

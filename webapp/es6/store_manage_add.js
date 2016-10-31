@@ -1,28 +1,44 @@
 
 const Main = {
   init: ()=> {
+    let storeData = $.url().fparam('data');
     $('.selectpicker').selectpicker({
       size: 4
     });
+
+    console.log(storeData);
+
+    if (storeData != undefined) {
+      storeData = JSON.parse(storeData);
+      $('#j-name').val(storeData.name);
+      $("#j-address").val(storeData.address);
+      $("#j-phone").val(storeData.telphone);
+    }
+
     $('#j-save').on('click', function() {
-      Main.saveStoreInfo();
-    });
-  },
-  saveStoreInfo: ()=> {
-      // var uname = $.trim($('.input-username').val());
-      // var pwd = $.trim($('.input-password').val());
       const _name = $.trim($('#j-name').val());
       const _address = $.trim($("#j-address").val());
       const _telphone = $.trim($("#j-phone").val());
+      if (storeData != undefined) {
+        Main.insertStoreInfo({
+          id: storeData.id,
+          name: _name,
+          address: _address,
+          telphone: _telphone,
+          type: 'put'
+        });
+      } else {
+        Main.insertStoreInfo({
+          id: '',
+          name: _name,
+          address: _address,
+          telphone: _telphone,
+          type: 'post'
+        });
+      }
+    });
 
-      Main.insertStoreInfo({
-        id: '',
-        name: _name,
-        address: _address,
-        telphone: _telphone,
-        type: 'post'
-      });
-   },
+  },
   insertStoreInfo: (a)=> {
     $.ajax({
       url: '/api/admin/stores/' + a.id,
@@ -56,31 +72,6 @@ const Main = {
             msg: msgTop + '门店失败!'
           });
         }
-      }
-    })
-  },
-  updateStoreInfo: (a) => {
-    $.ajax({
-      url: '/api/store/updateStoreInfo',
-      data: {
-        storeId: a.storeId,
-        storeName: a.storeName,
-        storeAddress: a.storeAddress,
-        storeDescription: a.storeDescription
-      },
-      type: 'post',
-      dataType: 'json',
-      success: function(result) {
-        console.log(result);
-        if (result.code == 1) {
-          $('.js-modal-message').html('修改门店成功！');
-          $('.js-btn-close').on('click', function(){
-            location.href = 'storeManage';
-          });
-        }else{
-          $('.js-modal-message').html('修改门店失败！');
-        }
-        $('#messageModal').modal();
       }
     })
   }
