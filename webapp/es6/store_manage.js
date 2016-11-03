@@ -29,11 +29,12 @@ $(function() {
             id,
             name,
             address
-          }
+          };
 
           console.log(storeData);
           storeData = JSON.stringify(storeData);
-          location.href = '/storeManageAdd#data=' + storeData;
+
+          location.href = '/storeManageAdd#data=' + encodeURIComponent(csTools.utf16to8(storeData));
         })
       }, 200);
 

@@ -9,7 +9,7 @@ const Main = {
     console.log(storeData);
 
     if (storeData != undefined) {
-      storeData = JSON.parse(storeData);
+      storeData = JSON.parse(csTools.utf8to16(decodeURIComponent(storeData)));
       $('#j-name').val(storeData.name);
       $("#j-address").val(storeData.address);
       $("#j-phone").val(storeData.telphone);
