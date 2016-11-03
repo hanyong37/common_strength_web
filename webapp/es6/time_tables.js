@@ -14,13 +14,6 @@ const Main = {
       liveSearch: true
     });
 
-    $('#select_store_add').selectpicker({
-      size: 5,
-      liveSearch: true
-    }).on('changed.bs.select', function(e){
-      Main.getCourseList();
-    });
-
     $('#select_course').selectpicker({
       size: 5,
       liveSearch: true
@@ -52,9 +45,7 @@ const Main = {
     });
 
     Main.getStoreList();
-    $('.js-btn-save').on('click', function(){
-      Main.postSchedules();
-    });
+
     $('.js-btn-del').on('click', function(){
       csTools.msgConfirmShow({
         msg: '确认删除此节课?',
@@ -134,6 +125,7 @@ const Main = {
               msg: '添加训练成功！',
               callback: () => {
                 $('#trainings_modal').modal('hide');
+                Main.getTrainings(schedule_id);
               }
             });
           }else{
@@ -226,18 +218,20 @@ const Main = {
         }
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_select_store',
-          boxSelector: '.select-store, #select_store_add',
+          boxSelector: '.select-store',
           data: dataArr,
           isAppend: true,
           callback: () => {
-            $('.select-store, #select_store_add').selectpicker('refresh');
+            $('.select-store').selectpicker('refresh');
+            let sid = $('.select-store').selectpicker('val');
+            Main.getSchedules(sid);
           }
         });
       }
     });
   },
   getCourseList: (id)=> {
-    let storeId = $('#select_store_add').selectpicker('val');
+    let storeId = $('.select-store').selectpicker('val');
     $.ajax({
       url: '/api/admin/courses?store_id=' + storeId,
       headers: {
@@ -274,7 +268,6 @@ const Main = {
     $('#course_date').val(data.courseDate);
     $('#start_datetime').val(data.startTime);
     $('#over_datetime').val(data.endTime);
-    $('#select_store_add').selectpicker('val', data.storeId);
     Main.getCourseList(data.courseId);
     $('#course_number').val(data.capacity);
   },
@@ -285,7 +278,7 @@ const Main = {
     let end_time = courseDate + ' ' + $('#over_datetime').val();
 
     let data = {
-      "schedule[store_id]": $('#select_store_add').selectpicker('val'),
+      "schedule[store_id]": $('.select-store').selectpicker('val'),
       "schedule[course_id]": $('#select_course').selectpicker('val'),
       "schedule[start_time]": cDate(start_time),
       "schedule[end_time]": cDate(end_time),
@@ -310,17 +303,22 @@ const Main = {
       dataType: 'json',
       data,
       complete: (result) => {
+        $('.js-btn-save').on('click', function(){
+          $(this).off('click');
+          Main.postSchedules();
+        });
+
         if(result.status == 201 || result.status == 200){
           $('#course_modal').modal('hide');
           csTools.msgModalShow({
             msg: msg + '成功！',
             callback: () => {
-              $('#select_store_add').selectpicker('val', '');
               $('#select_course').selectpicker('val', '');
               $('#course_date').val('');
               $('#start_datetime').val('');
               $('#over_datetime').val('');
               $('#course_number').val('');
+              $('#course_modal').data('id', '');
 
               let sid = $('.select-store').selectpicker('val');
               Main.getSchedules(sid);
@@ -651,6 +649,11 @@ const Main = {
             msg: msg + '本周课程成功！',
             callback: () => {
               Main.getSchedules(sid);
+              if(unPublish){
+                $('.btn-publish').text('发布本周课程');
+              }else{
+                $('.btn-publish').text('取消发布本周课程');
+              }
             }
           });
         }else if(result.status == 409){

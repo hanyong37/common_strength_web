@@ -1,6 +1,5 @@
 const Main = {
   init: ()=> {
-    Main.__ajax();
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
@@ -8,7 +7,9 @@ const Main = {
       console.log('change');
       Main.__ajax();
     });
-    Main.getStoreList();
+    Main.getStoreList(function(){
+      Main.__ajax();
+    });
 
   },
   __ajax: ()=> {
@@ -39,7 +40,7 @@ const Main = {
       }
     })
   },
-  getStoreList: () => {
+  getStoreList: (func) => {
     $.ajax({
       url: '/api/admin/stores',
       type: 'get',
@@ -60,6 +61,7 @@ const Main = {
           isAppend: true,
           callback: () => {
             $('.select-store').selectpicker('refresh');
+            func();
           }
         });
       },
