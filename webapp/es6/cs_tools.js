@@ -31,6 +31,10 @@ if(location.pathname != '/login' && !token){
   });
 }
 
+$(document).on('click', '.js-cancel-back', function(){
+  history.back();
+});
+
 const csTools = {
   token: token,
   setNunjucksTmp: (options) => {

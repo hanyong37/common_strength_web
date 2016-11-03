@@ -10,10 +10,10 @@
 {% set courseRules = 'active'%}
 {% block body -%}
 <div class="content-add">
-  <div class="input-group iy-right">
-    <input type="text" class="form-control" placeholder="请输入关键词">
-    <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
-  </div>
+  <!--<div class="input-group iy-right">-->
+    <!--<input type="text" class="form-control" placeholder="请输入关键词">-->
+    <!--<span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>-->
+  <!--</div>-->
 </div>
 <div class="content-text">
   <ul class="content-table title">
@@ -31,7 +31,7 @@
       <li>课程预约时间限制(天)</li>
       {% elif (items.attributes.key == 'course_view_days') %}
       <li>课程浏览时间限制(天)</li>
-      {% elif (items.attributes.key == 'cancle_limit_minutes') %}
+      {% elif (items.attributes.key == 'cancel_limit_minutes') %}
       <li>课程冻结时间(分钟)</li>
       {% elif (items.attributes.key == 'queue_limit_number') %}
       <li>允许排队人数(个)</li>
