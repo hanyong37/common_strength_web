@@ -462,10 +462,16 @@ const Main = {
         "X-Api-Key": csTools.token
       },
       success: (result) => {
-        console.log(result);
+        console.log('sc', result);
         if(result.data){
           let id = result.data.id;
           let attributes = result.data.attributes;
+          if(attributes['is-published']){
+            $('.js-btn-update').hide();
+          }else{
+            $('.js-btn-update').show();
+          }
+
           let courseDate = moment(attributes['start-time']).format('YYYY-MM-DD');
           let startTime = moment(attributes['start-time']).format('HH:mm');
           let endTime = moment(attributes['end-time']).format('HH:mm');
