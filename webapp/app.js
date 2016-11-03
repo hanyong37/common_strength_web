@@ -64,6 +64,16 @@ app.use('/wxapi', proxy({
   }
 }));
 
+app.use('/openwx', proxy({
+  target: 'https://open.weixin.qq.com', // target host
+  changeOrigin: true,            // needed for virtual hosted sites
+  ws: true,                      // proxy websockets
+  cookieRewrite: true,
+  pathRewrite: {
+    '^/openwx/': '/'
+  }
+}));
+
 // pipeline
 app
   //cookie

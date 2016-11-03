@@ -30,7 +30,7 @@ gulp.task('less', ()=> {
 
 // es6 编译
 gulp.task('es6', ()=> {
-  return gulp.src(['./es6/*.js'])
+  return gulp.src(['./es6/*.js', './es6/*/*.js'])
             .pipe(sourcemaps.init())
             .pipe(es6({presets: ['es2015']}))
             .pipe(sourcemaps.write())
@@ -117,7 +117,7 @@ var path = [
 ];
 
 gulp.watch('./less/*.*', ['less']);
-gulp.watch('./es6/*.*', ['es6']);
+gulp.watch(['./es6/*.*', './es6/*/*.*'], ['es6']);
 gulp.watch(path, ()=> {
   reload();
 });

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试</title>
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>测试</h1>
+  <h2></h2>
+  <h3></h3>
+  <h4></h4>
+  <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      var tocken = '';
+      $.ajax({
+        url: '/wxapi/token',
+        data: {
+          'grant_type': 'client_credential',
+          'appid': 'wxf235850c4b84a7e8',
+          'secret': '6f597a80606101cf1cdc908be3d9a04f'
+        },
+        type: 'get',
+        dataType: 'json',
+        success: function(result) {
+          $('h2').html(result.access_token);
+          tocken = result.access_token;
+          listOpenId({
+            token: result.access_token,
+            next_openid: ''
+          })
+        }
+      });
+
+      function ajaxInfo(a) {
+        $.ajax({
+          url: '/wxapi/user/info',
+          data: {
+            'access_token': a.token,
+            'openid': a.openid
+          },
+          type: 'get',
+          dataType: 'json',
+          success: function(result) {
+            console.log(result);
+            $('h4').html(JSON.stringify(result));
+          }
+        })
+      }
+
+      // 拉去用户列表
+      function listOpenId(a) {
+        $.ajax({
+          url: '/wxapi/user/get',
+          data: {
+            'access_token': a.token,
+            'next_openid': a.next_openid
+          },
+          type: 'get',
+          dataType: 'json',
+          success: function(result) {
+            console.log(result);
+            $('h3').html(JSON.stringify(result));
+            if (result.data) {
+              var data = result.data.openid;
+              for (var i in data) {
+                ajaxInfo({
+                  token: a.token,
+                  openid: data[i]
+                });
+              }
+            }
+
+          }
+        });
+      }
+      function mmmmm() {
+        $.ajax({
+          url: '/openwx/connect/oauth2/authorize',
+          data: {
+            appid: 'wxf235850c4b84a7e8',
+            redirect_uri: 'http://www.stopeta.com',
+            response_type: 'code',
+            scope: 'snsapi_base',
+            state: 'STATE'
+          },
+          type: 'get',
+          dataType: 'json',
+          success: function(result) {
+            console.log(result);
+          }
+        })
+      }
+
+      mmmmm();
+
+    });
+  </script>
+</body>
+</html>

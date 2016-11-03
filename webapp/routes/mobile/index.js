@@ -11,7 +11,7 @@ module.exports = function(app) {
     res.render('mobile/my.html');
   });
 
-  app.get('/app/my_reserve', function(req, res) {
+  app.get('/app/myReserve', function(req, res) {
     res.render('mobile/my_reserve.html');
   });
 }

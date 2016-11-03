@@ -13,6 +13,12 @@
   {%- block style -%}
 
   {%- endblock %}
+  <script type="text/javascript">
+  const token = sessionStorage.weixinToken;
+  if(location.pathname != '/app/courseList' && !token){
+    location.href = '/app/courseList';
+  }
+  </script>
   {%- endblock %}
 </head>
 <body ontouchstart>

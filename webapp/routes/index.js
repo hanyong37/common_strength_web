@@ -39,6 +39,10 @@ module.exports = function(app) {
     res.render('weixin/create_wxmenu.html');
   });
 
+  app.get('/test', function(req, res){
+    res.render('test.html');
+  });
+
   // app route
   const apps = [
     'course/store',
