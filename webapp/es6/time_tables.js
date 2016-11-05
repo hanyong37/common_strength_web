@@ -7,8 +7,14 @@ const Main = {
       liveSearch: true
     }).on('changed.bs.select', function(e){
       let sid = $(this).selectpicker('val');
+      $('#select_store_add').selectpicker('val', sid);
       Main.getSchedules(sid);
     });
+
+    $("#select_store_add").selectpicker({
+      hideDisabled: true
+    });
+
     $('#trainings_select').selectpicker({
       size: 5,
       liveSearch: true
@@ -218,11 +224,11 @@ const Main = {
         }
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_select_store',
-          boxSelector: '.select-store',
+          boxSelector: '.select-store, #select_store_add',
           data: dataArr,
           isAppend: true,
           callback: () => {
-            $('.select-store').selectpicker('refresh');
+            $('.select-store, #select_store_add').selectpicker('refresh');
             let sid = $('.select-store').selectpicker('val');
             Main.getSchedules(sid);
           }
@@ -246,7 +252,6 @@ const Main = {
             tmpSelector: '#tmp_select_course',
             boxSelector: '#select_course',
             data,
-            isAppend: true,
             callback: ()=>{
               $('#select_course').selectpicker('refresh');
               if(id){
@@ -588,6 +593,8 @@ const Main = {
     if(!sid){
       return false;
     }
+    let $btnPulish = $('.btn-publish');
+    $btnPulish.text('发布本周课程').removeClass('unpublish');
     let storeId = sid;
     let weekDay = Main.theDate;
     let weekArr = csTools.getWeekDay(weekDay);
@@ -602,8 +609,7 @@ const Main = {
       success: (result) => {
         $('#schedules_list').empty();
         let rData = result.data;
-        let $btnPulish = $('.btn-publish');
-        $btnPulish.removeClass('unpublish');
+
 
         for(let i =0, lg = rData.length; i < lg; i++){
           rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
@@ -655,11 +661,6 @@ const Main = {
             msg: msg + '本周课程成功！',
             callback: () => {
               Main.getSchedules(sid);
-              if(unPublish){
-                $('.btn-publish').text('发布本周课程');
-              }else{
-                $('.btn-publish').text('取消发布本周课程');
-              }
             }
           });
         }else if(result.status == 409){
