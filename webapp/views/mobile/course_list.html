@@ -13,14 +13,14 @@
   {% raw %}
   <script type="text/template" id="temp">
     {% for items in data %}
-    <div class="training-block">
+    <div class="training-block" data-course="{{ items.attributes['course-id'] }}">
       <div class="t-b-time">
         <div class="time-begin">07:30</div>
         <div class="time-over">08:30</div>
       </div>
       <div class="training-info">
-        <div class="t-i-name">肢蹲肢蹲</div>
-        <div class="t-i-bottom"><span class="tag-block">基础</span><span class="store-address">门店：这里是门店名称</span></div>
+        <div class="t-i-name">{{ items.attributes['course-name'] }}</div>
+        <div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">基础</span><span class="store-address">门店：{{ items.attributes['store-name'] }}</span></div>
       </div>
       <div class="schedule">
         <span class="schedule-tag">5/6</span>
