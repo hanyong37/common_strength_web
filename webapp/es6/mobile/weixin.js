@@ -94,9 +94,9 @@ const Wx = {
   },
   isWxLogin: () => {
     const token = sessionStorage.token;
-      if(location.pathname != '/app/register' && !token){
-        location.href = '/app/register';
-      }
+    if(location.pathname != '/app/register' && !token){
+      location.href = '/app/register';
+    }
   }
 };
 

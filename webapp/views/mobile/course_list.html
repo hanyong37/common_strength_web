@@ -13,7 +13,7 @@
   {% raw %}
   <script type="text/template" id="temp">
     {% for items in data %}
-    <div class="training-block" data-course="{{ items.attributes['course-id'] }}">
+    <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
       <div class="t-b-time">
         <div class="time-begin">07:30</div>
         <div class="time-over">08:30</div>
@@ -75,7 +75,5 @@
 {%- endblock %}
 {% block script -%}
 <script src="/js/date_tool.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/mobile/weixin.js"></script>
 <script src="/js/mobile/course_list.js"></script>
 {%- endblock %}
