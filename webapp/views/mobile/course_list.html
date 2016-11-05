@@ -1,27 +1,35 @@
 {% extends 'layout/weui_tab.html' %}
 {% set title = '课程预约' %}
 {% block style -%}
-<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
 <link rel="stylesheet" href="/css/course_list.css">
 {%- endblock %}
 {% block body -%}
-<div class="select-store-box">
-  <select data-am-selected="{searchBox: 1, maxHeight: 200}">
-    <option value="a">门店一</option>
-    <option value="b">门店二</option>
-    <option value="o">门店三</option>
-    <option value="m">门四</option>
-    <option value="phone">门店五</option>
-    <option value="im">店六</option>
-    <option value="mbp">店门</option>
-  </select>
-</div>
 <div class="date-box">
   <div class="btn-date btn-prev">&lt;</div>
   <div class="text-date">获取日期中...</div>
   <div class="btn-date btn-next">&gt;</div>
 </div>
 <div class="training-list">
+  {% raw %}
+  <script type="text/template" id="temp">
+    {% for items in data %}
+    <div class="training-block">
+      <div class="t-b-time">
+        <div class="time-begin">07:30</div>
+        <div class="time-over">08:30</div>
+      </div>
+      <div class="training-info">
+        <div class="t-i-name">肢蹲肢蹲</div>
+        <div class="t-i-bottom"><span class="tag-block">基础</span><span class="store-address">门店：这里是门店名称</span></div>
+      </div>
+      <div class="schedule">
+        <span class="schedule-tag">5/6</span>
+      </div>
+      <div class="schedule-over"><i class="weui_icon_success_circle"></i></div>
+    </div>
+    {% endfor %}
+  </script>
+  {% endraw %}
   <div class="training-block">
     <div class="t-b-time">
       <div class="time-begin">07:30</div>
@@ -63,10 +71,12 @@
     </div>
   </div>
 </div>
+{% include 'layout/weui_modal.html' %}
 {%- endblock %}
 {% block script -%}
 <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
 <script src="/js/date_tool.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/moblie/weixin.js"></script>
 <script src="/js/moblie/course_list.js"></script>
 {%- endblock %}

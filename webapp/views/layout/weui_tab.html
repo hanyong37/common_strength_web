@@ -9,17 +9,11 @@
   <base href="{{basePath}}">
   {%- endif -%}
   {%- block head -%}
-  <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.0.2/style/weui.min.css">
   <link rel="stylesheet" href="/css/weui_x.css">
   {%- block style -%}
 
   {%- endblock %}
-  <script type="text/javascript">
-  const token = sessionStorage.weixinToken;
-  if(location.pathname != '/app/courseList' && !token){
-    location.href = '/app/courseList';
-  }
-  </script>
   {%- endblock %}
 </head>
 <body ontouchstart>
@@ -44,7 +38,9 @@
 </div>
 {%- block foot %}
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/moblie/cs_weixin.js"></script>
+<script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/moblie/weixin.js"></script>
 {% block script -%}
 
 {%- endblock %}

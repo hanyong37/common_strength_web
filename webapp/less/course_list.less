@@ -17,7 +17,7 @@
   -ms-flex: @number;
   flex: @number;
 }
-@borderColor: #ececec;
+@borderColor: #fff;
 @bgColor: #f4f4f4;
 @color1: #f0ad4e;
 @color2: #dd524d;
@@ -25,11 +25,12 @@
 
 body {
   background-color: @bgColor;
+  font-size: 12px;
 }
 .date-box {
   height: 3rem;
   padding: 0 .3rem;
-  background-color: #cfcfcf;
+  background-color: #fff;
   .cellBox();
 
   .btn-date {
@@ -50,9 +51,23 @@ body {
 .training-block {
   position: relative;
   padding: 10px;
-  border-bottom: 1px solid #fff;
+  // border-bottom: 1px solid #fff;
   background-color: @borderColor;
   .cellBox();
+
+  &::after {
+    content: ' ';
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 1px solid #cfcfcf;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
 
   .t-b-time {
     width: 60px;
@@ -168,6 +183,3 @@ body {
     }
   }
 }
-
-
-

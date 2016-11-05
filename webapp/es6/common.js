@@ -10,58 +10,13 @@ const base64DecodeChars = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -
 
 /***********************************************************************************************************************/
 
+const token = sessionStorage.token;
 
 
 
 
 const CS = {
-  init: () => {
-    Main.registerUser();
-  },
-  getUserInfo: () => {
-    // 获取用户信息
-    $.ajax({
-      url: '/api/weixin/session',
-      type: 'post',
-      data: {
-        openid: ''
-      },
-      dataType: 'json',
-      success: (result) => {
-        console.log(result);
-      }
-    });
-  },
-  registerUser: () => {
-    // 获取用户信息
-    $.ajax({
-      url: '/api/weixin/register',
-      type: 'post',
-      data: {
-        mobile: '',
-        openid: ''
-      },
-      dataType: 'json',
-      complete: (result) => {
-        if (result.status === 200) {
-
-        }
-
-        if (result.status === 404) {
-
-        }
-
-        if (result.status === 409) {
-
-        }
-
-        if (result.status === 400) {
-
-        }
-        console.log(result);
-      }
-    });
-  },
+  token: token,
   setNunjucksTmp: (options) => {
     const tpl_pay_template = $(options.tmpSelector).html();
     const html = nunjucks.renderString(tpl_pay_template, {data: options.data});
@@ -91,34 +46,120 @@ const CS = {
       options.callback();
     }
 
-  },msgModalShow: (options) => {
-    if(!options.msg){
-      options.msg = '未知错误';
-    }
-    $('.js-modal-message').html(options.msg);
-
-    $('#messageModal').modal().on('hidden.bs.modal', () => {
-      if(options.callback){
-        options.callback();
-      }
-      if(options.href){
-        location.href = options.href;
-      }
-    });
   },
-  msgConfirmShow: (options) => {
-    if(!options.msg){
-      options.msg = '确认操作';
+  msgModalShow: (options) => {
+    if (!!options) {
+      options = {
+        title: options.title || '提示',
+        msg: options.msg || '你错了',
+        callback: options.callback || null,
+        href: options.href || null,
+        style: options.style,
+        isPhone: options.isPhone,
+        btn:options.btn || '知道了'
+      };
     }
-    $('.js-confirm-message').html(options.msg);
-    if(options.callback){
-      $('.js-btn-primary').off('click').on('click', function(){
-        options.callback();
+
+    if (options.style == "weui") {
+      var $iosDialog1 = $('#iosDialog1'),
+            $iosDialog2 = $('#iosDialog2'),
+            $androidDialog1 = $('#androidDialog1'),
+            $androidDialog2 = $('#androidDialog2');
+      $(".weui-dialog__title").html(options.title);
+      $(".weui-dialog__bd").html(options.msg);
+      $(".weui-dialog__btn_primary").html(options.btn);
+
+      switch (options.isPhone) {
+        case 'ios':
+            $iosDialog2.fadeIn();
+          break;
+        case 'android':
+            $androidDialog2.fadeIn(200);
+          break;
+      }
+
+      $('#dialogs').on('click', '.weui-dialog__btn', function(){
+        const self = $(this);
+        if (options.callback) {
+          options.callback();
+        }
+
+        self.parents('.js_dialog').fadeOut(200);
       });
     }
-    $('#messageConfirm').modal();
+
+    if (options.style == "Bootstrap" || options.style == "BT") {
+      $('.js-modal-message').html(options.msg);
+
+      $('#messageModal').modal().on('hidden.bs.modal', () => {
+        console.log(options.callback);
+        if(options.callback){
+          options.callback();
+        }
+        if(options.href){
+          location.href = options.href;
+        }
+      });
+    }
+
   },
-  base64encode: (str) => {
+  msgConfirmShow: (options) => {
+    if (!!options) {
+      options = {
+        title: options.title || '提示',
+        msg: options.msg || '确认操作',
+        callback: options.callback || null,
+        href: options.href || null,
+        style: options.style,
+        isPhone: options.isPhone,
+        btn:options.btn || ['否', '是']
+      };
+    }
+
+    if (options.style == "weui") {
+      var $iosDialog1 = $('#iosDialog1'),
+            $iosDialog2 = $('#iosDialog2'),
+            $androidDialog1 = $('#androidDialog1'),
+            $androidDialog2 = $('#androidDialog2');
+      $(".weui-dialog__title").html(options.title);
+      $(".weui-dialog__bd").html(options.msg);
+      $(".weui-dialog__btn_default").html(options.btn[0]);
+      $(".weui-dialog__btn_primary").html(options.btn[1]);
+
+      switch (options.isPhone) {
+        case 'ios':
+            console.log('ios');
+            $iosDialog1.fadeIn();
+          break;
+        case 'android':
+            $androidDialog1.fadeIn(200);
+          break;
+      }
+
+      $('#dialogs').on('click', '.weui-dialog__btn', function(){
+        const self = $(this);
+        console.log(self.index());
+        if (self.index() == 1) {
+          if (options.callback) {
+            options.callback();
+          }
+        }
+        self.parents('.js_dialog').fadeOut(200);
+      });
+    }
+
+    if (options.style == "Bootstrap" || options.style == "BT") {
+      $('.js-confirm-message').html(options.msg);
+      if(options.callback){
+        $('.js-btn-primary').off('click').on('click', function(){
+          options.callback();
+        });
+      }
+      $('#messageConfirm').modal();
+    }
+
+  },
+  e64encode: (str) => {
     let out,i,len,base64EncodeChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let c1,c2,c3;
     len=str.length;

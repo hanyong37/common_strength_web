@@ -1,6 +1,6 @@
 module.exports = function(app) {
-  app.get(['/app/index', '/app/index.html'], function(req, res) {
-
+  app.get(['/app/register'], function(req, res) {
+    res.render('mobile/register.html');
   });
 
   app.get('/app/messageCenter', function(req, res) {
