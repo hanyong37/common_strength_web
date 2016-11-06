@@ -12,9 +12,6 @@ const Main = {
       Main.getCourseList(sid);
     });
 
-    $("#select_store_add").selectpicker({
-      hideDisabled: true
-    });
 
     $('#trainings_select').selectpicker({
       size: 5,
@@ -229,7 +226,10 @@ const Main = {
           data: dataArr,
           isAppend: true,
           callback: () => {
-            $('.select-store, #select_store_add').selectpicker('refresh');
+            $('.select-store').selectpicker('refresh');
+            $("#select_store_add").selectpicker({
+
+            });
             let sid = $('.select-store').selectpicker('val');
             Main.getSchedules(sid);
           }
