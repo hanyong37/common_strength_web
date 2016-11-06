@@ -1,4 +1,4 @@
-const openid = 'wx_13572468';
+const openid = 'jiujiu_98';
 const Wx = {
   token: '',
   init: () => {
