@@ -9,6 +9,7 @@ const Main = {
       let sid = $(this).selectpicker('val');
       $('#select_store_add').selectpicker('val', sid);
       Main.getSchedules(sid);
+      Main.getCourseList(sid);
     });
 
     $("#select_store_add").selectpicker({
@@ -590,6 +591,7 @@ const Main = {
     });
   },
   getSchedules: (sid) => {
+    console.log('getSchedules');
     if(!sid){
       return false;
     }
@@ -609,7 +611,6 @@ const Main = {
       success: (result) => {
         $('#schedules_list').empty();
         let rData = result.data;
-
 
         for(let i =0, lg = rData.length; i < lg; i++){
           rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
