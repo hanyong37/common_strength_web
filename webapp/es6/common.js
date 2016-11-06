@@ -16,7 +16,6 @@ const token = sessionStorage.token;
 
 
 const CS = {
-  token: token,
   setNunjucksTmp: (options) => {
     const tpl_pay_template = $(options.tmpSelector).html();
     const html = nunjucks.renderString(tpl_pay_template, {data: options.data});
