@@ -1,5 +1,6 @@
-
+const openid = 'wx_13572468';
 const Wx = {
+  token: '',
   init: () => {
     Wx.isWxLogin();
   },
@@ -12,27 +13,20 @@ const Wx = {
       url: '/api/weixin/session',
       type: 'post',
       data: {
-        openid: 'jiujiu_98'
+        openid: openid
       },
       dataType: 'json',
-      success: (result) => {
-        console.log(result);
-        const token = result.data.attributes.token;
-        const weixin = result.data.attributes.weixin;
-        sessionStorage.token = token;
-        sessionStorage.weixin = weixin;
-      },
       complete: (result) => {
-        console.log(result.status);
-
-        if (result.status == 404) {
+        console.log('session', result);
+        if(result.status == 200){
+          const token = result.responseJSON.data.attributes.token;
+          const weixin = result.responseJSON.data.attributes.weixin;
+          sessionStorage.token = token;
+          sessionStorage.weixin = weixin;
+          location.href = '/app/courseList';
+        }else if (result.status == 404) {
           const phoneHtml = '<div class="weui-cell weui-cell_vcode">'
-              +'<div class="weui-cell__hd">'
-              +'<label class="weui-label">手机号</label>'
-              +'</div>'
-              +'<div class="weui-cell__bd">'
-              +'<input class="weui-input" type="tel" placeholder="请输入手机号">'
-              +'</div>'
+              +'<input class="weui-input input-tel" type="tel" placeholder="请输入手机号">'
               +'</div>';
           CS.msgConfirmShow({
             title: '提示',
@@ -60,19 +54,18 @@ const Wx = {
     });
   },
   registerUser: () => {
+    let tel = $.trim($('.input-tel').val());
     // 获取用户信息
     $.ajax({
       url: '/api/weixin/register',
       type: 'post',
       data: {
-        mobile: '18202755698',
-        openid: '123123'
+        mobile: tel,
+        openid: openid
       },
       dataType: 'json',
-      success: (result) => {
-        console.log(result);
-      },
       complete: (result) => {
+        console.log(result);
         if (result.status === 404) {
 
         }
@@ -88,7 +81,6 @@ const Wx = {
         if (result.status === 400) {
 
         }
-        console.log(result);
       }
     });
   },
@@ -96,6 +88,11 @@ const Wx = {
     const token = sessionStorage.token;
       if(location.pathname != '/app/register' && !token){
         location.href = '/app/register';
+      }else if(location.pathname == '/app/register' && !token){
+        Wx.getUserInfo();
+      }else{
+        Wx.token = token;
+        console.log('logined');
       }
   }
 };

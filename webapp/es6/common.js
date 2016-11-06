@@ -159,7 +159,7 @@ const CS = {
     }
 
   },
-  e64encode: (str) => {
+  base64encode: (str) => {
     let out,i,len,base64EncodeChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let c1,c2,c3;
     len=str.length;

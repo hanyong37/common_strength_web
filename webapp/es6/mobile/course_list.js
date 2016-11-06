@@ -1,7 +1,6 @@
 $(function() {
   const Main = {
     init: () => {
-      Wx.getUserInfo();
       Main.getSchedulesList();
     },
     getSchedulesList: () => {
@@ -11,7 +10,7 @@ $(function() {
         type: 'get',
         dataType: 'json',
         headers: {
-          'X-Api-Key': CS.token,
+          'X-Api-Key': Wx.token,
         },
         success: (result) => {
           console.log(result);
