@@ -68,7 +68,7 @@ const Main = {
           $(".select-course-type").selectpicker('val', typeId);
           console.log(status);
           $("#j-status").bootstrapSwitch('state', status);
-          $("#j-store").val(storeId);
+          $(".select-store").selectpicker('val', storeId);
           $("#j-text").val(description);
           $('#default_capacity').val(defaultCapacity);
 
