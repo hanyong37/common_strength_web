@@ -26,8 +26,8 @@ const Wx = {
           location.href = '/app/courseList';
         }else if (result.status == 404) {
           const phoneHtml = '<div class="weui-cell weui-cell_vcode">'
-              +'<input class="weui-input input-tel" type="tel" placeholder="请输入手机号">'
-              +'</div>';
+            +'<input class="weui-input input-tel" type="tel" placeholder="请输入手机号">'
+            +'</div>';
           CS.msgConfirmShow({
             title: '提示',
             msg: phoneHtml,
@@ -86,14 +86,14 @@ const Wx = {
   },
   isWxLogin: () => {
     const token = sessionStorage.token;
-      if(location.pathname != '/app/register' && !token){
-        location.href = '/app/register';
-      }else if(location.pathname == '/app/register' && !token){
-        Wx.getUserInfo();
-      }else{
-        Wx.token = token;
-        console.log('logined');
-      }
+    if(location.pathname != '/app/register' && !token){
+      location.href = '/app/register';
+    }else if(location.pathname == '/app/register' && !token){
+      Wx.getUserInfo();
+    }else{
+      Wx.token = token;
+      console.log('logined');
+    }
   }
 };
 
