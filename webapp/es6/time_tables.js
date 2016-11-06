@@ -12,6 +12,7 @@ const Main = {
       Main.getCourseList(sid);
     });
 
+    $("#select_store_add").selectpicker();
 
     $('#trainings_select').selectpicker({
       size: 5,
@@ -226,10 +227,7 @@ const Main = {
           data: dataArr,
           isAppend: true,
           callback: () => {
-            $('.select-store').selectpicker('refresh');
-            $("#select_store_add").selectpicker({
-
-            });
+            $('.select-store, #select_store_add').selectpicker('refresh');
             let sid = $('.select-store').selectpicker('val');
             Main.getSchedules(sid);
           }
