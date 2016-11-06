@@ -67,19 +67,29 @@ const Wx = {
       complete: (result) => {
         console.log(result);
         if (result.status === 404) {
-
-        }
-
-        if (result.status === 409) {
+          CS.msgModalShow({
+            msg: '此手机号不是此门店的客户，请先联系门店！',
+            style: 'weui',
+            isPhone: 'ios'
+          });
+        }else if (result.status === 409) {
           CS.msgModalShow({
             msg: '此手机号已经绑定了另一个微信号，如果您更换了微信号，请与我们门店联系！',
             style: 'weui',
             isPhone: 'ios'
           });
-        }
-
-        if (result.status === 400) {
-
+        }else if (result.status === 400) {
+          CS.msgModalShow({
+            msg: '请按正确姿势输入您的信息！',
+            style: 'weui',
+            isPhone: 'ios'
+          });
+        }else if(result.status === 200){
+          const token = result.responseJSON.data.attributes.token;
+          const weixin = result.responseJSON.data.attributes.weixin;
+          sessionStorage.token = token;
+          sessionStorage.weixin = weixin;
+          location.href = '/app/courseList';
         }
       }
     });
