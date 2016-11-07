@@ -79,7 +79,7 @@ let Main = {
 
         $('[name=memberShipName]').val(attributes['name']);
         $('[name=memberShipTelephone]').val(attributes['mobile']);
-        $('[name=memberShipWechatId]').val(attributes['weixin']);
+        // $('[name=memberShipWechatId]').val(attributes['weixin']);
         $('.select-member-type').selectpicker('val', memberType);
         $('[name=deadLine]').val(attributes['membership-duedate']);
         $('[name=residueDegree]').val(attributes['membership-remaining-times']);
@@ -124,7 +124,7 @@ let Main = {
     let memberShipId = Main.customers;
     let memberShipName = getVal('[name=memberShipName]');
     let memberShipTelephone = getVal('[name=memberShipTelephone]');
-    let memberShipWechatId = getVal('[name=memberShipWechatId]');
+    // let memberShipWechatId = getVal('[name=memberShipWechatId]');
     let memberShipCardType = $('.select-member-type').selectpicker('val');
     let deadLine = getVal('[name=deadLine]');
     let residueDegree = getVal('[name=residueDegree]');
@@ -139,7 +139,7 @@ let Main = {
       memberShipId,
       memberShipName,
       memberShipTelephone,
-      memberShipWechatId,
+      // memberShipWechatId,
       memberShipCardType,
       deadLine,
       residueDegree,
@@ -153,7 +153,7 @@ let Main = {
   postMemberShipsInfo: (memberShipId,
                        memberShipName,
                        memberShipTelephone,
-                       memberShipWechatId,
+                       // memberShipWechatId,
                        memberShipCardType,
                        deadLine,
                        residueDegree,
@@ -163,6 +163,7 @@ let Main = {
       residueDegree = 0;
     }
 
+    const memberShipWechatId = '';
     let data = {};
     if(memberShipCardType == 'time_card'){
       deadLine = new Date(deadLine);

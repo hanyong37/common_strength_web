@@ -22,14 +22,14 @@ $(function() {
         success: (result) => {
           const data = result.data;
           for (let key in data) {
-            data[key].attributes['start-time'] = CS.setDateFormat({time:data[key].attributes['start-time'], format: 'hh:mm'});
-            data[key].attributes['end-time'] = CS.setDateFormat({time:data[key].attributes['end-time'], format: 'hh:mm'});
-            data[key].attributes['updated-at'] = CS.setDateFormat({time:data[key].attributes['updated-at'], format: 'hh:mm'});
+            data[key].attributes['start-time'] = Wx.setDateFormat({time:data[key].attributes['start-time'], format: 'hh:mm'});
+            data[key].attributes['end-time'] = Wx.setDateFormat({time:data[key].attributes['end-time'], format: 'hh:mm'});
+            data[key].attributes['updated-at'] = Wx.setDateFormat({time:data[key].attributes['updated-at'], format: 'hh:mm'});
           }
 
           console.log(data);
 
-          CS.setNunjucksTmp({
+          Wx.setNunjucksTmp({
             tmpSelector: '#temp',
             boxSelector: '.training-list',
             isAppend: 'append',

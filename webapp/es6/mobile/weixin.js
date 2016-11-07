@@ -1,4 +1,4 @@
-const openid = 'jiujiu_98';
+const openid = 'wx_beginner';
 const Wx = {
   token: '',
   init: () => {
@@ -21,7 +21,7 @@ const Wx = {
         if(result.status == 200){
           const token = result.responseJSON.data.attributes.token;
           const weixin = result.responseJSON.data.attributes.weixin;
-          sessionStorage.token = token;
+          sessionStorage.wxToken = token;
           sessionStorage.weixin = weixin;
           location.href = '/app/courseList';
         }else if (result.status == 404) {
@@ -87,7 +87,7 @@ const Wx = {
         }else if(result.status === 200){
           const token = result.responseJSON.data.attributes.token;
           const weixin = result.responseJSON.data.attributes.weixin;
-          sessionStorage.token = token;
+          sessionStorage.wxToken = token;
           sessionStorage.weixin = weixin;
           location.href = '/app/courseList';
         }
@@ -95,7 +95,7 @@ const Wx = {
     });
   },
   isWxLogin: () => {
-    const token = sessionStorage.token;
+    const token = sessionStorage.wxToken;
     if(location.pathname != '/app/register' && !token){
       location.href = '/app/register';
     }else if(location.pathname == '/app/register' && !token){
