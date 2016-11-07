@@ -1,19 +1,20 @@
-
-const Main = {
+const Time = {
   init: () => {
-    let date = Main.getDate();
+    let date = Time.getDate();
     let $txtDate = $('.text-date');
     $txtDate.html(date.nowDate + ' ' + date.week).data('val', date.nowDate);
     console.log($txtDate.data('val'));
 
     $('.btn-prev').on('click', function(){
       let thisDate = $txtDate.data('val');
-      let prevDate = Main.getPrevDate(thisDate);
+      let prevDate = Time.getPrevDate(thisDate);
       $txtDate.html(prevDate.nowDate + ' ' + prevDate.week).data('val', prevDate.nowDate);
+      Main.getSchedulesList();
+      
     });
     $('.btn-next').on('click', function(){
       let thisDate = $txtDate.data('val');
-      let nextDate = Main.getNextDate(thisDate);
+      let nextDate = Time.getNextDate(thisDate);
       $txtDate.html(nextDate.nowDate + ' ' + nextDate.week).data('val', nextDate.nowDate);
     });
   },
@@ -44,12 +45,12 @@ const Main = {
   },
   getPrevDate: (_date) => {
     const time = new Date(_date).getTime() - 24 * 60 * 60 * 1000;
-    return Main.getDate(time);
+    return Time.getDate(time);
   },
   getNextDate: (_date) => {
     const time = new Date(_date).getTime() + 24 * 60 * 60 * 1000;
-    return Main.getDate(time);
+    return Time.getDate(time);
   },
 };
 
-Main.init();
+Time.init();

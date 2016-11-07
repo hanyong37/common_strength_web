@@ -10,6 +10,14 @@
           const id = self.data('id');
           location.href = '/app/courseDetails#id=' + id;
         });
+
+        $('.btn-prev').on('click',function() {
+          Main.getSchedulesList();
+        });
+
+        $('.btn-next').on('click',function() {
+          Main.getSchedulesList();
+        });
       }, 200);
     },
     getSchedulesList: () => {
@@ -28,6 +36,8 @@
             data[key].attributes['end-time'] = CS.setDateFormat({time:data[key].attributes['end-time'], format: 'hh:mm'});
             data[key].attributes['updated-at'] = CS.setDateFormat({time:data[key].attributes['updated-at'], format: 'hh:mm'});
           }
+
+          $('.training-list .training-block').remove();
 
           CS.setNunjucksTmp({
             tmpSelector: '#temp',
