@@ -15,8 +15,8 @@
     {% for items in data %}
     <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
       <div class="t-b-time">
-        <div class="time-begin">07:30</div>
-        <div class="time-over">08:30</div>
+        <div class="time-begin">{{ items.attributes['start-time'] }}</div>
+        <div class="time-over">{{ items.attributes['end-time'] }}</div>
       </div>
       <div class="training-info">
         <div class="t-i-name">{{ items.attributes['course-name'] }}</div>
