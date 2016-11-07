@@ -1,14 +1,16 @@
-$(function() {
   const Main = {
     init: () => {
       Main.getSchedulesList();
-      console.log(1);
 
-      $(".training-block").on("click", function() {
-        const self = $(this);
-        const id = self.data('id');
-        location.href = '/app/courseDetails#id=' + id;
-      });
+      setTimeout(() => {
+        $("div.training-block").on("click", function(e) {
+          e.stopPropagation();
+          console.log(1);
+          const self = $(this);
+          const id = self.data('id');
+          location.href = '/app/courseDetails#id=' + id;
+        });
+      }, 200);
     },
     getSchedulesList: () => {
       const time = $(".text-date").data('val');
@@ -27,8 +29,6 @@ $(function() {
             data[key].attributes['updated-at'] = CS.setDateFormat({time:data[key].attributes['updated-at'], format: 'hh:mm'});
           }
 
-          console.log(data);
-
           CS.setNunjucksTmp({
             tmpSelector: '#temp',
             boxSelector: '.training-list',
@@ -40,5 +40,6 @@ $(function() {
     }
   };
 
+(function() {
   Main.init();
-});
+})();
