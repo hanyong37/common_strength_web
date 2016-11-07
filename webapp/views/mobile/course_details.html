@@ -7,25 +7,31 @@
 <div class="box">
 
 </div>
+
 {% raw %}
+
 <script type="text/template" id="tmp">
-  <div class="head-title">{{ data.attributes.title }}</div>
-  <div class="tag-box">
-    <span class="tag-block">进阶</span>
-  </div>
-  <article class="weui_article">
-    <h3>时间：每周2，4上午11点</h3>
-    <h3>门店：这里是门店名称</h3>
-    <h3>教练：教练名字</h3>
-    <p>课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介</p>
-    <p>课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介</p>
-    <p>课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介</p>
-    <p>课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介</p>
-    <p>课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介</p>
+
+  <article class="weui-article">
+    <h1>{{ data.attributes['course-name'] }}</h1>
+    <p class="weui-title">进阶</p>
+    <section>
+      <h3>时间：{{data.attributes['start_date']}} {{data.attributes['start_time']}}~{{data.attributes['end_time']}}</h3>
+      <h3>门店：{{data.attributes['store-name']}}</h3>
+      <p class="weui-desc">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+      </p>
+    </section>
   </article>
-  <div class="weui_tabbar">
-    <div class="weui_btn weui_btn_primary">预约课程</div>
-    <div class="weui_btn weui_btn_warn">取消预约</div>
+  <div class="page__ft">
+    {% if data.attributes['store-name'] == ''%}
+    <div class="weui-btn weui-btn_primary">预约课程</div>
+    {% else %}
+    <div class="weui-btn weui-btn_warn">取消预约</div>
+    {% endif %}
   </div>
 </script>
 {% endraw %}
