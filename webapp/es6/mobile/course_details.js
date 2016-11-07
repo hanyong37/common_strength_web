@@ -1,7 +1,11 @@
 
 const Main = {
   init: () => {
-
+    var param = location.href.split('#')[1].split('=')[1];
+    console.log(param);
+    Main.getSchedulesInfo({
+      id: param
+    });
   },
   getSchedulesInfo: (a) => {
     $.ajax({
@@ -9,9 +13,15 @@ const Main = {
       type: 'get',
       dataType: 'json',
       headers: {
-        'X-Api-Key': CS.token,
+        'X-Api-Key': Wx.token,
       },
       success: (result) => {
+        var attributes = result.data.attributes;
+        console.log(attributes['start-time']);
+        attributes['start_date'] = CS.setDateFormat({time: attributes['start-time'], format: 'yyyy-MM-dd'});
+        attributes['start_time'] = CS.setDateFormat({time: attributes['start-time'], format: 'hh:mm'});
+        attributes['end_time'] = CS.setDateFormat({time: attributes['end-time'], format: 'hh:mm'});
+
         CS.setNunjucksTmp({
           tmpSelector: '#tmp',
           boxSelector: '.box',
@@ -39,3 +49,7 @@ const Main = {
     })
   }
 };
+
+(function(){
+  Main.init();
+}());
