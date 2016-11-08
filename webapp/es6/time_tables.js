@@ -113,6 +113,14 @@ const Main = {
       });
     });
 
+    $('#add_copy_modal').on('click', function(){
+      let _date = $('#date_box').find('.calendar-row-info').eq(0).text();
+      _date = moment(_date).format('YYYY-MM-DD');
+      $('#copy_datetime').val(_date);
+      $('#parse_datetime').val('');
+      $('#copy_modal').modal();
+    });
+
     $('.js-btn-create').on('click', function(){
       let customer_id = $('#trainings_select').selectpicker('val');
       let schedule_id = $(this).data('id');
