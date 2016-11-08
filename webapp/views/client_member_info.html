@@ -74,7 +74,7 @@
   {% raw %}
   <div class="member-title">{{ data.name }}</div>
   <div class="member-row"><span>电话：{{ data.mobile }}</span><span>微信号：{{ data.weixin }}</span></div>
-  <div class="member-row"><span>状态：{%if data['is-locked']%}正常{% else %}锁定{%endif%}</span><span>门店：{{ data['store-name'] }}</span></div>
+  <div class="member-row"><span>状态：{%if data['is-locked']%}锁定{% else %}正常{%endif%}</span><span>门店：{{ data['store-name'] }}</span></div>
   {% endraw %}
 </script>
 

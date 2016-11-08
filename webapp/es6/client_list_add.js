@@ -170,7 +170,7 @@ let Main = {
       data = {
         'customer[name]': memberShipName,
         'customer[mobile]':memberShipTelephone,
-        'customer[weixin]':memberShipWechatId,
+        // 'customer[weixin]':memberShipWechatId,
         'customer[membership_type]': memberShipCardType,
         'customer[membership_duedate]': deadLine,
         'customer[store_id]': storeId
@@ -179,7 +179,7 @@ let Main = {
       data = {
         'customer[name]': memberShipName,
         'customer[mobile]':memberShipTelephone,
-        'customer[weixin]':memberShipWechatId,
+        // 'customer[weixin]':memberShipWechatId,
         'customer[membership_type]': memberShipCardType,
         'customer[membership_remaining_times]': residueDegree,
         'customer[store_id]': storeId,

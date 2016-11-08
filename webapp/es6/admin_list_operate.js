@@ -43,7 +43,7 @@ const Main = {
     $.ajax({
       url: '/api/admin/users/' + a.id,
       data: {
-        'user[name]': a.name,
+        'user[full_name]': a.name,
         'user[password]': a.password
       },
       type: a.type,
@@ -55,7 +55,10 @@ const Main = {
         console.log(result);
         if (result.status == 200 || result.status == 201) {
           csTools.msgModalShow({
-            msg: '管理员信息保存成功!'
+            msg: '管理员信息保存成功!',
+            callback: () => {
+              location.href = 'adminList';
+            }
           });
         } else {
           csTools.msgModalShow({

@@ -60,26 +60,54 @@ const Main = {
         if(result.status == 200){
           var data = result.responseJSON.data;
 
-          // if(data.attributes['is-membership-valid']){
-          //   if(data.attributes['booking-status'] == 'not booked'){
-          //     if(data.attributes['bookable']&& !data.attributes['waitable']){
-          //
-          //     }
-          //   }else{
-          //
-          //   }
-          // }else{
-          //
-          // }
-
           CS.setNunjucksTmp({
             tmpSelector: '#tmp_btn',
             boxSelector: '.box',
             isAppend: 'append',
-            data: data
+            data: data,
+            callback: ()=>{
+              Main.bindBookOrWait(id);
+            }
           });
         }
       }
+    });
+  },
+  bindBookOrWait: (id) => {
+    $('.weui-btn').on('click', function(){
+      $.ajax({
+        url: '/api/weixin/schedules/'+ id +'/booking',
+        type: 'get',
+        dataType: 'json',
+        headers: {
+          'X-Api-Key': Wx.token,
+        },
+        complete: (result)=>{
+          console.log(result);
+          if(result.status == 200){
+            let bookingStatus = result.responseJSON.data.attributes['booking-status'];
+            let msg;
+            if(bookingStatus == 'booked'){
+              msg = '预约成功！';
+            }else{
+              msg = '排队成功！'
+            }
+            csTools.msgModalShow({
+              msg,
+              callback: () => {
+                Main.getoperations(id);
+              }
+            });
+          }else if(result.status == 409){
+            csTools.msgModalShow({
+              msg: '排队人数已满，如需预约请咨询门店！',
+              callback: () => {
+                Main.getoperations(id);
+              }
+            });
+          }
+        }
+      });
     });
   }
 };
