@@ -10,8 +10,6 @@ import concat from 'gulp-concat';
 import nunjucks from 'gulp-nunjucks';
 import imagemin from 'gulp-imagemin';
 import es6 from 'gulp-babel';
-import gutil from 'gulp-util';
-import plumber from 'gulp-plumber';
 import del from 'del';
 import config from './config';
 
@@ -22,30 +20,22 @@ const reload = browserSync.reload;
 
 gulp.task('less', ()=> {
   return gulp.src(['./less/*.less'])
-            .pipe(sourcemaps.init())
-            .pipe(plumber())
-            .pipe(less())
-            .on('error', (err) => {
-              gutil.log('less error', err.message);
-            })
-            .pipe(prefix('last 2 versions', '> 1%', 'ie 8', 'Android 2'))
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest('./public/css'))
-            .pipe(browserSync.stream());
+    .pipe(sourcemaps.init())
+    .pipe(less())
+    .pipe(prefix('last 2 versions', '> 1%', 'ie 8', 'Android 2'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/css'))
+    .pipe(browserSync.stream());
 });
 
 // es6 编译
 gulp.task('es6', ()=> {
   return gulp.src(['./es6/*.js', './es6/*/*.js'])
-            .pipe(sourcemaps.init())
-            .pipe(plumber())
-            .pipe(es6({presets: ['es2015']}))
-            .on('error', (err) => {
-              gutil.log('es6 error', err.message);
-            })
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest('./public/js'))
-            .pipe(browserSync.stream());
+    .pipe(sourcemaps.init())
+    .pipe(es6({presets: ['es2015']}))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/js'))
+    .pipe(browserSync.stream());
 });
 
 //  浏览器同步
@@ -80,38 +70,38 @@ gulp.task('nodemon', (a)=> {
 
 gulp.task('minifycss', ()=> {
   return gulp.src('./public/css/*.css')
-            .pipe(gulp.dest('./dist/css'))
-            // .pipe(rename({suffix:'.min'}))
-            // .pipe(cleancss())
-            // .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist/css'))
+  // .pipe(rename({suffix:'.min'}))
+  // .pipe(cleancss())
+  // .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('minifyjs', ()=> {
   return gulp.src('./public/js/*.js')
-            // .pipe(concat('public.js'))
-            .pipe(gulp.dest('./dist/js'))
-            // .pipe(rename({suffix:'.min'}))
-            // .pipe(uglify())
-            // .pipe(gulp.dest('./dist/js'));
+  // .pipe(concat('public.js'))
+    .pipe(gulp.dest('./dist/js'))
+  // .pipe(rename({suffix:'.min'}))
+  // .pipe(uglify())
+  // .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('miniimage', ()=> {
   return gulp.src('./public/images/*')
-            .pipe(imagemin())
-            .pipe(gulp.dest('./dist/images'))
+    .pipe(imagemin())
+    .pipe(gulp.dest('./dist/images'))
 });
 
 gulp.task('fonts', ()=> {
   return gulp.src('./public/fonts/*')
-            .pipe(gulp.dest('./dist/fonts'))
+    .pipe(gulp.dest('./dist/fonts'))
 });
 
 // 编译 nunjucks
 
 gulp.task('nunjucks', ()=> {
   return gulp.src(['./views/*.html'])
-            .pipe(nunjucks.compile({ name: 'Sindre' }))
-            .pipe(gulp.dest('./dist'));
+    .pipe(nunjucks.compile({ name: 'Sindre' }))
+    .pipe(gulp.dest('./dist'));
 });
 
 // 每次启动，删除 dist
@@ -126,13 +116,11 @@ var path = [
   './views/*/*.*',
 ];
 
-gulp.watch('./less/*.*', 'less');
-gulp.watch(['./es6/*.*', './es6/*/*.*'], 'es6');
+gulp.watch('./less/*.*', ['less']);
+gulp.watch(['./es6/*.*', './es6/*/*.*'], ['es6']);
 gulp.watch(path, ()=> {
   reload();
 });
-
-
 
 // 构建压缩项目
 gulp.task('go', [ 'clean', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);

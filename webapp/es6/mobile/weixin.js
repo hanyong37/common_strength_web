@@ -1,18 +1,26 @@
-const openid = 'wx_beginner';
-let times = new Date().getTime();
-var redirectUrl = encodeURIComponent('http://commonstrength.cn:9799/app/register');
-var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
-  'wx3e88f64ec69153c2' +
-  '&redirect_uri=' +
-  redirectUrl +
-  '&response_type=code&scope=snsapi_base&state=' +
-  times +
-  '#wechat_redirect';
-
-
 const Wx = {
   token: '',
+  openId: '',
   init: () => {
+    Wx.redirectUrl();
+    // Wx.isWxLogin();
+    // Wx.getWxOpenid();
+  },
+  redirectUrl: () => {
+    $.ajax({
+      url:'/app/redirect',
+      type: 'get',
+      dataType: 'json',
+      success: (result) => {
+        console.log(result);
+        if(result.code == 1){
+          let url = result.redirect;
+          Wx.runRedirect(url);
+        }
+      }
+    });
+  },
+  runRedirect: (url) => {
     let paramStr = location.href.split('?')[1];
     console.log(paramStr);
     if(paramStr){
@@ -26,6 +34,7 @@ const Wx = {
         }
         if(paramObj.code || paramObj.state){
           console.log(paramObj);
+          Wx.getWxOpenid(paramObj.code);
         }else{
           location.href = url;
         }
@@ -35,20 +44,20 @@ const Wx = {
     }else{
       location.href = url;
     }
-
-
-    // Wx.isWxLogin();
-    // Wx.getWxOpenid();
   },
-  getWxOpenid: () => { // 获取微信 openid
+  getWxOpenid: (code) => { // 获取微信 openid
     $.ajax({
-      url:'/app/getWxToken',
+      url:'/app/getWxOpenid?code=' + code,
       type: 'get',
       dataType: 'json',
       success: (result) => {
         console.log(result);
-        if(result.access_token){
-          sessionStorage.access_token = result.access_token;
+        console.log(result.openid);
+        if(result.errcode == 40029){
+          location.href = '/app/register';
+        }else{
+          Wx.openId = result.openid;
+          Wx.getWxOpenid();
         }
       }
     });
@@ -59,7 +68,7 @@ const Wx = {
       url: '/api/weixin/session',
       type: 'post',
       data: {
-        openid: openid
+        openid: Wx.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -107,7 +116,7 @@ const Wx = {
       type: 'post',
       data: {
         mobile: tel,
-        openid: openid
+        openid: Wx.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -157,4 +166,5 @@ const Wx = {
   }
 };
 
-Wx.isWxLogin();
+// Wx.isWxLogin();
+Wx.init();

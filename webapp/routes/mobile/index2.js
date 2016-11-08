@@ -7,6 +7,22 @@ module.exports = function(app) {
   app.get(['/app/courseDetails'], function(req, res) {
     res.render('mobile/course_details.html');
   });
+
+  app.get(['/app/redirect'], function(req, res) {
+    let times = new Date().getTime();
+    let redirectUrl = encodeURIComponent('http://csxb1.free.natapp.cc/app/register');
+    let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+      'wx3e88f64ec69153c2' +
+      '&redirect_uri=' +
+      redirectUrl +
+      '&response_type=code&scope=snsapi_base&state=' +
+      times +
+      '#wechat_redirect';
+
+    res.send({code: 1, redirect: url});
+    res.end();
+  });
+
   app.get('/app/getWxToken', function(req, res){
     request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' +
       'wx3e88f64ec69153c2' +

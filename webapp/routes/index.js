@@ -5,11 +5,11 @@ const querystring = require('querystring');
 
 module.exports = function(app) {
   // global route
-  app.get(['/', '/login'], function(req, res){
+  app.get(['/login'], function(req, res){
     res.render('login.html');
   });
 
-  app.get(['/index'], function(req, res) {
+  app.get(['/', '/index'], function(req, res) {
     const token = 'Q29tbW9uU3RyZW5ndGg=';
 
     const url_params = url.parse(req.url, true);
