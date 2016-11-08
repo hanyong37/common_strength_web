@@ -10,34 +10,40 @@
   <div class="btn-date btn-next"></div>
 </div>
 <div class="training-list">
-  <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
-    <div class="t-b-time">
-      <div class="time-begin">{{ items.attributes['start-time'] }}</div>
-      <div class="time-over">{{ items.attributes['end-time'] }}</div>
-    </div>
-    <div class="training-info">
-      <div class="t-i-name">{{ items.attributes['course-name'] }}</div>
-      <div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">基础</span><span class="store-address">门店：{{ items.attributes['store-name'] }}</span></div>
-    </div>
-    <div class="schedule">
-      <span class="schedule-tag">5/6</span>
-    </div>
-    <div class="schedule-over"><i class="weui_icon_success_circle"></i></div>
-  </div>
+  <!--<div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">-->
+    <!--<div class="t-b-time">-->
+      <!--<div class="time-begin">{{ items.attributes['start-time'] }}</div>-->
+      <!--<div class="time-over">{{ items.attributes['end-time'] }}</div>-->
+    <!--</div>-->
+    <!--<div class="training-info">-->
+      <!--<div class="t-i-name">{{ items.attributes['course-name'] }}</div>-->
+      <!--<div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">基础</span><span class="store-address">门店：{{ items.attributes['store-name'] }}</span></div>-->
+    <!--</div>-->
+    <!--<div class="schedule">-->
+      <!--<span class="schedule-tag">5/6</span>-->
+    <!--</div>-->
+    <!--<div class="schedule-over"><i class="weui_icon_success_circle"></i></div>-->
+  <!--</div>-->
   {% raw %}
   <script type="text/template" id="temp">
     {% for items in data %}
-    <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+    {% if (items.attributes['booked-number'] + items.attributes['waiting-number']) >= (items.attributes['capacity'] + 2) %}
+      <div class="training-block training-warning" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+    {% elif (items.attributes['booked-number'] + items.attributes['waiting-number']) < (items.attributes['capacity'] + 2) and (items.attributes['booked-number'] + items.attributes['waiting-number']) >= items.attributes['capacity'] %}
+      <div class="training-block training-danger" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+    {% elif (items.attributes['booked-number'] + items.attributes['waiting-number']) < items.attributes['capacity'] %}
+      <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+    {% endif %}
       <div class="t-b-time">
         <div class="time-begin">{{ items.attributes['start-time'] }}</div>
         <div class="time-over">{{ items.attributes['end-time'] }}</div>
       </div>
       <div class="training-info">
         <div class="t-i-name">{{ items.attributes['course-name'] }}</div>
-        <div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">基础</span><span class="store-address">门店：{{ items.attributes['store-name'] }}</span></div>
+        <div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">{{items.attributes['course-type-name']}}</span><span class="store-address">门店：{{ items.attributes['store-name'] }}</span></div>
       </div>
       <div class="schedule">
-        <span class="schedule-tag">5/6</span>
+        <span class="schedule-tag">{{items.attributes['booked-number'] + items.attributes['waiting-number']}}/{{items.attributes['capacity']}}</span>
       </div>
       <div class="schedule-over"><i class="weui_icon_success_circle"></i></div>
     </div>

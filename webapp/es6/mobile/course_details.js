@@ -77,7 +77,7 @@ const Main = {
     $('.weui-btn').on('click', function(){
       $.ajax({
         url: '/api/weixin/schedules/'+ id +'/booking',
-        type: 'get',
+        type: 'POST',
         dataType: 'json',
         headers: {
           'X-Api-Key': Wx.token,

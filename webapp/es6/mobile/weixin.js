@@ -1,4 +1,4 @@
-const openid = 'jiujiu_98';
+const openid = 'wx_beginner';
 let times = new Date().getTime();
 var redirectUrl = encodeURIComponent('http://commonstrength.cn:9799/app/register');
 var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
