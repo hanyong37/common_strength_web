@@ -18,6 +18,8 @@
         $('.btn-next').on('click',function() {
           Main.getSchedulesList();
         });
+
+
       }, 200);
     },
     getSchedulesList: () => {
