@@ -1,11 +1,57 @@
 const openid = 'jiujiu_98';
+let times = new Date().getTime();
+var redirectUrl = encodeURIComponent('http://commonstrength.cn:9799/app/register');
+var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+  'wx3e88f64ec69153c2' +
+  '&redirect_uri=' +
+  redirectUrl +
+  '&response_type=code&scope=snsapi_base&state=' +
+  times +
+  '#wechat_redirect';
+
+
 const Wx = {
   token: '',
   init: () => {
-    Wx.isWxLogin();
+    let paramStr = location.href.split('?')[1];
+    console.log(paramStr);
+    if(paramStr){
+      var params = paramStr.split('&');
+      console.log(params);
+      if(params){
+        let paramObj = {};
+        for(let i = 0, lg = params.length; i < lg; i++){
+          let _arr = params[i].split('=');
+          paramObj[_arr[0]] = _arr[1];
+        }
+        if(paramObj.code || paramObj.state){
+          console.log(paramObj);
+        }else{
+          location.href = url;
+        }
+      }else{
+        location.href = url;
+      }
+    }else{
+      location.href = url;
+    }
+
+
+    // Wx.isWxLogin();
+    // Wx.getWxOpenid();
   },
   getWxOpenid: () => { // 获取微信 openid
-
+    $.ajax({
+      url:'/app/getWxToken',
+      type: 'get',
+      dataType: 'json',
+      success: (result) => {
+        console.log(result);
+        if(result.access_token){
+          sessionStorage.access_token = result.access_token;
+        }
+      }
+    });
   },
   getUserInfo: () => {
     // 验证用户信息
@@ -96,15 +142,19 @@ const Wx = {
   },
   isWxLogin: () => {
     const token = sessionStorage.wxToken;
-    if(location.pathname != '/app/register' && !token){
-      location.href = '/app/register';
-    }else if(location.pathname == '/app/register' && !token){
-      Wx.getUserInfo();
+    if(!token){
+      if(location.pathname != '/app/register'){
+        location.href = '/app/register';
+      }else{
+        Wx.getUserInfo();
+      }
     }else{
       Wx.token = token;
-      console.log('logined');
+      if(location.pathname == '/app/register'){
+        location.href = '/app/courseList';
+      }
     }
   }
 };
 
-Wx.init();
+Wx.isWxLogin();

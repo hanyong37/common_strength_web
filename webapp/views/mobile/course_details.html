@@ -14,23 +14,39 @@
 
   <article class="weui-article">
     <h1>{{ data.attributes['course-name'] }}</h1>
-    <p class="weui-title">进阶</p>
+    <p class="weui-title">{{ data.attributes['course-type-name'] }}</p>
     <section>
       <h3>时间：{{data.attributes['start_date']}} {{data.attributes['start_time']}}~{{data.attributes['end_time']}}</h3>
       <h3>门店：{{data.attributes['store-name']}}</h3>
-      <p class="weui-desc">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.
-      </p>
+      <p class="weui-desc">{{ data.attributes['course-description'] }}</p>
     </section>
   </article>
+
+</script>
+<script id="tmp_btn" type="text/template">
   <div class="page__ft">
-    {% if data.attributes['store-name'] == ''%}
-    <div class="weui-btn weui-btn_primary">预约课程</div>
+    {% if data.attributes['is_membership_valid'] == true %}
+      {% if data.attributes['booking-status'] == 'not booked' %}
+        {% if data.attributes['bookable'] == true && data.attributes['waitable'] == false %}
+          <div class="weui-btn weui-btn_primary">预约课程</div>
+        {% if data.attributes['bookable'] == false && data.attributes['waitable'] == true %}
+          <div class="weui-btn weui-btn_primary">排队课程</div>
+        {% else %}
+          <div class="weui-btn weui-btn_disabled weui-btn_primary">课程已满</div>
+        {% endif %}
+      {% elif data.attributes['booking-status'] == 'waiting' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已在排队</div>
+      {% elif data.attributes['booking-status'] == 'booked' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已经预约</div>
+      {% elif data.attributes['booking-status'] == 'cancelled' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_warn">您已经取消预约</div>
+      {% endif %}
     {% else %}
-    <div class="weui-btn weui-btn_warn">取消预约</div>
+      {% if data.attributes['customer-membership-type'] == 'time_card' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_default">课程超出您的会员卡有效期</div>
+      {% else %}
+        <div class="weui-btn weui-btn_disabled weui-btn_default">您已经没有剩余的消费次数，请及时充值</div>
+      {% endif %}
     {% endif %}
   </div>
 </script>

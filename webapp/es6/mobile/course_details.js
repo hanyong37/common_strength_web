@@ -6,6 +6,7 @@ const Main = {
     Main.getSchedulesInfo({
       id: param
     });
+    Main.getoperations(param);
   },
   getSchedulesInfo: (a) => {
     $.ajax({
@@ -15,30 +16,26 @@ const Main = {
       headers: {
         'X-Api-Key': Wx.token,
       },
-      success: (result) => {
-        var attributes = result.data.attributes;
-        console.log(attributes['start-time']);
-        attributes['start_date'] = CS.setDateFormat({time: attributes['start-time'], format: 'yyyy-MM-dd'});
-        attributes['start_time'] = CS.setDateFormat({time: attributes['start-time'], format: 'hh:mm'});
-        attributes['end_time'] = CS.setDateFormat({time: attributes['end-time'], format: 'hh:mm'});
-
-        CS.setNunjucksTmp({
-          tmpSelector: '#tmp',
-          boxSelector: '.box',
-          isAppend: 'append',
-          data: result.data
-        })
-      },
       complete: (result) => {
-        if (result.status == 404) {
+        if(result.status == 200){
+          var data = result.responseJSON.data;
+          data.attributes['start_date'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'yyyy-MM-dd'});
+          data.attributes['start_time'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'hh:mm'});
+          data.attributes['end_time'] = CS.setDateFormat({time: data.attributes['end-time'], format: 'hh:mm'});
+
+          CS.setNunjucksTmp({
+            tmpSelector: '#tmp',
+            boxSelector: '.box',
+            isAppend: 'append',
+            data: data
+          });
+        }else if (result.status == 404) {
           CS.msgModalShow({
             msg: '获取课程信息失败',
             style: 'weui',
             isPhone: 'ios'
           });
-        }
-
-        if (result.status == 403) {
+        }else if (result.status == 403) {
           CS.msgModalShow({
             msg: '获取用户权限失败',
             style: 'weui',
@@ -47,6 +44,29 @@ const Main = {
         }
       }
     })
+  },
+  getoperations: (id) => {
+    ///weixin/schedules/1137/schedule_operations
+
+    $.ajax({
+      url: '/app/weixin/schedules/'+ id +'/schedules_operations',
+      type: 'get',
+      dataType: 'json',
+      headers: {
+        'X-Api-Key': Wx.token,
+      },
+      complete: (result) => {
+        if(result.status == 200){
+          var data = result.responseJSON.data;
+          CS.setNunjucksTmp({
+            tmpSelector: '#tmp_btn',
+            boxSelector: '.box',
+            isAppend: 'append',
+            data: data
+          });
+        }
+      }
+    });
   }
 };
 

@@ -12,9 +12,6 @@ const base64DecodeChars = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -
 
 const token = sessionStorage.token;
 
-
-
-
 const CS = {
   token: token,
   setNunjucksTmp: (options) => {
