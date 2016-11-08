@@ -57,7 +57,7 @@ const Wx = {
           location.href = '/app/register';
         }else{
           Wx.openId = result.openid;
-          Wx.getWxOpenid();
+          Wx.getUserInfo();
         }
       }
     });
