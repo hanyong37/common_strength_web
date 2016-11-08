@@ -102,6 +102,17 @@ const Main = {
       Main.publishEvent(hasClass);
     });
 
+    $('#add_course_modal').on('click', function(){
+      let _date = Main.theDate;
+      Main.clearModal();
+      $('#course_date').val(_date);
+      $('#course_modal').modal();
+      $('.js-btn-save').off('click').on('click', function(){
+        $('.js-btn-save').off('click');
+        Main.postSchedules();
+      });
+    });
+
     $('.js-btn-create').on('click', function(){
       let customer_id = $('#trainings_select').selectpicker('val');
       let schedule_id = $(this).data('id');
@@ -187,6 +198,7 @@ const Main = {
 
     let sid = $('.select-store').selectpicker('val');
     Main.getSchedules(sid);
+    Main.getCourseList(sid);
   },
   prevWeek: () => {
     let tDate = Main.theDate;
@@ -307,8 +319,8 @@ const Main = {
       dataType: 'json',
       data,
       complete: (result) => {
-        $('.js-btn-save').on('click', function(){
-          $(this).off('click');
+        $('.js-btn-save').off('click').on('click', function(){
+          $('.js-btn-save').off('click');
           Main.postSchedules();
         });
 
@@ -317,12 +329,7 @@ const Main = {
           csTools.msgModalShow({
             msg: msg + '成功！',
             callback: () => {
-              $('#select_course').selectpicker('val', '');
-              $('#course_date').val('');
-              $('#start_datetime').val('');
-              $('#over_datetime').val('');
-              $('#course_number').val('');
-              $('#course_modal').data('id', '');
+             Main.clearModal();
 
               let sid = $('.select-store').selectpicker('val');
               Main.getSchedules(sid);
@@ -512,6 +519,14 @@ const Main = {
         }
       }
     });
+  },
+  clearModal: ()=>{
+    $('#select_course').selectpicker('val', '');
+    $('#course_date').val('');
+    $('#start_datetime').val('');
+    $('#over_datetime').val('');
+    $('#course_number').val('');
+    $('#course_modal').data('id', '');
   },
   setTrainings: (id, data, msg) => {
     $.ajax({
