@@ -49,15 +49,29 @@ const Main = {
     ///weixin/schedules/1137/schedule_operations
 
     $.ajax({
-      url: '/app/weixin/schedules/'+ id +'/schedules_operations',
+      url: '/api/weixin/schedules/'+ id +'/schedule_operations',
       type: 'get',
       dataType: 'json',
       headers: {
         'X-Api-Key': Wx.token,
       },
       complete: (result) => {
+        console.log(result.responseJSON);
         if(result.status == 200){
           var data = result.responseJSON.data;
+
+          // if(data.attributes['is-membership-valid']){
+          //   if(data.attributes['booking-status'] == 'not booked'){
+          //     if(data.attributes['bookable']&& !data.attributes['waitable']){
+          //
+          //     }
+          //   }else{
+          //
+          //   }
+          // }else{
+          //
+          // }
+
           CS.setNunjucksTmp({
             tmpSelector: '#tmp_btn',
             boxSelector: '.box',
