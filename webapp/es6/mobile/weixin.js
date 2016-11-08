@@ -1,68 +1,14 @@
 const Wx = {
   token: '',
-  openId: '',
+  openId: sessionStorage.openId,
   init: () => {
-    Wx.redirectUrl();
-    // Wx.isWxLogin();
-    // Wx.getWxOpenid();
-  },
-  redirectUrl: () => {
-    $.ajax({
-      url:'/app/redirect',
-      type: 'get',
-      dataType: 'json',
-      success: (result) => {
-        console.log(result);
-        if(result.code == 1){
-          let url = result.redirect;
-          Wx.runRedirect(url);
-        }
-      }
-    });
-  },
-  runRedirect: (url) => {
-    let paramStr = location.href.split('?')[1];
-    console.log(paramStr);
-    if(paramStr){
-      var params = paramStr.split('&');
-      console.log(params);
-      if(params){
-        let paramObj = {};
-        for(let i = 0, lg = params.length; i < lg; i++){
-          let _arr = params[i].split('=');
-          paramObj[_arr[0]] = _arr[1];
-        }
-        if(paramObj.code || paramObj.state){
-          console.log(paramObj);
-          Wx.getWxOpenid(paramObj.code);
-        }else{
-          location.href = url;
-        }
-      }else{
-        location.href = url;
-      }
-    }else{
-      location.href = url;
-    }
-  },
-  getWxOpenid: (code) => { // 获取微信 openid
-    $.ajax({
-      url:'/app/getWxOpenid?code=' + code,
-      type: 'get',
-      dataType: 'json',
-      success: (result) => {
-        console.log(result);
-        console.log(result.openid);
-        if(result.errcode == 40029){
-          location.href = '/app/register';
-        }else{
-          Wx.openId = result.openid;
-          Wx.getUserInfo();
-        }
-      }
-    });
+    Wx.isWxLogin();
   },
   getUserInfo: () => {
+    if(!Wx.openId){
+      location.href = '/app/register';
+      return false;
+    }
     // 验证用户信息
     $.ajax({
       url: '/api/weixin/session',
@@ -152,19 +98,15 @@ const Wx = {
   isWxLogin: () => {
     const token = sessionStorage.wxToken;
     if(!token){
-      if(location.pathname != '/app/register'){
-        location.href = '/app/register';
+      if(location.pathname != '/app/courseList'){
+        location.href = '/app/courseList';
       }else{
         Wx.getUserInfo();
       }
     }else{
       Wx.token = token;
-      if(location.pathname == '/app/register'){
-        location.href = '/app/courseList';
-      }
     }
   }
 };
 
-// Wx.isWxLogin();
 Wx.init();
