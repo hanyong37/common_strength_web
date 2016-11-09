@@ -1,20 +1,20 @@
-const Wx = {
+const WxTool = {
   token: '',
   openId: sessionStorage.openId,
   init: () => {
-    Wx.isWxLogin();
+    WxTool.isWxLogin();
   },
   getUserInfo: () => {
-    if(!Wx.openId){
+    if(!WxTool.openId){
       location.href = '/app/register';
       return false;
     }
     // 验证用户信息
-    $.ajax({
+    WxTool.ajax({
       url: '/api/weixin/session',
       type: 'post',
       data: {
-        openid: Wx.openId
+        openid: WxTool.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -47,7 +47,7 @@ const Wx = {
                 });
                 return false;
               }
-              Wx.registerUser();
+              WxTool.registerUser();
             }
           });
         }
@@ -57,12 +57,12 @@ const Wx = {
   registerUser: () => {
     let tel = $.trim($('.input-tel').val());
     // 获取用户信息
-    $.ajax({
+    WxTool.ajax({
       url: '/api/weixin/register',
       type: 'post',
       data: {
         mobile: tel,
-        openid: Wx.openId
+        openid: WxTool.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -95,18 +95,74 @@ const Wx = {
       }
     });
   },
+  ajax: (options) => {
+    let formatParams = (data) => {
+      if(data){
+        let params = [];
+        for(let key in data){
+          let _pName = encodeURIComponent(key);
+          let _pValue = encodeURIComponent(data[key]);
+          params.push(_pName + '=' + _pValue);
+        }
+        params.push('v='+ new Date().getTime());
+        let paramStr = params.join('&');
+        return paramStr;
+      }
+      return data;
+    };
+
+    options = options || {};
+    options.type = (options.type || "GET").toUpperCase();
+    options.dataType = options.dataType || "json";
+    let params = formatParams(options.data);
+
+    //创建 - 非IE6 - 第一步
+    let xhr;
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else { //IE6及其以下版本浏览器
+      xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    }
+
+    //接收 - 第三步
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        let status = xhr.status;
+        if (status >= 200 && status < 300) {
+          options.success && options.success(xhr.responseText, xhr.responseXML);
+        } else {
+          options.fail && options.fail(status);
+        }
+      }
+    };
+
+    //连接 和 发送 - 第二步
+    if (options.type == "GET") {
+      var _sendUrl = options.url;
+      if(params){
+        _sendUrl += "?" + params;
+      }
+      xhr.open("GET", _sendUrl, true);
+      xhr.send(null);
+    } else if (options.type == "POST") {
+      xhr.open("POST", options.url, true);
+      //设置表单提交时的内容类型
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(params);
+    }
+  },
   isWxLogin: () => {
     const token = sessionStorage.wxToken;
     if(!token){
       if(location.pathname != '/app/courseList'){
         location.href = '/app/courseList';
       }else{
-        Wx.getUserInfo();
+        WxTool.getUserInfo();
       }
     }else{
-      Wx.token = token;
+      WxTool.token = token;
     }
   }
 };
 
-Wx.init();
+WxTool.init();

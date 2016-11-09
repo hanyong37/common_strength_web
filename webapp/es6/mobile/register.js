@@ -5,7 +5,7 @@ const Wx = {
     Wx.redirectUrl();
   },
   redirectUrl: () => {
-    $.ajax({
+    Wx.ajax({
       url:'/app/redirect',
       type: 'get',
       dataType: 'json',

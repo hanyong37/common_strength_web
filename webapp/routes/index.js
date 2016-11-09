@@ -4,6 +4,20 @@ const crypto = require('crypto');
 const querystring = require('querystring');
 
 module.exports = function(app) {
+
+  // app.all('*',function (req, res, next) {
+  //   res.header('Access-Control-Allow-Origin', '*');
+  //   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , Origin');
+  //   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  //
+  //   if (req.method == 'OPTIONS') {
+  //     res.send(200); //让options请求快速返回
+  //   }
+  //   else {
+  //     next();
+  //   }
+  // });
+
   // global route
   app.get(['/login'], function(req, res){
     res.render('login.html');
@@ -39,9 +53,16 @@ module.exports = function(app) {
     res.render('weixin/create_wxmenu.html');
   });
 
-  app.get('/test', function(req, res){
-    res.render('test.html');
-  });
+  // app.get('/test', function(req, res){
+  //   res.send({code: 1});
+  //   res.end();
+  // });
+  //
+  // app.post('/ptest', function(req, res){
+  //   console.log('body', req.body);
+  //   res.send(req.body);
+  //   res.end();
+  // });
 
   // app route
   const apps = [
