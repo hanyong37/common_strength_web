@@ -1,0 +1,8 @@
+const Main = {
+  init: () => {
+
+  },
+  getTrainingsInfo: () => {
+    
+  }
+}
