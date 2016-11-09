@@ -1,0 +1,61 @@
+{% extends 'layout/weui.html' %}
+(% set title = '课程详情' %}
+{% block style -%}
+<link rel="stylesheet" href="/css/course_details.css">
+{%- endblock %}
+{% block body -%}
+<div class="box">
+
+</div>
+
+{% raw %}
+
+<script type="text/template" id="tmp">
+
+  <article class="weui-article">
+    <h1>{{ data.attributes['course-name'] }}</h1>
+    <p class="weui-title">{{ data.attributes['course-type-name'] }}</p>
+    <section>
+      <h3>时间：{{data.attributes['start_date']}} {{data.attributes['start_time']}}~{{data.attributes['end_time']}}</h3>
+      <h3>门店：{{data.attributes['store-name']}}</h3>
+      <p class="weui-desc">{{ data.attributes['course-description'] }}</p>
+    </section>
+  </article>
+
+</script>
+<script id="tmp_btn" type="text/template">
+  <div class="page__ft">
+    {% if data.attributes['is-membership-valid'] %}
+      {% if data.attributes['booking-status'] == 'not_booked' %}
+        {% if data.attributes['bookable'] and not data.attributes['waitable'] %}
+          <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
+        {% elif not data.attributes['bookable'] and data.attributes['waitable'] %}
+          <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
+        {% else %}
+          <div class="weui-btn weui-btn_disabled weui-btn_primary">课程已满</div>
+        {% endif %}
+      {% elif data.attributes['booking-status'] == 'waiting' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已在排队</div>
+      {% elif data.attributes['booking-status'] == 'booked' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已经预约</div>
+      {% elif data.attributes['booking-status'] == 'cancelled' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_warn">您已经取消预约</div>
+      {% endif %}
+    {% else %}
+      {% if data.attributes['customer-membership-type'] == 'time_card' %}
+        <div class="weui-btn weui-btn_disabled weui-btn_default">课程超出您的会员卡有效期</div>
+      {% else %}
+        <div class="weui-btn weui-btn_disabled weui-btn_default">您已经没有剩余的消费次数，请及时充值</div>
+      {% endif %}
+    {% endif %}
+  </div>
+</script>
+{% endraw %}
+
+
+{% include 'layout/weui_modal.html' %}
+{%- endblock %}
+{% block script -%}
+<script src="//cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
+<script src="/js/mobile/trainings_details.js"></script>
+{%- endblock %}

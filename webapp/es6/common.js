@@ -159,7 +159,6 @@ const CS = {
   setDateFormat: (a) => { // 时间格式转换
     let fmt = 'yyyy-MM-dd hh:mm:ss';
     let tm = new Date();
-    console.log(a);
     if (!!a) {
       a = {
         time: new Date(a.time) || new Date(),

@@ -18,12 +18,16 @@ module.exports = function(app) {
   app.get(['/app/courseList'], function(req, res) {
     res.render('mobile/course_list.html');
   });
-  
+
   app.get(['/app/courseDetails'], function(req, res) {
     res.render('mobile/course_details.html');
   });
 
   app.get('/app/trainingsList', function(req, res) {
-    res.render('moblie/trainings_list.html');
+    res.render('mobile/trainings_list.html');
+  });
+
+  app.get('/app/tariningsDetails', function(req, res) {
+    res.render('mobile/trainings_details.html');
   });
 }
