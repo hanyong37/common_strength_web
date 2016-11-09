@@ -1,12 +1,6 @@
 const request = require('request');
 
 module.exports = function(app) {
-  app.get(['/app/courseList'], function(req, res) {
-    res.render('mobile/course_list.html');
-  });
-  app.get(['/app/courseDetails'], function(req, res) {
-    res.render('mobile/course_details.html');
-  });
 
   app.get(['/app/redirect'], function(req, res) {
     let times = new Date().getTime();
