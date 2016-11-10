@@ -4,7 +4,8 @@ module.exports = function(app) {
 
   app.get(['/app/redirect'], function(req, res) {
     let times = new Date().getTime();
-    let redirectUrl = encodeURIComponent('http://csxb1.free.natapp.cc/app/register');
+    // let redirectUrl = encodeURIComponent('http://csxb1.free.natapp.cc/app/register');
+    let redirectUrl = encodeURIComponent('http://commonstrength.cn/app/register');
     let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
       'wx3e88f64ec69153c2' +
       '&redirect_uri=' +
