@@ -1,26 +1,33 @@
-{% extends 'layout/weui.html' %}
-{% set title = "注册" %}
-{%- block style -%}
-<!-- <link rel="stylesheet" href="/css/me.css"> -->
-<style>
-  .weui-dialog__hd {
-    padding: .5rem;
-  }
-  .weui-dialog__bd {
-    padding: 0;
-  }
-  .weui-cell_vcode {
-    padding: 4px 10px;
-    background-color: #f1f1f1;
-  }
-</style>
-{%- endblock %}
-{% block body %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="format-detection" content="telephone=no"/>
+  <title>微信登录验证</title>
+  {% if basePath -%}
+  <base href="{{basePath}}">
+  {%- endif -%}
+  {%- block head -%}
+  <style>
+    .weui-dialog__hd {
+      padding: .5rem;
+    }
+    .weui-dialog__bd {
+      padding: 0;
+    }
+    .weui-cell_vcode {
+      padding: 4px 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
 <div class="cs-body">
   正在验证身份，请稍后...
 </div>
-{% include 'layout/weui_modal.html' %}
-{% endblock %}
-{%- block foot -%}
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="/js/mobile/register.js"></script>
-{%- endblock %}
+</body>
+</html>

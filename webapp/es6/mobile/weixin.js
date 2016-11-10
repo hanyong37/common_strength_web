@@ -1,20 +1,20 @@
-const WxTool = {
+const Wx = {
   token: '',
   openId: sessionStorage.openId,
   init: () => {
-    WxTool.isWxLogin();
+    Wx.isWxLogin();
   },
   getUserInfo: () => {
-    if(!WxTool.openId){
+    if(!Wx.openId){
       location.href = '/app/register';
       return false;
     }
     // 验证用户信息
-    WxTool.ajax({
+    Wx.ajax({
       url: '/api/weixin/session',
       type: 'post',
       data: {
-        openid: WxTool.openId
+        openid: Wx.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -47,7 +47,7 @@ const WxTool = {
                 });
                 return false;
               }
-              WxTool.registerUser();
+              Wx.registerUser();
             }
           });
         }
@@ -57,12 +57,12 @@ const WxTool = {
   registerUser: () => {
     let tel = $.trim($('.input-tel').val());
     // 获取用户信息
-    WxTool.ajax({
+    Wx.ajax({
       url: '/api/weixin/register',
       type: 'post',
       data: {
         mobile: tel,
-        openid: WxTool.openId
+        openid: Wx.openId
       },
       dataType: 'json',
       complete: (result) => {
@@ -157,12 +157,12 @@ const WxTool = {
       if(location.pathname != '/app/courseList'){
         location.href = '/app/courseList';
       }else{
-        WxTool.getUserInfo();
+        Wx.getUserInfo();
       }
     }else{
-      WxTool.token = token;
+      Wx.token = token;
     }
   }
 };
 
-WxTool.init();
+Wx.init();
