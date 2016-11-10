@@ -1,11 +1,11 @@
-const Wx = {
+const WxTool = {
   token: '',
   openId: '',
   init: () => {
-    Wx.redirectUrl();
+    WxTool.redirectUrl();
   },
   redirectUrl: () => {
-    Wx.ajax({
+    $.ajax({
       url:'/app/redirect',
       type: 'get',
       dataType: 'json',
@@ -13,7 +13,7 @@ const Wx = {
         console.log(result);
         if(result.code == 1){
           let url = result.redirect;
-          Wx.runRedirect(url);
+          WxTool.runRedirect(url);
         }
       }
     });
@@ -32,7 +32,7 @@ const Wx = {
         }
         if(paramObj.code || paramObj.state){
           console.log(paramObj);
-          Wx.getWxOpenid(paramObj.code);
+          WxTool.getWxOpenid(paramObj.code);
         }else{
           location.href = url;
         }
@@ -54,7 +54,8 @@ const Wx = {
         if(result.errcode == 40029){
           location.href = '/app/register';
         }else{
-          sessionStorage.openId = result.openid;
+          // sessionStorage.openId = result.openid;
+          sessionStorage.openId = 'jiujiu_98';
           location.href = '/app/courseList';
         }
       }
@@ -62,4 +63,4 @@ const Wx = {
   }
 };
 
-Wx.init();
+WxTool.init();
