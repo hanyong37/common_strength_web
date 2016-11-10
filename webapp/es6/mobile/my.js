@@ -1,6 +1,9 @@
 const Main = {
   init: () => {
     Main.getMyInfo();
+    $(document).on('click', '.weui-cell', function(){
+      location.href = '/app/trainingsList'
+    });
   },
   getMyInfo: () => {
     $.ajax({

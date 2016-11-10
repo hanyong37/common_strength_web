@@ -1,8 +1,9 @@
-{% extends 'layout/weui.html' %}
+{% extends 'layout/weui_tab.html' %}
 {% set title = "消息中心" %}
 {%- block style -%}
 <link rel="stylesheet" href="/css/message_center.css">
 {%- endblock %}
+{% set tab_message = "weui-bar__item_on" %}
 {% block body %}
 <div class="cs-body">
   <div class="weui_panel weui_panel_access">

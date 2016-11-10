@@ -20,17 +20,17 @@
 {% block body -%}
 {%- endblock -%}
 <div class="weui-tabbar">
-  <a href="/app/courseList" class="weui-tabbar__item weui-bar__item_on">
+  <a href="/app/courseList" class="weui-tabbar__item {{tab_default}}">
     <img src="/img/menu.png" alt="" class="weui-tabbar__icon">
     <img src="/img/menu_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
     <p class="weui-tabbar__label">课程</p>
   </a>
-  <a href="/app/messageCenter" class="weui-tabbar__item">
+  <a href="/app/messageCenter" class="weui-tabbar__item {{tab_message}}">
     <img src="/img/msg.png" alt="" class="weui-tabbar__icon">
     <img src="/img/msg_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
     <p class="weui-tabbar__label">消息</p>
   </a>
-  <a href="/app/my" class="weui-tabbar__item">
+  <a href="/app/my" class="weui-tabbar__item {{tab_information}}">
     <img src="/img/my.png" alt="" class="weui-tabbar__icon">
     <img src="/img/my_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
     <p class="weui-tabbar__label">我</p>

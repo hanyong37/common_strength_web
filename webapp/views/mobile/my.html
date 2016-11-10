@@ -1,8 +1,10 @@
-{% extends 'layout/weui.html' %}
+{% extends 'layout/weui_tab.html' %}
 {% set title = "我的" %}
 {%- block style -%}
 <link rel="stylesheet" href="/css/my.css">
 {%- endblock %}
+
+{% set tab_information = "weui-bar__item_on" %}
 {% block body %}
 <div class="cs-body">
   {% raw %}
