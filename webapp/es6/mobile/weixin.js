@@ -9,7 +9,6 @@ const Wx = {
       location.href = '/app/register';
       return false;
     }
-    // if()
     // 验证用户信息
         console.log('session', Wx.openId);
     $.ajax({

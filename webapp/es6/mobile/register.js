@@ -62,8 +62,8 @@ const WxTool = {
         if(result.errcode == 40029){
           location.href = '/app/register';
         }else{
-          // sessionStorage.openId = result.openid;
-          sessionStorage.openId = 'jiujiu_98';
+          sessionStorage.openId = result.openid;
+          // sessionStorage.openId = 'jiujiu_98';
           location.href = '/app/courseList';
         }
       }
