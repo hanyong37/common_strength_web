@@ -11,35 +11,43 @@ const WxTool = {
       dataType: 'json',
       success: (result) => {
         console.log(result);
-        if(result.code == 1){
-          let url = result.redirect;
+        console.log(result.code);
+        var data = JSON.parse(result);
+        if(data.code == 1){
+          let url = data.redirect;
           WxTool.runRedirect(url);
+        }else{
+          location.reload();
         }
       }
     });
   },
   runRedirect: (url) => {
     let paramStr = location.href.split('?')[1];
-    console.log(paramStr);
+    console.log('paramStr', paramStr);
     if(paramStr){
       var params = paramStr.split('&');
-      console.log(params);
+      console.log('params',params);
       if(params){
         let paramObj = {};
         for(let i = 0, lg = params.length; i < lg; i++){
           let _arr = params[i].split('=');
           paramObj[_arr[0]] = _arr[1];
         }
+        console.log('paramObj', paramObj);
         if(paramObj.code || paramObj.state){
           console.log(paramObj);
           WxTool.getWxOpenid(paramObj.code);
         }else{
+          // alert('url3');
           location.href = url;
         }
       }else{
+        // alert('url2');
         location.href = url;
       }
     }else{
+      // alert('url1');
       location.href = url;
     }
   },

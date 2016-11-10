@@ -5,24 +5,38 @@ const Main = {
       numValue: 10
     });
 
-    setTimeout(() => {
-      $(document).on("click", '.cs-list', function(e) {
-        e.stopPropagation();
-        const self = $(this);
-        const id = self.data('id');
-        location.href = '/app/trainingsDetails#id=' + id;
-      }).swipe({
-        swipeLeft: (e) => {
-          console.log('左边', e);
-        },
-        swipeRight: (e) => {
-          console.log('右边', e);
-        }
-      });
-
-      // $(".")
-
-    }, 200)
+  },
+  slideEvent: () => {
+    var $domList = $('.cs-list');
+    for(let i = 0, lg = $domList.length; i < lg; i++){
+      (function(i, Dom){
+        let x, y,x1,y1, dx;
+        Dom.addEventListener('touchstart', function(e){
+          $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+          x = e.targetTouches[0].screenX;
+          y = e.targetTouches[0].screenY;
+          let oldLf = parseInt(this.getAttribute('data-left'));
+          dx = !oldLf ? 0 : oldLf;
+        });
+        Dom.addEventListener('touchmove', function(e){
+          x1 = e.targetTouches[0].screenX;
+          y1 = e.targetTouches[0].screenY;
+          let diff = x1 - x;
+          let err = y1 - y;
+          let change = diff + dx;
+          if(change < -100){
+            change = -100;
+          }else if(change > 0){
+            change = 0;
+          }
+          this.setAttribute('data-left', change);
+          this.style.transform = 'translate('+ change +'px, 0)';
+        });
+        Dom.addEventListener('touchend', function(e){
+          console.log(x,y,x1,y1);
+        });
+      }(i, $domList[i]));
+    }
   },
   getTrainings: (a) => {
     // 获取训练列表
@@ -51,7 +65,10 @@ const Main = {
             tmpSelector: '#temp',
             boxSelector: '.cs-list-cell',
             isAppend: 'append',
-            data: result.data
+            data: result.data,
+            callback: () => {
+              Main.slideEvent();
+            }
           });
 
         }

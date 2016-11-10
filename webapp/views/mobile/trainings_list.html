@@ -13,9 +13,6 @@
         <script id="temp" type="text/template">
           {% for items in data %}
           <div class="weui-media-box__bd cs-list cs-list-active-a">
-              <!-- {% if items.attributes['training-status'] == "not_start" %} -->
-                <div class="cs-del">取消预约</div>
-              <!-- {% endif %} -->
               <div class="cs-text">
                 <h4 class="weui-media-box__title">{{ items.attributes['course-name'] }}
               {% if items.attributes['training-status'] == "not_start" %}
@@ -45,10 +42,13 @@
               {% endif %}
                 </h4>
                 <div class="weui-media-box__desc">
-                  <div><label for="门店">门店:</label>{{ items.attributes['store-name'] }}</div>
-                  <div><label for="日期">日期:</label>{{ items.attributes['start-timeY'] }} <label for="">时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
+                  <div><label>门店:</label>{{ items.attributes['store-name'] }}</div>
+                  <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
                 </div>
               </div>
+            <!-- {% if items.attributes['training-status'] == "not_start" %} -->
+            <div class="cs-del">取消预约</div>
+            <!-- {% endif %} -->
           </div>
           {% endfor %}
         </script>
