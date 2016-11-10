@@ -18,7 +18,16 @@ const Main = {
     var _type = $('#j-type').val();
     var _id = $('#j-type').data('id');
     var _description = $('#j-description').val();
-    console.log(_type);
+    if(!_type){
+      csTools.msgModalShow({
+        msg: '请输入课程分类信息！'
+      });
+      $("#j-save").on("click", function() {
+        $("#j-save").off("click");
+        Main.saveEvent();
+      });
+      return false;
+    }
     Main.setCourseType({
       id: _id,
       val: _type,
@@ -62,6 +71,9 @@ const Main = {
 
       },
       complete: () => {
+        csTools.msgModalShow({
+          msg: msgTop + '课程分类失败！'
+        });
         $("#j-save").on("click", function() {
           $("#j-save").off("click");
           Main.saveEvent();

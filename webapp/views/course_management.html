@@ -37,8 +37,8 @@
       <ul class="content-table" data-id="{{ items.id }}">
         <li class="table-checkbox">{{loop.index}}</li>
         <li>{{ items.attributes.name }}</li>
-        <li>{{ items.attributes['store-id'] }}</li>
-        <li>{{ items.attributes['type-id'] }}</li>
+        <li>{{ items.attributes['store-name'] }}</li>
+        <li>{{ items.attributes['type-name'] }}</li>
         <li>{{ items.attributes['default-capacity'] }}</li>
         <li>
           {% if items.attributes.status == 'active' %}

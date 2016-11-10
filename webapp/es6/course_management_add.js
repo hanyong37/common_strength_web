@@ -1,6 +1,7 @@
 const Main = {
   init: ()=> {
-    $('.select-store, .select-course-type').selectpicker({
+
+    $('.select-course-type').selectpicker({
       size: 5,
       liveSearch: true
     });
@@ -13,7 +14,13 @@ const Main = {
     if(code){
       id = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
       Main.getCourse(id);
+      $('.select-store').attr('disabled', 'disabled');
     }
+
+    $('.select-store').selectpicker({
+      size: 5,
+      liveSearch: true
+    });
 
     $('#j-status').bootstrapSwitch();
     $('#j-save').on('click', function() {

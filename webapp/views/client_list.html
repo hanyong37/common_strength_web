@@ -24,7 +24,7 @@
       <li>会员名称</li>
       <li>会员卡类型</li>
       <li>电话</li>
-      <li>微信号</li>
+      <li class="table-cell-2">微信号</li>
       <li>截止时间或剩余次数</li>
       <li class="table-cell-auto">操作</li>
     </ul>
@@ -71,7 +71,7 @@
       {% endif %}
     </li>
     <li>{{ item.attributes.mobile }}</li>
-    <li>{{ item.attributes.weixin }}</li>
+    <li class="table-cell-2">{{ item.attributes.weixin }}</li>
     <li>
       {% if item.attributes['membership-type'] == 'time_card' %}
         {{ item.attributes['membership-duedate'] }}

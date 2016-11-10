@@ -521,7 +521,8 @@ const Main = {
             callback: () => {
               $('#course_show_modal').modal('show');
               Main.getTrainings(id);
-              Main.getCustomersModal(id);
+              var storeid = $('.select-store').selectpicker('val');
+              Main.getCustomersModal(storeid);
             }
           });
         }
@@ -591,7 +592,7 @@ const Main = {
   },
   getCustomersModal: (id) => {
     $.ajax({
-      url: '/api/admin/customers',
+      url: '/api/admin/customers?store_id=' + id,
       type: 'get',
       dataType: 'json',
       headers: {
