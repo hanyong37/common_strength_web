@@ -74,7 +74,7 @@ const Main = {
     });
   },
   bindBookOrWait: (id) => {
-    $('.weui-btn').on('click', function(){
+    $('.weui-btn').on('tap', function(){
       $.ajax({
         url: '/api/weixin/schedules/'+ id +'/booking',
         type: 'POST',

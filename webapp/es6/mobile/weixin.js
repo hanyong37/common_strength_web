@@ -76,7 +76,10 @@ const Wx = {
           CS.msgModalShow({
             msg: '此手机号已经绑定了另一个微信号，如果您更换了微信号，请与我们门店联系！',
             style: 'weui',
-            isPhone: 'ios'
+            isPhone: 'ios',
+            callback: ()=>{
+              WeixinJSBridge.invoke('closeWindow');
+            }
           });
         }else if (result.status === 400) {
           CS.msgModalShow({
