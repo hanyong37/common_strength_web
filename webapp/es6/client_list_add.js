@@ -25,6 +25,7 @@ let Main = {
     }
 
     $('.btn-save').on('click', function(){
+      $('.btn-save').off('click');
       Main.addValidator();
     });
 
@@ -225,6 +226,10 @@ let Main = {
             msg
           });
         }
+        $('.btn-save').on('click', function(){
+          $('.btn-save').off('click');
+          Main.addValidator();
+        });
       }
     });
   },

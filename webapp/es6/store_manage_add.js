@@ -16,28 +16,32 @@ const Main = {
     }
 
     $('#j-save').on('click', function() {
-      const _name = $.trim($('#j-name').val());
-      const _address = $.trim($("#j-address").val());
-      const _telphone = $.trim($("#j-phone").val());
-      if (storeData != undefined) {
-        Main.insertStoreInfo({
-          id: storeData.id,
-          name: _name,
-          address: _address,
-          telphone: _telphone,
-          type: 'put'
-        });
-      } else {
-        Main.insertStoreInfo({
-          id: '',
-          name: _name,
-          address: _address,
-          telphone: _telphone,
-          type: 'post'
-        });
-      }
+      $('#j-save').off('click');
+      Main.saveEvent();
     });
 
+  },
+  saveEvent: () => {
+    const _name = $.trim($('#j-name').val());
+    const _address = $.trim($("#j-address").val());
+    const _telphone = $.trim($("#j-phone").val());
+    if (storeData != undefined) {
+      Main.insertStoreInfo({
+        id: storeData.id,
+        name: _name,
+        address: _address,
+        telphone: _telphone,
+        type: 'put'
+      });
+    } else {
+      Main.insertStoreInfo({
+        id: '',
+        name: _name,
+        address: _address,
+        telphone: _telphone,
+        type: 'post'
+      });
+    }
   },
   insertStoreInfo: (a)=> {
     $.ajax({
@@ -72,6 +76,13 @@ const Main = {
             msg: msgTop + '门店失败!'
           });
         }
+
+      },
+      complete: () => {
+        $('#j-save').on('click', function() {
+          $('#j-save').off('click');
+          Main.saveEvent();
+        });
       }
     })
   }

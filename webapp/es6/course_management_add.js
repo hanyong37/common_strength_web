@@ -17,28 +17,32 @@ const Main = {
 
     $('#j-status').bootstrapSwitch();
     $('#j-save').on('click', function() {
-      let cont = $("#j-cont").val();
-      let type = $("#j-type").val();
-      let status = $("#j-status").bootstrapSwitch('state');
-      let store = $("#j-store").val();
-      let text = $("#j-text").val();
-      let defaultCapacity = $('#default_capacity').val();
-
-      let courseStatus = 'active';
-      if(!status){
-        courseStatus = 'inactive';
-      }
-      Main.saveCourseInfo({
-        courseId: id,
-        courseName: cont,
-        typeId: type,
-        courseStatus,
-        storeId: store,
-        courseDescription: text,
-        defaultCapacity,
-      });
+      $('#j-save').off('click');
+      Main.saveCourseEvent();
     });
 
+  },
+  saveCourseEvent: () => {
+    let cont = $("#j-cont").val();
+    let type = $("#j-type").val();
+    let status = $("#j-status").bootstrapSwitch('state');
+    let store = $("#j-store").val();
+    let text = $("#j-text").val();
+    let defaultCapacity = $('#default_capacity').val();
+
+    let courseStatus = 'active';
+    if(!status){
+      courseStatus = 'inactive';
+    }
+    Main.saveCourseInfo({
+      courseId: id,
+      courseName: cont,
+      typeId: type,
+      courseStatus,
+      storeId: store,
+      courseDescription: text,
+      defaultCapacity,
+    });
   },
   getCourse: (id) => {
     $.ajax({
@@ -119,11 +123,19 @@ const Main = {
             msg: msgTop + '课程失败！'
           });
         }
+        $('#j-save').on('click', function() {
+          $('#j-save').off('click');
+          Main.saveCourseEvent();
+        });
       },
       error: (xhr, textStatus, errorThrown) => {
         if(xhr.status == 403){
           location.href = 'login';
         }
+        $('#j-save').on('click', function() {
+          $('#j-save').off('click');
+          Main.saveCourseEvent();
+        });
       }
     })
   },
