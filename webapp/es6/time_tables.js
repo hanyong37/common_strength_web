@@ -9,7 +9,6 @@ const Main = {
       let sid = $(this).selectpicker('val');
       $('#select_store_add').selectpicker('val', sid);
       Main.getSchedules(sid);
-      Main.getCourseList(sid);
     });
 
     $("#select_store_add").selectpicker();
@@ -105,6 +104,8 @@ const Main = {
     $('#add_course_modal').on('click', function(){
       let _date = Main.theDate;
       Main.clearModal();
+      let sid = $(this).selectpicker('val');
+      Main.getCourseList(sid);
       $('#course_date').val(_date);
       $('#course_modal').modal();
       $('.js-btn-save').off('click').on('click', function(){
@@ -206,7 +207,6 @@ const Main = {
 
     let sid = $('.select-store').selectpicker('val');
     Main.getSchedules(sid);
-    Main.getCourseList(sid);
   },
   prevWeek: () => {
     let tDate = Main.theDate;
