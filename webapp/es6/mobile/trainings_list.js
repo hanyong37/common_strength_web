@@ -1,47 +1,85 @@
 const Main = {
+  page: 1,
+  numValue: 10,
   init: () => {
-    Main.getTrainings({
-      page: 1,
-      numValue: 10
-    });
+    Main.getTrainings();
 
   },
   slideEvent: () => {
     var $domList = $('.cs-list');
     for(let i = 0, lg = $domList.length; i < lg; i++){
       (function(i, Dom){
-        let x, y,x1,y1, dx;
-        Dom.addEventListener('touchstart', function(e){
-          $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
-          x = e.targetTouches[0].screenX;
-          y = e.targetTouches[0].screenY;
-          let oldLf = parseInt(this.getAttribute('data-left'));
-          dx = !oldLf ? 0 : oldLf;
-        });
-        Dom.addEventListener('touchmove', function(e){
-          x1 = e.targetTouches[0].screenX;
-          y1 = e.targetTouches[0].screenY;
-          let diff = x1 - x;
-          let err = y1 - y;
-          let change = diff + dx;
-          if(change < -100){
-            change = -100;
-          }else if(change > 0){
-            change = 0;
-          }
-          this.setAttribute('data-left', change);
-          this.style.transform = 'translate('+ change +'px, 0)';
-        });
-        Dom.addEventListener('touchend', function(e){
-          console.log(x,y,x1,y1);
-        });
+        let x, y,x1,y1, dx, isTrue = true, isEnd = false;
+        if($(Dom).find('.cancel-em').hasClass('cancel-true')){
+          Dom.addEventListener('touchstart', function(e){
+            x = e.targetTouches[0].screenX;
+            y = e.targetTouches[0].screenY;
+            console.log('1', $(e.target).hasClass('cs-del'));
+
+            if($(e.target).hasClass('cs-del')){
+              isTrue = false;
+              var tId = this.getAttribute('data-id');
+              CS.msgConfirmShow({
+                msg: '确定取消该课程？',
+                title: '提示',
+                style: 'weui',
+                isPhone: 'ios',
+                btn: ['取消', '确定'],
+                callback: ()=>{
+                  Main.delEvent(tId);
+                }
+              });
+            }else{
+              isTrue = true;
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+              let oldLf = parseInt(this.getAttribute('data-left'));
+              dx = !oldLf ? 0 : oldLf;
+            }
+          });
+          Dom.addEventListener('touchmove', function(e){
+            if(isTrue){
+
+              x1 = e.targetTouches[0].screenX;
+              y1 = e.targetTouches[0].screenY;
+              let diff = x1 - x;
+              let err = y1 - y;
+              if(err <= 80){
+                let change = diff + dx;
+                if(change < -100){
+                  change = -100;
+                  this.setAttribute('data-left', change);
+                  this.style.transform = 'translate('+ change +'px, 0)';
+                  isEnd = false;
+                }else{
+                  this.setAttribute('data-left', change);
+                  this.style.transform = 'translate('+ change +'px, 0)';
+                  isEnd = true;
+                }
+              }else{
+                this.setAttribute('data-left', '0');
+                this.style.transform = 'translate('+ 0 +'px, 0)';
+              }
+            }
+
+          });
+          Dom.addEventListener('touchend', function(e){
+            if(isEnd){
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+            }else{
+              console.log('end show');
+            }
+
+          });
+        }
       }(i, $domList[i]));
     }
   },
-  getTrainings: (a) => {
+  getTrainings: () => {
+    let page = Main.page;
+    let numValue = Main.numValue;
     // 获取训练列表
     $.ajax({
-      url: '/api/weixin/my_trainings/all?page='+ a.page +'&per_page='+ a.numValue ,
+      url: '/api/weixin/my_trainings/all?page='+ page +'&per_page='+ numValue ,
       type: 'get',
       dataType: 'json',
       headers: {
@@ -74,7 +112,56 @@ const Main = {
         }
       }
     })
-  }
+  },
+  delEvent: (id) => {
+    //cs-del
+   console.log('cs-del', id);
+    $.ajax({
+      url: '/api/weixin/trainings/'+id,
+      type: 'put',
+      dataType: 'json',
+      data: {
+        'trainings[booking-status]': 'cancelled'
+      },headers: {
+        'X-Api-Key': Wx.token,
+      },
+      complete: (result) => {
+        if(result.status == 403){
+          CS.msgModalShow({
+            msg: '该训练已无法取消，如需取消请联系门店！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+            }
+          });
+        }else if(result.status == 404){
+          CS.msgModalShow({
+            msg: '取消预约成功！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+              Main.getTrainings();
+            }
+          });
+        }else{
+          CS.msgModalShow({
+            msg: '该训练可能已结束，如需取消请联系门店！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+            }
+          });
+        }
+      }
+
+    });
+  },
 };
 
 

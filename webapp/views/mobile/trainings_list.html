@@ -12,13 +12,13 @@
         {% raw %}
         <script id="temp" type="text/template">
           {% for items in data %}
-          <div class="weui-media-box__bd cs-list cs-list-active-a">
+          <div class="weui-media-box__bd cs-list cs-list-active-a" data-id="{{items.id}}">
               <div class="cs-text">
                 <h4 class="weui-media-box__title">{{ items.attributes['course-name'] }}
               {% if items.attributes['training-status'] == "not_start" %}
 
                 {% if items.attributes['booking-status'] == "booked" or items.attributes['booking-status'] == "no_booking" %}
-                  <em>已预约</em>
+                  <em class="cancel-em cancel-true" data-id="{{items.id}}">已预约</em>
                 {% elif items.attributes['booking-status'] == "cancelled" %}
                   <em>已取消</em>
                 {% endif %}
@@ -57,7 +57,10 @@
     </div>
   </div>
 </div>
+
+{% include 'layout/weui_modal.html' %}
 {% endblock %}
+
 {%- block script -%}
 <script src="//cdn.bootcss.com/jquery.touchswipe/1.6.18/jquery.touchSwipe.js"></script>
 <script src="/js/date_tool.js"></script>
