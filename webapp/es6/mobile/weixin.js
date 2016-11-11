@@ -68,7 +68,7 @@ const Wx = {
         console.log(result);
         if (result.status === 404) {
           CS.msgModalShow({
-            msg: '此手机号不是此门店的客户，请先联系门店！',
+            msg: '此手机号不是我们的客户，请先联系门店！',
             style: 'weui',
             isPhone: 'ios'
           });

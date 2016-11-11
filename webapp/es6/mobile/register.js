@@ -35,7 +35,7 @@ const WxTool = {
           paramObj[_arr[0]] = _arr[1];
         }
         console.log('paramObj', paramObj);
-        if(paramObj.code || paramObj.state){
+        if(paramObj.code && paramObj.state){
           console.log(paramObj);
           WxTool.getWxOpenid(paramObj.code);
         }else{
@@ -59,10 +59,11 @@ const WxTool = {
       success: (result) => {
         console.log(result);
         console.log(result.openid);
+        const data = JSON.parse(result);
         if(result.errcode == 40029){
           location.href = '/app/register';
         }else{
-          sessionStorage.openId = result.openid;
+          sessionStorage.openId = data.openid;
           // sessionStorage.openId = 'jiujiu_98';
           location.href = '/app/courseList';
         }
