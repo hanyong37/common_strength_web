@@ -16,12 +16,6 @@
         Main.getSchedulesList();
       });
 
-      $(document).on("tap", '.training-block', function(e) {
-        e.stopPropagation();
-        const self = $(this);
-        const id = self.data('id');
-        location.href = '/app/courseDetails#id=' + id;
-      });
     },
     getSchedulesList: () => {
       const time = $(".text-date").data('val');
@@ -46,7 +40,16 @@
             tmpSelector: '#temp',
             boxSelector: '.training-list',
             isAppend: 'append',
-            data: data
+            data: data,
+            callback: () => {
+
+              $('.training-block').off('tap').on("tap", function(e) {
+                e.stopPropagation();
+                const self = $(this);
+                const id = self.data('id');
+                location.href = '/app/courseDetails#id=' + id;
+              });
+            }
           });
         }
       });
