@@ -44,7 +44,7 @@ const Main = {
       msgTop = '修改';
       type = 'put';
     }
-    console.log(ajaxUrl);
+
     $.ajax({
       url: '/api/admin/course_types' + ajaxUrl,
       data: {
@@ -56,9 +56,8 @@ const Main = {
       headers: {
         "X-Api-Key": csTools.token
       },
-      success: function(result) {
-        console.log(result);
-        if (result.data) {
+      complete: (retult) => {
+        if(result.status == 202){
           csTools.msgModalShow({
             href: '/courseSort',
             msg: msgTop + '课程分类成功！'
@@ -68,12 +67,6 @@ const Main = {
             msg: msgTop + '课程分类失败！'
           });
         }
-
-      },
-      complete: () => {
-        csTools.msgModalShow({
-          msg: msgTop + '课程分类失败！'
-        });
         $("#j-save").on("click", function() {
           $("#j-save").off("click");
           Main.saveEvent();

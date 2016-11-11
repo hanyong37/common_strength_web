@@ -1,4 +1,5 @@
 const Main = {
+  id: '',
   init: ()=> {
 
     $('.select-course-type').selectpicker({
@@ -12,7 +13,7 @@ const Main = {
     let code = $.url().fparam('code');
     let id = '';
     if(code){
-      id = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
+      Main.id = id = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
       Main.getCourse(id);
       $('.select-store').attr('disabled', 'disabled');
     }
@@ -25,6 +26,7 @@ const Main = {
     $('#j-status').bootstrapSwitch();
     $('#j-save').on('click', function() {
       $('#j-save').off('click');
+
       Main.saveCourseEvent();
     });
 
@@ -42,7 +44,7 @@ const Main = {
       courseStatus = 'inactive';
     }
     Main.saveCourseInfo({
-      courseId: id,
+      courseId: Main.id,
       courseName: cont,
       typeId: type,
       courseStatus,

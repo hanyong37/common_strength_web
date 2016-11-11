@@ -1,5 +1,6 @@
 
 const Main = {
+  storeData: $.url().fparam('data'),
   init: ()=> {
     let storeData = $.url().fparam('data');
     $('.selectpicker').selectpicker({
@@ -8,8 +9,8 @@ const Main = {
 
     console.log(storeData);
 
-    if (storeData != undefined) {
-      storeData = JSON.parse(csTools.utf8to16(decodeURIComponent(storeData)));
+    if (Main.storeData != undefined) {
+      Main.storeData = JSON.parse(csTools.utf8to16(decodeURIComponent(Main.storeData)));
       $('#j-name').val(storeData.name);
       $("#j-address").val(storeData.address);
       $("#j-phone").val(storeData.telphone);
@@ -25,9 +26,9 @@ const Main = {
     const _name = $.trim($('#j-name').val());
     const _address = $.trim($("#j-address").val());
     const _telphone = $.trim($("#j-phone").val());
-    if (storeData != undefined) {
+    if (Main.storeData != undefined) {
       Main.insertStoreInfo({
-        id: storeData.id,
+        id: Main.storeData.id,
         name: _name,
         address: _address,
         telphone: _telphone,
