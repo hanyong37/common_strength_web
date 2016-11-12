@@ -11,6 +11,7 @@ const Main = {
       Main.__ajax();
     });
 
+    //删除课程
   },
   __ajax: ()=> {
     let storeId = $('.select-store').selectpicker('val');
@@ -33,7 +34,15 @@ const Main = {
             boxSelector: '.list-container',
             data,
             callback: ()=>{
-
+              $('.deleteCourse').off('click').on('click', function(){
+                let _id = $(this).data('id');
+                csTools.msgConfirmShow({
+                  msg: '是否删除课程？',
+                  callback: () => {
+                    Main.deleteCourse(_id);
+                  }
+                });
+              });
             }
           });
         }
@@ -85,7 +94,7 @@ const Main = {
           csTools.msgModalShow({
             msg: '删除课程成功！',
             callback: () => {
-              Main.getCourseType();
+              Main.__ajax();
             }
           });
         }else{
