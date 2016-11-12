@@ -20,7 +20,7 @@
     getSchedulesList: () => {
       const time = $(".text-date").data('val');
       $.ajax({
-        url:'/api//weixin/my_schedules/' + time,
+        url:'/api/weixin/my_schedules/' + time,
         type: 'get',
         dataType: 'json',
         headers: {
