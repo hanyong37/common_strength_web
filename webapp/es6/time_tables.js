@@ -301,6 +301,7 @@ const Main = {
     let start_time = courseDate + ' ' + $('#start_datetime').val();
     let end_time = courseDate + ' ' + $('#over_datetime').val();
 
+    console.log(start_time, end_time, start_time < end_time);
     let data = {
       "schedule[store_id]": $('.select-store').selectpicker('val'),
       "schedule[course_id]": $('#select_course').selectpicker('val'),
