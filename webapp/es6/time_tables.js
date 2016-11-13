@@ -108,6 +108,7 @@ const Main = {
       Main.getCourseList(sid);
       $('#course_date').val(_date);
       $('#course_modal').modal();
+
       $('.js-btn-save').off('click').on('click', function(){
         $('.js-btn-save').off('click');
         Main.postSchedules();
@@ -328,11 +329,6 @@ const Main = {
       dataType: 'json',
       data,
       complete: (result) => {
-        $('.js-btn-save').off('click').on('click', function(){
-          $('.js-btn-save').off('click');
-          Main.postSchedules();
-        });
-
         if(result.status == 201 || result.status == 200){
           $('#course_modal').modal('hide');
           csTools.msgModalShow({
@@ -350,6 +346,10 @@ const Main = {
           });
         }
 
+          $('.js-btn-save').off('click').on('click', function(){
+            $('.js-btn-save').off('click');
+            Main.postSchedules();
+          });
       }
     });
   },
