@@ -41,10 +41,10 @@ const Main = {
       format: 'HH:mm'
     });
     $overDatetime.datetimepicker({
-      format: 'HH:mm',
-      useCurrent: false
+      format: 'HH:mm'
     });
     $startDatetime.on("dp.change", function (e) {
+      console.log(e);
       $overDatetime.data("DateTimePicker").minDate(e.date);
     });
 
