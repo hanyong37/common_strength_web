@@ -1,9 +1,9 @@
 const Main = {
   init: () => {
     Main.getMyInfo();
-    $(document).on('tap', '.weui-cell', function(){
-      location.href = '/app/trainingsList'
-    });
+    // $(document).on('tap', '.weui-cell', function(){
+    //   location.href = '/app/trainingsList'
+    // });
   },
   getMyInfo: () => {
     $.ajax({
