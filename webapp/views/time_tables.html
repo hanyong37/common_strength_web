@@ -153,7 +153,17 @@
         {% endif %}
       {% endif %}
     </li>
-    <li class="table-cell-4" data-id="{{ item.id }}"><a class="cancal-training">取消预约</a><a class="later-training">迟到</a><a class="absence-training">缺勤</a><a class="complete-training">完成</a></li>
+    <li class="table-cell-4" data-id="{{ item.id }}">
+      {% if item.atteributes['training-status'] == 'not_start' and item.attributes['booking-status'] != 'no_booking'%}
+      <a class="cancal-training">取消预约</a>
+      {% elif item.attributes['training-status'] == 'complete'%}
+      <a class="later-training">迟到</a>
+      <a class="absence-training">缺勤</a>
+      <a class="complete-training">完成</a>
+      {% else %}
+      <a>预约</a>
+      {% endif %}
+    </li>
   </ul>
   {% endfor %}
   {% endraw %}
