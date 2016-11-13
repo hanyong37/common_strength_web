@@ -1,6 +1,6 @@
 const Wx = {
   token: '',
-  openId: sessionStorage.openId,
+  openId: sessionStorage.nOpenId,
   init: () => {
     Wx.isWxLogin();
   },
@@ -22,7 +22,7 @@ const Wx = {
         console.log('session', result);
         if(result.status == 200){
           const token = result.responseJSON.data.attributes.token;
-          sessionStorage.wxToken = token;
+          sessionStorage.newWxToken = token;
           location.reload();
         }else if (result.status == 404) {
           const phoneHtml = '<div class="weui-cell weui-cell_vcode">'
@@ -90,15 +90,15 @@ const Wx = {
         }else if(result.status === 200){
           const token = result.responseJSON.data.attributes.token;
           const weixin = result.responseJSON.data.attributes.weixin;
-          sessionStorage.wxToken = token;
-          sessionStorage.weixin = weixin;
+          sessionStorage.newWxToken = token;
+          sessionStorage.newWeixin = weixin;
           location.href = '/app/courseList';
         }
       }
     });
   },
   isWxLogin: () => {
-    const token = sessionStorage.wxToken;
+    const token = sessionStorage.newWxToken;
     if(!token){
       if(location.pathname != '/app/courseList'){
         console.log('isWxLogin');
