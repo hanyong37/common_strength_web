@@ -11,6 +11,9 @@
 
         {% raw %}
         <script id="temp" type="text/template">
+          {% if data.length <= 0 %}
+            暂无训练记录
+          {% endif %}
           {% for items in data %}
           <div class="weui-media-box__bd cs-list cs-list-active-a" data-id="{{items.id}}">
               <div class="cs-text">
