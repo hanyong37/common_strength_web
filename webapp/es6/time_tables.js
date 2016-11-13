@@ -93,6 +93,10 @@ const Main = {
 
     $('#schedules_list').on('click', '.column-cell', function(){
       let id = $(this).data('id');
+      let isTrue = $(this).data('publish');
+      if(!isTrue){
+        $('.js-create-trainings').hide()
+      }
       Main.editSchedule(id);
     });
 

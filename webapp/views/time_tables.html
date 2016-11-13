@@ -54,9 +54,9 @@
   <div class="c-c-column calendar-course">
   {% for item in data.resouce %}
     {% if data.tDate == item.attributes.thisDate %}
-    <div class="column-cell" data-id="{{item.id}}">
+    <div class="column-cell" data-id="{{item.id}}" data-publish="{{item.attributes['is-published']}}">
       <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes['booked-number']}}/{{item.attributes.capacity}}</span></p>
-      <p><span class="cell-time">{{item.attributes['course-name']}}</span><span class="cell-capacity">{% if item.attributes['is-published'] %}已发布{% else %}未发布{% endif %}</span></p>
+      <p><span class="cell-time">{{item.attributes['course-name']}}</span><span class="cell-capacity" >{% if item.attributes['is-published'] %}已发布{% else %}未发布{% endif %}</span></p>
     </div>
     {% endif %}
   {% endfor %}
@@ -225,7 +225,7 @@
       </div>
       <div class="modal-body">
         <div id="course_show_body"></div>
-          <div class="btn btn-large btn-info"
+          <div class="btn btn-large btn-info js-create-trainings"
                data-toggle="modal" data-target="#trainings_modal">添加用户</div>
         <div class="content-text">
           <ul class="content-table title">
