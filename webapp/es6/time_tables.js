@@ -48,6 +48,7 @@ const Main = {
       $overDatetime.data("DateTimePicker").minDate(e.date);
     });
 
+
     Main.getStoreList();
 
     $('.js-btn-del').on('click', function(){

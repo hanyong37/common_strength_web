@@ -25,7 +25,8 @@
       <li>会员卡类型</li>
       <li>电话</li>
       <li class="table-cell-2">微信号</li>
-      <li>截止时间或剩余次数</li>
+      <li class="more-height"><p>截止时间</p><p>剩余次数</p></li>
+      <li>会员状态</li>
       <li class="table-cell-auto">操作</li>
     </ul>
 
@@ -79,6 +80,13 @@
         {{ item.attributes['membership-remaining-times'] }}
       {% endif %}
     </li>
+    <li>
+      {% if item.attributes['is-locked'] %}
+        已锁定
+      {% else %}
+        正常
+      {% endif %}
+    </li>
     <li class="table-cell-auto">
       <a href="clientListAdd#code={{ item.code }}">编辑</a>
       <a href="clientMemberInfo#code={{ item.code }}&type=unactive">变更记录</a>
@@ -88,7 +96,6 @@
       {% else %}
       <a class="j-locked" data-id="{{item.id}}">锁定</a>
       {% endif %}
-      <a href="clientListAdd#code={{ item.code }}">会员卡操作</a>
     </li>
   </ul>
   {% endfor %}

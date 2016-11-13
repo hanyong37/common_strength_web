@@ -2,6 +2,7 @@
 {% block style -%}
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
 <link rel="stylesheet" href="/css/course.css">
 {%- endblock %}
@@ -32,6 +33,19 @@
           <input type="text" name="memberShipWechatId" class="form-control" placeholder="请输入微信号">
         </div>
       </div>-->
+      <div class="form-group hidden">
+        <label class="col-sm-1-2 control-label">会员状态：</label>
+        <div class="col-sm-4">
+          <!--<select id="j-status" class="selectpicker">-->
+            <!--<option>请选择</option>-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
+          <!--</select>-->
+          <div id="status_switch" class="switch" data-on="info" data-off="success">
+            <input id="j-status" type="checkbox" checked />
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <label  class="col-sm-1-2 control-label">会员卡类型：</label>
         <div class="col-sm-4">
@@ -94,5 +108,6 @@
 <script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-json/2.6.0/jquery.json.min.js"></script>
 <script src="//cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
 <script src="/js/client_list_add.js"></script>
 {%- endblock %}

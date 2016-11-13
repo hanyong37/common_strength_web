@@ -13,6 +13,7 @@ let Main = {
     }).change(function(e){
       // console.log(e.date);
     });
+    $('#j-status').bootstrapSwitch();
 
     Main.getStoreList();
     Main.memberTypeChange();
@@ -21,6 +22,7 @@ let Main = {
     let code = $.url().fparam('code');
     if(code){
       code = eval("("+ csTools.utf8to16(csTools.base64decode(code)) +")");
+      $('#status_switch').parents('.form-group').removeClass('hidden');
       Main.getCustomers(code);
     }
 
@@ -80,6 +82,9 @@ let Main = {
 
         $('[name=memberShipName]').val(attributes['name']);
         $('[name=memberShipTelephone]').val(attributes['mobile']);
+        if(attributes['is-locked']){
+          $("#j-status").bootstrapSwitch('state', false);
+        }
         // $('[name=memberShipWechatId]').val(attributes['weixin']);
         $('.select-member-type').selectpicker('val', memberType);
         $('[name=deadLine]').val(attributes['membership-duedate']);
@@ -130,6 +135,7 @@ let Main = {
     let deadLine = getVal('[name=deadLine]');
     let residueDegree = getVal('[name=residueDegree]');
     let storeId = $('.select-store').selectpicker('val');
+    let status = !$("#j-status").bootstrapSwitch('state');
 
     if(!storeId){
       alert('请先添加门店!');
@@ -145,6 +151,7 @@ let Main = {
       deadLine,
       residueDegree,
       storeId,
+      status
     );
 
   },
@@ -158,7 +165,8 @@ let Main = {
                        memberShipCardType,
                        deadLine,
                        residueDegree,
-                       storeId ) => {
+                       storeId,
+                       status ) => {
 
     if(!residueDegree){
       residueDegree = 0;
@@ -174,7 +182,8 @@ let Main = {
         // 'customer[weixin]':memberShipWechatId,
         'customer[membership_type]': memberShipCardType,
         'customer[membership_duedate]': deadLine,
-        'customer[store_id]': storeId
+        'customer[store_id]': storeId,
+        'customer[is_locked]': status
       };
     }else {
       data = {
@@ -184,6 +193,7 @@ let Main = {
         'customer[membership_type]': memberShipCardType,
         'customer[membership_remaining_times]': residueDegree,
         'customer[store_id]': storeId,
+        'customer[is_locked]': status
       };
     }
 
