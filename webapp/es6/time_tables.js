@@ -96,7 +96,9 @@ const Main = {
       let id = $(this).data('id');
       let isTrue = $(this).data('publish');
       if(!isTrue){
-        $('.js-create-trainings').hide()
+        $('.js-create-trainings').hide();
+      }else{
+        $('.js-create-trainings').show();
       }
       Main.editSchedule(id);
     });
