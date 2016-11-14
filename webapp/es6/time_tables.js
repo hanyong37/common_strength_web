@@ -589,10 +589,27 @@ const Main = {
       success: (result) => {
         console.log('trainings_box', result);
         //trainings_box
+        let data = result.data;
+        let nDate = new Date().getTime();
+        for(let i = 0, lg = data.length; i < lg; i++){
+          let dEndDate = new Date(data[i].attributes['end-time']).getTime();
+          let dStartDate = new Date(data[i].attributes['start-time']).getTime();
+
+          console.log(dEndDate, dStartDate, nDate);
+
+          if(dEndDate < nDate){
+            data[i].attributes['trainings-booking'] = 'complete';
+          }else if(dStartDate > nDate ){
+            data[i].attributes['trainings-booking'] = 'no_start';
+          }else{
+            data[i].attributes['trainings-booking'] = 'starting';
+          }
+        }
+          console.log('trainings_box2', data);
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_trainings_box',
           boxSelector: '#trainings_box',
-          data: result.data
+          data: data
         });
       }
     });

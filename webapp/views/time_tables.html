@@ -154,14 +154,26 @@
       {% endif %}
     </li>
     <li class="table-cell-4" data-id="{{ item.id }}">
-      {% if item.atteributes['training-status'] == 'not_start' and item.attributes['booking-status'] != 'no_booking'%}
-      <a class="cancal-training">取消预约</a>
-      {% elif item.attributes['training-status'] == 'complete'%}
-      <a class="later-training">迟到</a>
-      <a class="absence-training">缺勤</a>
-      <a class="complete-training">完成</a>
+      {% if item.attributes['booking-status'] == 'cancelled' %}
+        <a>取消预约</a>
       {% else %}
-      <a>预约</a>
+        {% if item.attributes['training-status'] == 'not_start' %}
+          {% if item.attributes['trainings-booking'] == 'complete' %}
+            <a class="later-training">迟到</a>
+            <a class="absence-training">缺勤</a>
+            <a class="complete-training">完成</a>
+          {% elif item.attributes['trainings-booking'] == 'no_start' %}
+            <a class="cancal-training">取消预约</a>
+          {% else %}
+            <a>训练中</a>
+          {% endif %}
+        {% elif item.attributes['training-status'] == 'complete' %}
+          完成
+        {% elif item.attributes['training-status'] == 'absence' %}
+          缺席
+        {% elif item.attributes['training-status'] == 'be_late' %}
+          迟到
+        {% endif %}
       {% endif %}
     </li>
   </ul>
@@ -319,5 +331,5 @@
 <script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
 <script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script src="/js/time_tables.js?v1114"></script>
+<script src="/js/time_tables.js?v1115"></script>
 {%- endblock %}
