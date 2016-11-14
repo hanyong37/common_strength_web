@@ -55,7 +55,7 @@
   {% for item in data.resouce %}
     {% if data.tDate == item.attributes.thisDate %}
     <div class="column-cell" data-id="{{item.id}}" data-publish="{{item.attributes['is-published']}}">
-      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes['booked-number']}}/{{item.attributes.capacity}}</span></p>
+      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes['booked-number']}}/{{item.attributes.capacity}}/{{item.attributes['booked-number']}}</span></p>
       <p><span class="cell-time">{{item.attributes['course-name']}}</span><span class="cell-capacity" >{% if item.attributes['is-published'] %}已发布{% else %}未发布{% endif %}</span></p>
     </div>
     {% endif %}
@@ -73,14 +73,18 @@
 <script id="tmp_select_course" type="text/template">
   {% raw %}
   {% for item in data %}
+  {% if item.attributes['status'] == 'active' %}
   <option value="{{ item.id }}" data-default-capacity="{{item.attributes['default-capacity']}}">{{ item.attributes.name }}</option>
+  {% endif %}
   {% endfor %}
   {% endraw %}
 </script>
 <script id="tmp_select_customers" type="text/template">
   {% raw %}
   {% for item in data %}
+  {% if not item.attributes['is-locked'] %}
   <option value="{{ item.id }}">{{ item.attributes.name }}</option>
+  {% endif %}
   {% endfor %}
   {% endraw %}
 </script>
@@ -158,6 +162,9 @@
         <a>取消预约</a>
       {% else %}
         {% if item.attributes['training-status'] == 'not_start' %}
+          {% if item.attributes['booking-status'] == 'no_booking' %}
+            <a class="manage-del">删除</a>
+          {% endif %}
           {% if item.attributes['trainings-booking'] == 'complete' %}
             <a class="later-training">迟到</a>
             <a class="absence-training">缺勤</a>

@@ -46,6 +46,8 @@ const Main = {
     $startDatetime.on("dp.change", function (e) {
       console.log(e);
       $overDatetime.data("DateTimePicker").minDate(e.date);
+      let concatDate = $('#course_date').val() + ' ' +$startDatetime.val();
+      $overDatetime.val(moment(concatDate).add(1, 'hours').format('HH:mm'));
     });
 
 
@@ -198,6 +200,10 @@ const Main = {
         "training[training_status]": 'complete'
       };
       Main.setTrainings(id, data, '更新状态');
+    });
+    $trainingsBox.on('click', '.manage-del', function(){
+      let id = $(this).parent().data('id');
+      Main.delTrainings(id);
     });
   },
   setWeekTitle: (_date) => {
@@ -568,6 +574,45 @@ const Main = {
         }else{
           csTools.msgModalShow({
             msg: msg+'不成功！',
+            callback: () => {
+              let schId = $('.js-btn-create').data('id');
+              Main.getTrainings(schId);
+            }
+          });
+        }
+      }
+    });
+  },
+  delTrainings: (id) => {
+    $.ajax({
+      url: '/api/admin/trainings/' + id,
+      type: 'DELETE',
+      dataType: 'json',
+      headers: {
+        "X-Api-Key": csTools.token
+      },
+      complete: (result) => {
+        console.log('delTrainings', result);
+
+        if(result.status == 204){
+          csTools.msgModalShow({
+            msg: '删除训练成功！',
+            callback: () => {
+              let schId = $('.js-btn-create').data('id');
+              Main.getTrainings(schId);
+            }
+          });
+        }else if(result.status == 422){
+          csTools.msgModalShow({
+            msg: '删除训练失败！已有训练记录产生！',
+            callback: () => {
+              let schId = $('.js-btn-create').data('id');
+              Main.getTrainings(schId);
+            }
+          });
+        }else{
+          csTools.msgModalShow({
+            msg: '删除训练失败！错误原因：' + result.status,
             callback: () => {
               let schId = $('.js-btn-create').data('id');
               Main.getTrainings(schId);
