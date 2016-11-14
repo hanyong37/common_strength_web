@@ -97,10 +97,15 @@ const Main = {
     $('#schedules_list').on('click', '.column-cell', function(){
       let id = $(this).data('id');
       let isTrue = $(this).data('publish');
+
       if(!isTrue){
         $('.js-create-trainings').hide();
+        $('.js-btn-update').show();
+        $('.js-btn-published').text('发布').data('publish', false);
       }else{
         $('.js-create-trainings').show();
+        $('.js-btn-update').hide();
+        $('.js-btn-published').text('取消发布').data('publish', true);
       }
       Main.editSchedule(id);
     });
@@ -499,11 +504,6 @@ const Main = {
         if(result.data){
           let id = result.data.id;
           let attributes = result.data.attributes;
-          if(attributes['is-published']){
-            $('.js-btn-update').hide();
-          }else{
-            $('.js-btn-update').show();
-          }
 
           let courseDate = moment(attributes['start-time']).format('YYYY-MM-DD');
           let startTime = moment(attributes['start-time']).format('HH:mm');
@@ -535,8 +535,47 @@ const Main = {
             callback: () => {
               $('#course_show_modal').modal('show');
               Main.getTrainings(id);
-              var storeid = $('.select-store').selectpicker('val');
+              let storeid = $('.select-store').selectpicker('val');
               Main.getCustomersModal(storeid);
+
+              $('.js-btn-published').off('click').on('click', function(){
+                let publishStatus = $(this).data('publish');
+                console.log(publishStatus, id);
+                let msg = '发布';
+                if(publishStatus){
+                  msg = '取消发布';
+                }
+                $.ajax({
+                  url: '/api/admin/schedules/' + id,
+                  type: 'get',
+                  dataType: 'json',
+                  headers: {
+                    "X-Api-Key": csTools.token
+                  },
+                  data: {
+                    "schedule[is_published]": !publishStatus
+                  },
+                  complete: (result) => {
+                    console.log(result);
+                    if(result.status == 201 || result.status == 200){
+                      $('#course_show_modal').modal('hide');
+                      csTools.msgModalShow({
+                        msg: msg + '成功！',
+                        callback: () => {
+                           Main.clearModal();
+
+                          let sid = $('.select-store').selectpicker('val');
+                          Main.getSchedules(sid);
+                        }
+                      });
+                    }else{
+                      csTools.msgModalShow({
+                        msg: msg + '失败！'
+                      });
+                    }
+                  }
+                });
+              });
             }
           });
         }
