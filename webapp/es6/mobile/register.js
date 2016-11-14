@@ -61,11 +61,11 @@ const WxTool = {
         console.log(result.openid);
         const data = JSON.parse(result);
         if(result.errcode == 40029){
-          location.href = '/app/register';
+          WxTool.sendUrl('/app/register');
         }else{
           sessionStorage.nOpenId = data.openid;
           // sessionStorage.openId = 'jiujiu_98';
-          location.href = '/app/courseList';
+          WxTool.sendUrl('/app/courseList');
         }
       }
     });
@@ -126,6 +126,10 @@ const WxTool = {
       xhr.send(params);
     }
   },
+  sendUrl: (url) => {
+    history.replaceState({name: 'wxViewport'}, null, url);
+    location.reload();
+  }
 };
 
 WxTool.init();

@@ -6,7 +6,7 @@ const Wx = {
   },
   getUserInfo: () => {
     if(!Wx.openId){
-      location.href = '/app/register';
+      Wx.sendUrl('/app/register');
       return false;
     }
     // 验证用户信息
@@ -92,7 +92,7 @@ const Wx = {
           const weixin = result.responseJSON.data.attributes.weixin;
           sessionStorage.newWxToken = token;
           sessionStorage.newWeixin = weixin;
-          location.href = '/app/courseList';
+            Wx.sendUrl('/app/courseList');
         }
       }
     });
@@ -102,7 +102,7 @@ const Wx = {
     if(!token){
       if(location.pathname != '/app/courseList'){
         console.log('isWxLogin');
-        location.href = '/app/courseList';
+          Wx.sendUrl('/app/courseList');
       }else{
         console.log('getUserInfo');
         Wx.getUserInfo();
@@ -110,6 +110,10 @@ const Wx = {
     }else{
       Wx.token = token;
     }
+  },
+  sendUrl: (url) => {
+    window.history.replaceState({name: 'wxViewport'}, null, url);
+    location.reload();
   }
 };
 

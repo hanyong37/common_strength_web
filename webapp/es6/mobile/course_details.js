@@ -74,7 +74,7 @@ const Main = {
     });
   },
   bindBookOrWait: (id) => {
-    $('.weui-btn').on('tap', function(){
+    $('.weui-btn').on('click', function(){
       $.ajax({
         url: '/api/weixin/schedules/'+ id +'/booking',
         type: 'POST',
@@ -92,18 +92,34 @@ const Main = {
             }else{
               msg = '排队成功！'
             }
-            csTools.msgModalShow({
+            CS.msgConfirmShow({
               msg,
-              callback: () => {
-                Main.getoperations(id);
+              title: '提示',
+              style: 'weui',
+              isPhone: 'ios',
+              btn: ['取消', '确定'],
+              callback: ()=>{
+                history.back();
               }
             });
           }else if(result.status == 409){
-            csTools.msgModalShow({
+            CS.msgConfirmShow({
               msg: '排队人数已满，如需预约请咨询门店！',
-              callback: () => {
+              title: '提示',
+              style: 'weui',
+              isPhone: 'ios',
+              btn: ['取消', '确定'],
+              callback: ()=>{
                 Main.getoperations(id);
               }
+            });
+          }else{
+            CS.msgConfirmShow({
+              msg: '出现未知错误！errCode:'+ result.status,
+              title: '提示',
+              style: 'weui',
+              isPhone: 'ios',
+              btn: ['取消', '确定']
             });
           }
         }

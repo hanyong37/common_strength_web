@@ -1,15 +1,18 @@
   const Main = {
     init: () => {
+      console.log('init');
       Main.getSchedulesList();
       let $txtDate = $('.text-date');
-      $('.btn-prev').on('tap',function() {
+      $('.btn-prev').on('click',function() {
+        console.log('tap prev');
         let thisDate = $txtDate.data('val');
         let prevDate = Time.getPrevDate(thisDate);
         $txtDate.html(prevDate.nowDate + ' ' + prevDate.week).data('val', prevDate.nowDate);
         Main.getSchedulesList();
       });
 
-      $('.btn-next').on('tap',function() {
+      $('.btn-next').on('click',function() {
+        console.log('tap next');
         let thisDate = $txtDate.data('val');
         let nextDate = Time.getNextDate(thisDate);
         $txtDate.html(nextDate.nowDate + ' ' + nextDate.week).data('val', nextDate.nowDate);
@@ -43,7 +46,7 @@
             data: data,
             callback: () => {
 
-              $('.training-block').off('tap').on("tap", function(e) {
+              $('.training-block').off('click').on("click", function(e) {
                 e.stopPropagation();
                 const self = $(this);
                 const id = self.data('id');
@@ -57,5 +60,6 @@
   };
 
 (function() {
+  console.log('load');
   Main.init();
 })();
