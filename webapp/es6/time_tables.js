@@ -176,6 +176,10 @@ const Main = {
                 Main.getTrainings(schedule_id);
               }
             });
+          }else if(result.status == 422){
+            csTools.msgModalShow({
+              msg: '该客户已添加到此次训练！'
+            });
           }else{
             csTools.msgModalShow({
               msg: '添加训练失败！'
