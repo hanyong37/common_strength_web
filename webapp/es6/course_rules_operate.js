@@ -58,11 +58,13 @@ const Main = {
         if (result.data) {
           var Data = result.data;
           for (var key in Data) {
-            console.log(Data[key].attributes.key);
-            let labelKey = $('.form-horizontal label').eq(key).data('key');
-            console.log('labelKey: ' + labelKey);
-            if (Data[key].attributes.key == labelKey) {
-              $('.col-sm-4 input').eq(key).val(Data[key].attributes.value);
+            for (let i = 0; i < 4; i++) {
+            let labelKey = $('.form-horizontal label').eq(i).data('key');
+              console.log(Data[key].attributes.key, labelKey);
+              if (Data[key].attributes.key == labelKey ) {
+                console.log(Data[key].attributes.value)
+                $('.col-sm-4 input').eq(key).val(Data[key].attributes.value);
+              }
             }
           }
         }
