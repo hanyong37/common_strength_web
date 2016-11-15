@@ -548,16 +548,16 @@ const Main = {
 
               $('.js-btn-published').off('click').on('click', function(){
                 let publishStatus = $(this).data('publish');
-                console.log(publishStatus, id);
                 let msg = '发布';
                 if(publishStatus){
                   msg = '取消发布';
                 }
 
                 let isPublished =  true;
-                if(publishStatus == 'true'){
+                if(publishStatus == true){
                   isPublished = false;
                 }
+                console.log(publishStatus, id);
                 $.ajax({
                   url: '/api/admin/schedules/' + id,
                   type: 'PUT',
