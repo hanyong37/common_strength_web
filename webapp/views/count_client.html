@@ -24,26 +24,34 @@
       <li>课程偏好</li>
       <li>时段偏好分布</li>
     </ul>
-    <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>先生</li>
-      <li>34</li>
-      <li>34</li>
-      <li>123</li>
-      <li>
-        <div class="y">
-          <div class="one-y"></div>
-          <div class="two-y"></div>
-        </div>
-      </li>
-      <li>
-        <a href="#" class="kcph">查看</a>
-      </li>
-      <li>
-        <a href="#">查看</a>
-      </li>
-    </ul>
-    <ul class="content-table">
+
+    {% raw %}
+    <script type='text/template' id='#temp' >
+      {% for items in data %}
+        <ul class="content-table">
+          <li class="table-checkbox">1</li>
+          <li>{{ items.attributes['customer-name'] }}</li>
+          <li>{{ items.attributes['customer-name'] }}</li>
+          <li>{{ items.attributes['customer-name'] }}</li>
+          <li>{{ items.attributes['customer-name'] }}</li>
+          <li>
+            <div class="y">
+              <div class="one-y"></div>
+              <div class="two-y"></div>
+            </div>
+          </li>
+          <li>
+            <a href="#" class="kcph">查看</a>
+          </li>
+          <li>
+            <a href="#">查看</a>
+          </li>
+        </ul>
+      {% endfor %}
+    </script>
+    {% endraw %}
+
+    <!-- <ul class="content-table">
       <li class="table-checkbox">1</li>
       <li>先生</li>
       <li>34</li>
@@ -79,7 +87,7 @@
         <li><a href="#">5</a></li>
         <li><a href="#">&raquo;</a></li>
       </ul>
-    </nav>
+    </nav> -->
 
   </div>
 {% endblock -%}

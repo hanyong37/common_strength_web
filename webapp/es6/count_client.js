@@ -9,8 +9,9 @@ $(function(){
         {name: 'Opera', value: 0.91},
         {name: 'Proprietary or Undetectable', value: 0.2}
       ];
-      Main.BindHoverEvent();
-      Main.BindChartEvent(data);
+      // Main.BindHoverEvent();
+      // Main.BindChartEvent(data);
+      Main.getCountClientInfo();
     },
     BindHoverEvent: ()=>{
       $("a.kcph").hover(function(){
@@ -54,11 +55,31 @@ $(function(){
       var items = geom.getData(); // 获取图形对应的数据
       geom.setSelected(items[1]); // 设置选中
     },
-    setNunjucks: function(a) {
-      var tpl_pay_template = $(a.tmp).html();
-      var html = nunjucks.renderString(tpl_pay_template, a.data);
-      var $c = $(a.html);
-      $c.append(html);
+    getCountClientInfo: () => {
+      $.ajax({
+        url: '/api/admin/customer_report',
+        data: {
+          'from_date': '',
+          'to_date': ''
+        },
+        headers: {
+          'X-Api-Key': csTools.token,
+        },
+        type: 'get',
+        dataType: 'json',
+        success: (result) => {
+          console.log(result);
+
+          // if (result.data) {
+          //   csTools.setNunjucks({
+          //     tmpSelector: '#temp',
+          //     boxSelector: '.content-text',
+          //     isAppend: 'append',
+          //     data: result.data
+          //   });
+          // }
+        }
+      })
     }
   };
 
