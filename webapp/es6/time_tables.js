@@ -97,6 +97,14 @@ const Main = {
     $('#schedules_list').on('click', '.column-cell', function(){
       let id = $(this).data('id');
       let isTrue = $(this).data('publish');
+      let bookNumber = $(this).data('booknumber');
+
+      let $btnPublish = $('.js-btn-published');
+      if(bookNumber > 0){
+        $btnPublish.hide();
+      }else{
+        $btnPublish.show();
+      }
 
       if(!isTrue){
         $('.js-create-trainings').hide();
@@ -545,15 +553,20 @@ const Main = {
                 if(publishStatus){
                   msg = '取消发布';
                 }
+
+                let isPublished =  true;
+                if(publishStatus == 'true'){
+                  isPublished = false;
+                }
                 $.ajax({
                   url: '/api/admin/schedules/' + id,
-                  type: 'get',
+                  type: 'PUT',
                   dataType: 'json',
                   headers: {
                     "X-Api-Key": csTools.token
                   },
                   data: {
-                    "schedule[is_published]": !publishStatus
+                    "schedule[is_published]": isPublished
                   },
                   complete: (result) => {
                     console.log(result);
