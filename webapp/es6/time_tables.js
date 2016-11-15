@@ -314,7 +314,7 @@ const Main = {
     });
   },
   createDate: (str) => {
-    let rdate = new Date(str);
+    let rdate = moment(str).format();
     return rdate;
   },
   setSchedule: () => {
