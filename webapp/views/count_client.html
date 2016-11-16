@@ -1,17 +1,23 @@
 {% extends 'layout/tab_count.html'%}
 {% block style -%}
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="css/count.css?v1114">
 {%- endblock %}
 {% set secondary = '报表统计'%}
-{% set breadcrumb = '客户统计'%}
+{% set breadcrumb = '客户报表'%}
 {% set countClient = 'active' %}
 {% block body -%}
-  <div class="content-add">
-    <!-- <a href="storeManageAdd" class="btn btn-large btn-block btn-info iy-left">+ 添加</a> -->
-    <div class="input-group iy-right">
-      <input type="text" class="form-control" placeholder="请输入关键词">
-      <span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span>
+  <div class="content-add form-add">
+    <div class='input-group date datetimepicker start_datetime iy-left'>
+      <input type='text' id="start_datetime" class="form-control" placeholder="请输入开始时间">
+      <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
     </div>
+    <div class='input-group date datetimepicker over_datetime iy-left'>
+      <input type='text' id="over_datetime" class="form-control" placeholder="请输入结束时间">
+      <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+    </div>
+    <div class="btn btn-large btn-info">搜索</div>
   </div>
   <div class="content-text">
     <ul class="content-table title">
@@ -28,13 +34,13 @@
       <li>排队(人)</li>
       <li>排队中(人)</li>
       <li>课程偏好</li>
-      <li>时段偏好分布</li>
+      <li>时段偏好</li>
     </ul>
 
     {% raw %}
     <script type='text/template' id='temp' >
       {% for items in data %}
-        <ul class="content-table">
+        <ul class="content-table list">
           <li class="table-checkbox">{{ loop.index }}</li>
           <li>{{ items.attributes['customer-name'] }}</li>
           <li>{{ items.attributes['count-of-absence'] }}</li>
@@ -48,66 +54,30 @@
           <li>{{ items.attributes['count-of-waiting'] }}</li>
           <li>{{ items.attributes['count-of-waiting-confirmed'] }}</li>
           <li>
-            <a href="#" class="kcph">查看</a>
+            <a href="javascript:void(0);" class="kcph" type='0' data = {{ items.attributes['favarite-courses'] }}>查看</a>
             <!-- <div class="chart-tmp">
               <h4 class="tmp-left">课程偏好统计</h4>
               <div id="c1"></div>
             </div> -->
           </li>
-          <li>时段偏好</li>
+          <li>
+            <a href="javascript:void(0);" class="kcph" type='1' data = {{ items.attributes['favorite-time-slots'] }}>查看</a>
+          </li>
+          <!-- <li>{{ items.attributes['favarite-courses'] }}</li>
+          <li>{{ items.attributes['favorite-time-slots'] }}</li> -->
         </ul>
       {% endfor %}
     </script>
     {% endraw %}
 
-    <!-- <ul class="content-table">
-      <li class="table-checkbox">1</li>
-      <li>先生</li>
-      <li>34</li>
-      <li>34</li>
-      <li>123</li>
-      <li>
-        <div class="y">
-          <div class="one-y"></div>
-          <div class="two-y"></div>
-        </div>
-      </li>
-      <li>
-        <a href="#" class="kcph">查看</a>
-        <div class="chart-tmp">
-          <h4 class="tmp-left">课程偏好统计</h4>
-          <div id="c1"></div>
-        </div>
-      </li>
-      <li>
-        <a href="#">查看</a>
-        <div class="chart-tmp chart-tmp-left">
-          <h4 class="tmp-left">课程偏好统计</h4>
-        </div>
-      </li>
-    </ul>
-    <nav>
-      <ul class="pagination iy-right">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
-    </nav> -->
-
   </div>
 {% endblock -%}
 {%- block script %}
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.14.1/locale/zh-cn.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="https://as.alipayobjects.com/g/datavis/g2/2.0.1/index.js"></script>
 <script src="js/count_client.js?v1114"></script>
-<!-- {% raw %}
-<script type="text/template" id="temp">
-  <div class="chart-tmp">
-    <h4 class="tmp-left">课程偏好统计</h4>
-  </div>
-</script>
-{% endraw %} -->
 {%- endblock %}
