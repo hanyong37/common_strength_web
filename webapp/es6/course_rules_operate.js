@@ -57,13 +57,14 @@ const Main = {
         console.log(result);
         if (result.data) {
           var Data = result.data;
+
           for (var key in Data) {
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < Data.length; i++) {
             let labelKey = $('.form-horizontal label').eq(i).data('key');
               console.log(Data[key].attributes.key, labelKey);
-              if (Data[key].attributes.key == labelKey ) {
-                console.log(Data[key].attributes.value)
-                $('.col-sm-4 input').eq(key).val(Data[key].attributes.value);
+              if (labelKey == Data[key].attributes.key ) {
+                $('.col-sm-4 input').eq(i).val(Data[key].attributes.value);
+
               }
             }
           }

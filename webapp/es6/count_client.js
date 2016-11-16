@@ -69,15 +69,14 @@ $(function(){
         dataType: 'json',
         success: (result) => {
           console.log(result);
-
-          // if (result.data) {
-          //   csTools.setNunjucks({
-          //     tmpSelector: '#temp',
-          //     boxSelector: '.content-text',
-          //     isAppend: 'append',
-          //     data: result.data
-          //   });
-          // }
+          if (result.data) {
+            csTools.setNunjucksTmp({
+              tmpSelector: '#temp',
+              boxSelector: '.content-text',
+              isAppend: 'append',
+              data: result.data
+            });
+          }
         }
       })
     }

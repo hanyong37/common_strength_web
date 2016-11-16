@@ -15,37 +15,46 @@
   </div>
   <div class="content-text">
     <ul class="content-table title">
-      <li class="table-checkbox">1</li>
+      <li class="table-checkbox"></li>
       <li>会员名称</li>
-      <li>总完课次数</li>
-      <li>上周总完课次数</li>
-      <li>上月总完课次数</li>
-      <li>总缺席率</li>
+      <li>缺席(人)</li>
+      <li>迟到(人)</li>
+      <li>预订(人)</li>
+      <li>取消训练(人)</li>
+      <li>完成训练(人)</li>
+      <li>未预约(人)</li>
+      <li>未开始(人)</li>
+      <li>训练(人)</li>
+      <li>排队(人)</li>
+      <li>排队中(人)</li>
       <li>课程偏好</li>
       <li>时段偏好分布</li>
     </ul>
 
     {% raw %}
-    <script type='text/template' id='#temp' >
+    <script type='text/template' id='temp' >
       {% for items in data %}
         <ul class="content-table">
-          <li class="table-checkbox">1</li>
+          <li class="table-checkbox">{{ loop.index }}</li>
           <li>{{ items.attributes['customer-name'] }}</li>
-          <li>{{ items.attributes['customer-name'] }}</li>
-          <li>{{ items.attributes['customer-name'] }}</li>
-          <li>{{ items.attributes['customer-name'] }}</li>
-          <li>
-            <div class="y">
-              <div class="one-y"></div>
-              <div class="two-y"></div>
-            </div>
-          </li>
+          <li>{{ items.attributes['count-of-absence'] }}</li>
+          <li>{{ items.attributes['count-of-be-late'] }}</li>
+          <li>{{ items.attributes['count-of-booked'] }}</li>
+          <li>{{ items.attributes['count-of-cancelled'] }}</li>
+          <li>{{ items.attributes['count-of-complete'] }}</li>
+          <li>{{ items.attributes['count-of-no-booking'] }}</li>
+          <li>{{ items.attributes['count-of-not-start'] }}</li>
+          <li>{{ items.attributes['count-of-trainings'] }}</li>
+          <li>{{ items.attributes['count-of-waiting'] }}</li>
+          <li>{{ items.attributes['count-of-waiting-confirmed'] }}</li>
           <li>
             <a href="#" class="kcph">查看</a>
+            <!-- <div class="chart-tmp">
+              <h4 class="tmp-left">课程偏好统计</h4>
+              <div id="c1"></div>
+            </div> -->
           </li>
-          <li>
-            <a href="#">查看</a>
-          </li>
+          <li>时段偏好</li>
         </ul>
       {% endfor %}
     </script>
