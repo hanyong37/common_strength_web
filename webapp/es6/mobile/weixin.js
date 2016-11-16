@@ -3,6 +3,7 @@ const Wx = {
   openId: sessionStorage.nOpenId,
   init: () => {
     Wx.isWxLogin();
+
   },
   getUserInfo: () => {
     if(!Wx.openId){

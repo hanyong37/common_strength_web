@@ -75,7 +75,7 @@ const CS = {
           break;
       }
 
-      $('#dialogs').on('click', '.weui-dialog__btn', function(){
+      $('#dialogs').off('click').on('click', '.weui-dialog__btn', function(){
         const self = $(this);
         if (options.callback) {
           options.callback();
@@ -88,7 +88,7 @@ const CS = {
     if (options.style == "Bootstrap" || options.style == "BT") {
       $('.js-modal-message').html(options.msg);
 
-      $('#messageModal').modal().on('hidden.bs.modal', () => {
+      $('#messageModal').modal().off('hidden.bs.modal').on('hidden.bs.modal', () => {
         console.log(options.callback);
         if(options.callback){
           options.callback();
@@ -133,7 +133,7 @@ const CS = {
           break;
       }
 
-      $('#dialogs').on('click', '.weui-dialog__btn', function(){
+      $('#dialogs').off('click').on('click', '.weui-dialog__btn', function(){
         const self = $(this);
         console.log(self.index());
         if (self.index() == 1) {

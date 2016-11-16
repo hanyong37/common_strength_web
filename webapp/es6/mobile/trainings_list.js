@@ -198,6 +198,7 @@ const Main = {
         'X-Api-Key': Wx.token,
       },
       complete: (result) => {
+        console.log(result.status);
         if(result.status == 403){
           CS.msgModalShow({
             msg: '该训练已无法预约，如需预约请联系门店！',
@@ -208,7 +209,7 @@ const Main = {
               $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
             }
           });
-        }else if(result.status == 404){
+        }else if(result.status == 200){
           CS.msgModalShow({
             msg: '预约课程成功！',
             title: '提示',
