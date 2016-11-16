@@ -160,7 +160,7 @@ const Main = {
               $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
             }
           });
-        }else if(result.status == 404){
+        }else if(result.status == 200){
           CS.msgModalShow({
             msg: '取消预约成功！',
             title: '提示',
