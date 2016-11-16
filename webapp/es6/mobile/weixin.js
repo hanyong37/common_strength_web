@@ -1,3 +1,6 @@
+  sessionStorage.nOpenId = 'omPPQwsvIy9IiYmn1shs3zUBCb_A';
+  sessionStorage.newWxToken = 'WrNzmzhz6nVKLx76qV5Ri3Ua';
+
 const Wx = {
   token: '',
   openId: sessionStorage.nOpenId,
@@ -102,7 +105,7 @@ const Wx = {
     const token = sessionStorage.newWxToken;
     if(!token){
       if(location.pathname != '/app/courseList'){
-        console.log('isWxLogin');
+          console.log('isWxLogin');
           Wx.sendUrl('/app/courseList');
       }else{
         console.log('getUserInfo');

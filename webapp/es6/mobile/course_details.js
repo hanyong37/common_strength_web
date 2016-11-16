@@ -113,6 +113,17 @@ const Main = {
                 Main.getoperations(id);
               }
             });
+          }else if(result.status == 403){
+            CS.msgConfirmShow({
+              msg: '课程暂时无法预约！',
+              title: '提示',
+              style: 'weui',
+              isPhone: 'ios',
+              btn: ['取消', '确定'],
+              callback: ()=>{
+                Main.getoperations(id);
+              }
+            });
           }else{
             CS.msgConfirmShow({
               msg: '出现未知错误！errCode:'+ result.status,
