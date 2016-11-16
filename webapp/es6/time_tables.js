@@ -94,17 +94,21 @@ const Main = {
       Main.setWeekTitle(nextDate);
     });
 
+
+    //课程点击查看详情
     $('#schedules_list').on('click', '.column-cell', function(){
       let id = $(this).data('id');
       let isTrue = $(this).data('publish');
       let bookNumber = $(this).data('booknumber');
 
-      let $btnPublish = $('.js-btn-published');
+      //判断是否发布
+      let $btnPublishAndDel = $('.js-btn-published, .js-btn-del');
       if(bookNumber > 0){
-        $btnPublish.hide();
+        $btnPublishAndDel.hide();
       }else{
-        $btnPublish.show();
+        $btnPublishAndDel.show();
       }
+
 
       if(!isTrue){
         $('.js-create-trainings').hide();
@@ -118,24 +122,42 @@ const Main = {
       Main.editSchedule(id);
     });
 
+    //发布点击事件
     $('.btn-publish').on('click', function(){
       let hasClass = $(this).hasClass('unpublish');
       Main.publishEvent(hasClass);
     });
 
+    //添加课程
     $('#add_course_modal').on('click', function(){
       let _date = Main.theDate;
+      activeAddCourse(_date);
+    });
+
+    //星期点击 添加课程
+    $('#week_box').on('click', '.calendar-row-info', function(){
+      let _index = $(this).index();
+      let _date = $('#date_box .calendar-row-info').eq(_index).text();
+
+      activeAddCourse(_date);
+    });
+    $('#date_box').on('click', '.calendar-row-info', function(){
+      let _date = $(this).text();
+
+      activeAddCourse(_date);
+    });
+    function activeAddCourse(_d){
       Main.clearModal();
       let sid = $(this).selectpicker('val');
       Main.getCourseList(sid);
-      $('#course_date').val(_date);
       $('#course_modal').modal();
 
+      $('#course_date').val(_d);
       $('.js-btn-save').off('click').on('click', function(){
         $('.js-btn-save').off('click');
         Main.postSchedules();
       });
-    });
+    }
 
     $('#add_copy_modal').on('click', function(){
       let _date = $('#date_box').find('.calendar-row-info').eq(0).text();
