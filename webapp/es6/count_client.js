@@ -1,31 +1,53 @@
 $(function(){
-  var Main = {
+  const Main = {
     init: ()=> {
-      var data = [
-        {name: 'Microsoft Internet Explorer', value: 56.33 },
-        {name: 'Chrome', value: 24.03},
-        {name: 'Firefox', value: 10.38},
-        {name: 'Safari',  value: 4.77},
-        {name: 'Opera', value: 0.91},
-        {name: 'Proprietary or Undetectable', value: 0.2}
-      ];
-      // Main.BindHoverEvent();
-      // Main.BindChartEvent(data);
-      Main.getCountClientInfo();
+      $('.datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD'
+      });
+
+      Main.getCountClientInfo({
+        'startTime': '',
+        'endTime': ''
+      });
+
+      $(".btn-info").on('click', function() {
+        const start_datetime = $("#start_datetime").val();
+        const over_datetime = $("#over_datetime").val();
+
+        Main.getCountClientInfo({
+          'startTime': start_datetime,
+          'endTime': over_datetime
+        });
+      });
+
     },
-    BindHoverEvent: ()=>{
-      $("a.kcph").hover(function(){
-        var _self = $(this);
-        var html = '<div class="chart-tmp">'
-                +'<h4 class="tmp-left">课程偏好统计</h4>'
-                +'<canvas id="myChart" width="400" height="400"></canvas>'
+    BindChangeEvent: ()=>{
+      $("a.kcph").on('click', function(){
+        const _self = $(this);
+        $("a.kcph").siblings('.chart-tmp').remove();
+        const data = _self.attr('data');
+        let dataItems = [];
+        console.log();
+        const type = _self.attr('type');
+        let typeName = null;
+        if (type == 0) {
+          typeName = '课程偏好统计';
+        } else {
+          typeName = '时段偏好统计';
+        }
+
+        var html = '<div class="chart-tmp"><span class="glyphicon glyphicon-remove j-remove"></span>'
+                +'<h4 class="tmp-left">' + typeName + '</h4>'
+                + '<div>' + data + '</div>'
                 +'</div>';
         _self.parent('li').append(html);
-      },function(){
-        console.log($(this).siblings('.chart-tmp'));
+        // Main.BindChartEvent(data);
 
-        $(this).siblings('.chart-tmp').remove();
-      })
+        $('.j-remove').off('click').on('click', function() {
+          $(this).parent().remove();
+        });
+      });
+
     },
     BindChartEvent: (data)=> {
       var Stat = G2.Stat;
@@ -55,12 +77,12 @@ $(function(){
       var items = geom.getData(); // 获取图形对应的数据
       geom.setSelected(items[1]); // 设置选中
     },
-    getCountClientInfo: () => {
+    getCountClientInfo: (a) => {
       $.ajax({
         url: '/api/admin/customer_report',
         data: {
-          'from_date': '',
-          'to_date': ''
+          'from_date': a.startTime,
+          'to_date': a.endTime
         },
         headers: {
           'X-Api-Key': csTools.token,
@@ -70,15 +92,19 @@ $(function(){
         success: (result) => {
           console.log(result);
           if (result.data) {
+            $('.content-table.list').remove();
             csTools.setNunjucksTmp({
               tmpSelector: '#temp',
               boxSelector: '.content-text',
               isAppend: 'append',
-              data: result.data
+              data: result.data,
+              callback: () => {
+                Main.BindChangeEvent();
+              }
             });
           }
         }
-      })
+      });
     }
   };
 
