@@ -158,10 +158,10 @@ const CS = {
   },
   setDateFormat: (a) => { // 时间格式转换
     let fmt = 'yyyy-MM-dd hh:mm:ss';
-    let tm = new Date();
+    let tm = moment();
     if (!!a) {
       a = {
-        time: new Date(a.time) || new Date(),
+        time: moment(a.time.slice(0,-1)) || moment(),
         format: a.format || 'yyyy-MM-dd hh:mm:ss'
       }
 

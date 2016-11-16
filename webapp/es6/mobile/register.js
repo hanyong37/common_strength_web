@@ -79,7 +79,7 @@ const WxTool = {
           let _pValue = encodeURIComponent(data[key]);
           params.push(_pName + '=' + _pValue);
         }
-        params.push('v='+ new Date().getTime());
+        params.push('v='+ moment().getTime());
         let paramStr = params.join('&');
         return paramStr;
       }

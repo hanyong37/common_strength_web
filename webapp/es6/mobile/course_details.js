@@ -94,9 +94,9 @@ const Main = {
   $('.js-btn-bookable').on('click', function(){
     let isLocked = Main.userData['is-locked'];
     let _type = Main.userData['membership-type'];
-    let nowTime = new Date().getTime();
+    let nowTime = moment().getTime();
     let remainTime = Main.userData['membership-duedate'];
-    let duedate = new Date(Main.userData['membership-remaining-times']).getTime();
+    let duedate = moment(Main.userData['membership-remaining-times'].slice(0,-1)).getTime();
 
     if(_type === 'time_card' &&  remainTime <= nowTime){
       CS.msgModalShow({

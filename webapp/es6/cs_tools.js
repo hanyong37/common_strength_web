@@ -279,7 +279,7 @@ const csTools = {
     return out;
   },
   getDateStr: (dayDate, AddDayCount) => {
-      var dd = new Date(dayDate);
+      var dd = moment(dayDate);
       dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
       var y = dd.getFullYear();
       var m = dd.getMonth()+1;//获取当前月份的日期
@@ -287,10 +287,10 @@ const csTools = {
       return y+"/"+m+"/"+d;
   },
   getWeekDay: (_date) => {
-    let mDate = new Date();
+    let mDate = moment();
     let getDateStr = csTools.getDateStr;
     if(_date){
-      mDate = new Date(_date);
+      mDate = moment(_date);
     }
     let tWeek = mDate.getDay();
     let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];

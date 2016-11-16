@@ -6,8 +6,8 @@ const Time = {
     console.log($txtDate.data('val'));
 
   },
-  getDate: (_date = new Date()) => {
-    const mydate = new Date(_date);
+  getDate: (_date = moment()) => {
+    const mydate = moment(_date);
     const myyear = mydate.getYear() + 1900;
     let mymonth = mydate.getMonth()+1;//注：月数从0~11为一月到十二月
     let myday = mydate.getDate();
@@ -32,11 +32,11 @@ const Time = {
     return obj;
   },
   getPrevDate: (_date) => {
-    const time = new Date(_date).getTime() - 24 * 60 * 60 * 1000;
+    const time = moment(_date).getTime() - 24 * 60 * 60 * 1000;
     return Time.getDate(time);
   },
   getNextDate: (_date) => {
-    const time = new Date(_date).getTime() + 24 * 60 * 60 * 1000;
+    const time = moment(_date).getTime() + 24 * 60 * 60 * 1000;
     return Time.getDate(time);
   },
 };

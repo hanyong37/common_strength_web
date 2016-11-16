@@ -15,7 +15,7 @@ const Main = {
         if(result.data){
           let data = result.data;
           for(let i =0, lg = data.length; i<lg; i++){
-            data[i].attributes['created_at'] = moment(data[i].attributes['created-at']).format('YYYY-MM-DD HH:mm');
+            data[i].attributes['created_at'] = moment(data[i].attributes['created-at'].slice(0,-1)).format('YYYY-MM-DD HH:mm');
           }
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_opt_block',

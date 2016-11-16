@@ -539,9 +539,9 @@ const Main = {
           let id = result.data.id;
           let attributes = result.data.attributes;
 
-          let courseDate = moment(attributes['start-time']).format('YYYY-MM-DD');
-          let startTime = moment(attributes['start-time']).format('HH:mm');
-          let endTime = moment(attributes['end-time']).format('HH:mm');
+          let courseDate = moment(attributes['start-time'].slice(0,-1)).format('YYYY-MM-DD');
+          let startTime = moment(attributes['start-time'].slice(0,-1)).format('HH:mm');
+          let endTime = moment(attributes['end-time'].slice(0,-1)).format('HH:mm');
           let capacity = attributes.capacity;
           let storeId = attributes['store-id'];
           let storeName = attributes['store-name'];
@@ -713,10 +713,10 @@ const Main = {
         console.log('trainings_box', result);
         //trainings_box
         let data = result.data;
-        let nDate = new Date().getTime();
+        let nDate = moment().getTime();
         for(let i = 0, lg = data.length; i < lg; i++){
-          let dEndDate = new Date(data[i].attributes['end-time']).getTime();
-          let dStartDate = new Date(data[i].attributes['start-time']).getTime();
+          let dEndDate = moment(data[i].attributes['end-time'].slice(0,-1)).getTime();
+          let dStartDate = moment(data[i].attributes['start-time'].slice(0,-1)).getTime();
 
           console.log(dEndDate, dStartDate, nDate);
 
@@ -783,9 +783,9 @@ const Main = {
         let rData = result.data;
 
         for(let i =0, lg = rData.length; i < lg; i++){
-          rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].toString()).format('YYYY/M/D');
-          rData[i].attributes.startTime = moment(rData[i].attributes['start-time'].toString()).format('HH:mm');
-          rData[i].attributes.endTime = moment(rData[i].attributes['end-time'].toString()).format('HH:mm');
+          rData[i].attributes.thisDate = moment(rData[i].attributes['start-time'].slice(0,-1).toString()).format('YYYY/M/D');
+          rData[i].attributes.startTime = moment(rData[i].attributes['start-time'].slice(0,-1).toString()).format('HH:mm');
+          rData[i].attributes.endTime = moment(rData[i].attributes['end-time'].slice(0,-1).toString()).format('HH:mm');
 
           if(rData[i].attributes['is-published'] || rData[i].attributes['is-published'] == 'true'){
             $btnPulish.text('取消发布本周课程').addClass('unpublish');
