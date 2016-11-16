@@ -6,7 +6,6 @@ const Wx = {
   openId: sessionStorage.nOpenId,
   init: () => {
     Wx.isWxLogin();
-
   },
   getUserInfo: () => {
     if(!Wx.openId){
@@ -24,6 +23,7 @@ const Wx = {
       dataType: 'json',
       complete: (result) => {
         console.log('session', result);
+        return false;
         if(result.status == 200){
           const token = result.responseJSON.data.attributes.token;
           sessionStorage.newWxToken = token;
