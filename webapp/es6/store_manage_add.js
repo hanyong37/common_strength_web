@@ -7,13 +7,14 @@ const Main = {
       size: 4
     });
 
-    console.log(storeData);
-
     if (Main.storeData != undefined) {
       Main.storeData = JSON.parse(csTools.utf8to16(decodeURIComponent(Main.storeData)));
-      $('#j-name').val(storeData.name);
-      $("#j-address").val(storeData.address);
-      $("#j-phone").val(storeData.telphone);
+
+      console.log(Main.storeData);
+
+      $('#j-name').val(Main.storeData.name);
+      $("#j-address").val(Main.storeData.address);
+      $("#j-phone").val(Main.storeData.telphone);
     }
 
     $('#j-save').on('click', function() {

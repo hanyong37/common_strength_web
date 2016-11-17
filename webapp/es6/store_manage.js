@@ -21,14 +21,16 @@ $(function() {
 
 
         $(".j-editStore").on('click', function() {
-          let _thisLi = $(this).parents('.content-table').find('li');
-          let id = _thisLi.eq(0).data('id');
-          let name = _thisLi.eq(1).html();
-          let address = _thisLi.eq(2).html();
+          const _thisLi = $(this).parents('.content-table').find('li');
+          const id = _thisLi.eq(0).data('id');
+          const name = _thisLi.eq(1).html();
+          const address = _thisLi.eq(2).html();
+          const telphone = _thisLi.eq(3).html();
           let storeData = {
             id,
             name,
-            address
+            address,
+            telphone
           };
 
           console.log(storeData);
