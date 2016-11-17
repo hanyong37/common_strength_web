@@ -175,7 +175,7 @@ let Main = {
     const memberShipWechatId = '';
     let data = {};
     if(memberShipCardType == 'time_card'){
-      deadLine = moment(deadLine);
+      // deadLine = new Date(deadLine);
       data = {
         'customer[name]': memberShipName,
         'customer[mobile]':memberShipTelephone,
