@@ -13,7 +13,7 @@ const Main = {
       const start_datetime = $("#start_datetime").val();
       const over_datetime = $("#over_datetime").val();
 
-      Main.getCountClientInfo({
+      Main.getCountReserve({
         'startTime': start_datetime,
         'endTime': over_datetime
       });
