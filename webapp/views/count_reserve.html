@@ -23,19 +23,19 @@
   <ul class="content-table title">
     <li class="table-checkbox"></li>
     <li>课程名称</li>
-    <li>门店名称</li>
-    <li>课程类型</li>
-    <li>总人数</li>
-    <li>缺席</li>
-    <li>迟到</li>
-    <li>预订</li>
-    <li>取消训练</li>
-    <li>完成训练</li>
-    <li>未预约</li>
-    <li>未开始</li>
-    <li>训练</li>
-    <li>排队</li>
-    <li>排队中</li>
+    <li>门店</li>
+    <li>课程</li>
+    <li>课程总容量</li>
+    <li>预约人次</li>
+    <li>排队中的人次</li>
+    <li>排队成功人次</li>
+    <li>预约成功人次</li>
+    <li>未预约人次</li>
+    <li>预约取消人次</li>
+    <li>未开始人次</li>
+    <li>迟到人次</li>
+    <li>缺席人次</li>
+    <li>完成人次</li>
   </ul>
 
   {% raw %}
@@ -47,16 +47,16 @@
         <li>{{ items.attributes['store-name'] }}</li>
         <li>{{ items.attributes['course-type'] }}</li>
         <li>{{ items.attributes['total-capacity'] }}</li>
-        <li>{{ items.attributes['count-of-absence'] }}</li>
-        <li>{{ items.attributes['count-of-be-late'] }}</li>
-        <li>{{ items.attributes['count-of-booked'] }}</li>
-        <li>{{ items.attributes['count-of-cancelled'] }}</li>
-        <li>{{ items.attributes['count-of-complete'] }}</li>
-        <li>{{ items.attributes['count-of-no-booking'] }}</li>
-        <li>{{ items.attributes['count-of-not-start'] }}</li>
         <li>{{ items.attributes['count-of-trainings'] }}</li>
         <li>{{ items.attributes['count-of-waiting'] }}</li>
         <li>{{ items.attributes['count-of-waiting-confirmed'] }}</li>
+        <li>{{ items.attributes['count-of-booked'] }}</li>
+        <li>{{ items.attributes['count-of-no-booking'] }}</li>
+        <li>{{ items.attributes['count-of-cancelled'] }}</li>
+        <li>{{ items.attributes['count-of-not-start'] }}</li>
+        <li>{{ items.attributes['count-of-be-late'] }}</li>
+        <li>{{ items.attributes['count-of-absence'] }}</li>
+        <li>{{ items.attributes['count-of-complete'] }}</li>
       </ul>
     {% endfor %}
   </script>
