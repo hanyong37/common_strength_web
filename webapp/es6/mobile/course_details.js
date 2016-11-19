@@ -90,54 +90,52 @@ const Main = {
       }
     });
   },
-  bindBookOrWait: (id) => {
-  $('.js-btn-bookable').on('click', function(){
-    let isLocked = Main.userData['is-locked'];
-    let _type = Main.userData['membership-type'];
-    let nowTime = new Date().getTime();
-    let remainTime = Main.userData['membership-duedate'];
-    let duedate = new Date(Main.userData['membership-remaining-times']).getTime();
-
-    if(_type === 'time_card' &&  remainTime <= nowTime){
-      CS.msgModalShow({
-        msg: '您已经没有剩余的消费时间！',
-        title: '提示',
-        style: 'weui',
-        isPhone: 'ios'
-      });
-      return false;
-    }else if(_type !== 'time_card' &&  duedate <= 0){
-      CS.msgModalShow({
-        msg: '您已经没有剩余的消费次数！',
-        title: '提示',
-        style: 'weui',
-        isPhone: 'ios'
-      });
-      return false;
-    }
-    if(isLocked){
-      CS.msgModalShow({
-        msg: '您的账户被锁定，请与门店联系。',
-        title: '提示',
-        style: 'weui',
-        isPhone: 'ios',
-        callback: ()=>{
-          Main.getoperations(id);
+  bindBookOrWait : (id) => {
+    $('.js-btn-bookable').on('click', function() {
+        let data = Main.userData;
+        if (data['is-membership-valid']) {
+            if (data['booking-status'] == 'no_booking') {
+                if (data['bookable'] && !data['waitable'] || !data['waitable'] && data['waitable']) {
+                    // continue
+                    Main.postBookOrWait(id);
+                } else {
+                    CS.msgModalShow({msg: data['schedule-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
+                    return false;
+                }
+            } else if (data.attributes['booking-status'] == 'waiting') {
+                CS.msgConfirmShow({
+                    msg: '您已在排队,去往已预约列表查看!',
+                    title: '提示',
+                    style: 'weui',
+                    isPhone: 'ios',
+                    callback: () => {
+                        location.href = '/app/trainingsList';
+                    }
+                });
+                return false;
+            } else if (data.attributes['booking-status'] == 'booked') {
+                CS.msgConfirmShow({
+                    msg: '您已经预约该训练，去往已预约列表查看！',
+                    title: '提示',
+                    style: 'weui',
+                    isPhone: 'ios',
+                    callback: () => {
+                        location.href = '/app/trainingsList';
+                        return false;
+                    }
+                });
+                return false;
+            } else if (data.attributes['booking-status'] == 'cancelled') {
+                CS.msgModalShow({msg: data['schedule-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
+                return false;
+            }
+        } else {
+            CS.msgModalShow({msg: data['customer-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
+            return false;
         }
-      });
-    }else if(isLocked === false || isLocked === null){
-      Main.postBookOrWait(id);
-    }else{
-      //membership-remaining-times
-      CS.msgModalShow({
-        msg: '操作太快，请稍后再试',
-        title: '提示',
-        style: 'weui',
-        isPhone: 'ios'
-      });
-    }
-  });
-  },
+    });
+
+},
   postBookOrWait: (id) => {
     $.ajax({
       url: '/api/weixin/schedules/'+ id +'/booking',

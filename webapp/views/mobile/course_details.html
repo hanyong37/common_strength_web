@@ -27,26 +27,27 @@
   <div class="page__ft">
     {% if data.attributes['is-membership-valid'] %}
       {% if data.attributes['booking-status'] == 'not_booked' %}
-        {% if data.attributes['bookable'] and not data.attributes['waitable'] %}
-          <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
-        {% elif not data.attributes['bookable'] and data.attributes['waitable'] %}
-          <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
+        {% if data.attributes['bookable'] %}
+          {% if not data.attributes['waitable'] %}
+            <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
+          {% endif %}
         {% else %}
-          <div class="weui-btn weui-btn_disabled weui-btn_primary">课程已满</div>
+          {% if data.attributes['waitable'] %}
+            <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
+          {% else %}
+            <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
+          {% endif %}
         {% endif %}
       {% elif data.attributes['booking-status'] == 'waiting' %}
         <div class="weui-btn weui-btn_disabled weui-btn_primary">您已在排队</div>
-      {% elif data.attributes['booking-status'] == 'booked' %}
+      {% elif data.attributes['booking-status'] == 'booked' or data.attributes['booking-status'] == 'no_booking' %}
         <div class="weui-btn weui-btn_disabled weui-btn_primary">您已经预约</div>
       {% elif data.attributes['booking-status'] == 'cancelled' %}
         <div class="weui-btn weui-btn_disabled weui-btn_warn">您已经取消预约</div>
       {% endif %}
+
     {% else %}
-      {% if data.attributes['customer-membership-type'] == 'time_card' %}
-        <div class="weui-btn weui-btn_disabled weui-btn_default">课程超出您的会员卡有效期</div>
-      {% else %}
-        <div class="weui-btn weui-btn_disabled weui-btn_default">您已经没有剩余的消费次数，请及时充值</div>
-      {% endif %}
+      <div class="weui-btn weui-btn_disabled weui-btn_default">data.attributes['customer-reject-msg']</div>
     {% endif %}
   </div>
 </script>
