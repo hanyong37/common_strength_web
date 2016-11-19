@@ -20,7 +20,7 @@
               <div class="cs-text">
                 <h4 class="weui-media-box__title">{{ items.attributes['course-name'] }}
               {% if items.attributes['training-status'] == "not_start" %}
-                {% if items.attributes['int-end-time'] <= items.attributes['int-now-time'] and items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
+                {% if items.attributes['int-end-time'] >= items.attributes['int-now-time'] and items.attributes['int-start-time'] <=  items.attributes['int-now-time'] %}
                   <em class="em-booked em-training">进行中</em>
                 {% elif items.attributes['int-end-time'] <= items.attributes['int-now-time'] %}
                   {% if items.attributes['booking-status'] == "cancelled" %}
@@ -55,10 +55,12 @@
                   <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
                 </div>
               </div>
-            {% if items.attributes['training-status'] == "not_start" %}
-              <div class="cs-del cs-cancel">取消预约</div>
-            {% elif items.attributes['training-status'] == "not_start" %}
-              <div class="cs-del cs-rebook">重新预约</div>
+            {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
+              {% if items.attributes['training-status'] == "not_start" %}
+                <div class="cs-del cs-cancel">取消预约</div>
+              {% elif items.attributes['training-status'] == "not_start" %}
+                <div class="cs-del cs-rebook">重新预约</div>
+              {% endif %}
             {% endif %}
           </div>
           {% endfor %}
