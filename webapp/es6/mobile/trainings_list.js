@@ -14,12 +14,6 @@ const Main = {
                 var isCancel = $(Dom).find('.cancel-em').hasClass('cancel-true');
                 var isCanceled = $(Dom).find('.canceled-em').hasClass('cancel-true');
                 if (isCancel || isCanceled) {
-                    if (isCanceled) {
-                        $(Dom).find('.cs-del').addClass('cs-rebook').text('重新预约');
-                    }
-                    if (isCancel) {
-                        $(Dom).find('.cs-del').addClass('cs-cancel');
-                    }
                     Dom.addEventListener('touchstart', function(e) {
                         x = e.targetTouches[0].screenX;
                         y = e.targetTouches[0].screenY;
@@ -79,6 +73,9 @@ const Main = {
                                 this.setAttribute('data-left', '0');
                                 this.style.transform = 'translate(' + 0 + 'px, 0)';
                             }
+                        } else {
+                            this.setAttribute('data-left', '0');
+                            this.style.transform = 'translate(' + 0 + 'px, 0)';
                         }
 
                     });
@@ -88,7 +85,6 @@ const Main = {
                         } else {
                             console.log('end show');
                         }
-
                     });
                 } else {
                     Dom.addEventListener('touchstart', function() {
@@ -118,11 +114,13 @@ const Main = {
                         data[key].attributes['start-timeY'] = CS.setDateFormat({ time: data[key].attributes['start-time'], format: 'yyyy-MM-dd' });
                         data[key].attributes['start-timeH'] = CS.setDateFormat({ time: data[key].attributes['start-time'], format: 'hh:mm' });
                         data[key].attributes['end-timeH'] = CS.setDateFormat({ time: data[key].attributes['end-time'], format: 'hh:mm' });
+                        data[key].attributes['int-start-time'] = new Date(data[key].attributes['start-time']).getTime();
+                        data[key].attributes['int-end-time'] = new Date(data[key].attributes['end-time']).getTime();
+                        data[key].attributes['int-now-time'] = new Date().getTime();
                     }
-
+                    console.log(data);
                     $(".cs-list-cell .cs-list").remove();
 
-                    console.log(result.data);
                     CS.setNunjucksTmp({
                         tmpSelector: '#temp',
                         boxSelector: '.cs-list-cell',
