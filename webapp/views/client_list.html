@@ -73,7 +73,7 @@
       {% endif %}
     </li>
     <li>{{ item.attributes.mobile }}</li>
-    <li>{% if item.attributes.weixin %}已绑定{% else %}未绑定{% endif %}</li>
+    <li>{% if item.attributes['is-weixin-connected']%}已绑定{% else %}未绑定{% endif %}</li>
     <li class="table-cell-2">{{ item.attributes['store-name'] }}</li>
     <li>
       {% if item.attributes['membership-type'] == 'time_card' %}

@@ -73,7 +73,7 @@
 <script id="tmp_member_info" type="text/template">
   {% raw %}
   <div class="member-title">{{ data.name }}</div>
-  <div class="member-row"><span>电话：{{ data.mobile }}</span><span>微信号：{{ data.weixin }}</span></div>
+  <div class="member-row"><span>电话：{{ data.mobile }}</span><span>微信号：{% if data['is-weixin-connected']%}已绑定{% else %}未绑定{% endif %}</span></div>
   <div class="member-row"><span>状态：{%if data['is-locked']%}锁定{% else %}正常{%endif%}</span><span>门店：{{ data['store-name'] }}</span></div>
   {% endraw %}
 </script>
