@@ -128,6 +128,7 @@ gulp.watch(path, ()=> {
 
 // 构建压缩项目
 gulp.task('go', [ 'clean', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
+gulp.task('going', ['less', 'es6']);
 
 // 默认执行gulp 启动项目
 gulp.task('default', ['browser-sync', 'less', 'es6']);
