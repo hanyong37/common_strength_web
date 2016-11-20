@@ -38,16 +38,10 @@
             <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
           {% endif %}
         {% endif %}
-      {% elif data.attributes['booking-status'] == 'waiting' %}
-        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已在排队</div>
-      {% elif data.attributes['booking-status'] == 'booked' or data.attributes['booking-status'] == 'no_booking' %}
-        <div class="weui-btn weui-btn_disabled weui-btn_primary">您已经预约</div>
-      {% elif data.attributes['booking-status'] == 'cancelled' %}
-        <div class="weui-btn weui-btn_disabled weui-btn_warn">您已经取消预约</div>
       {% endif %}
 
     {% else %}
-      <div class="weui-btn weui-btn_disabled weui-btn_default">data.attributes['customer-reject-msg']</div>
+      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
     {% endif %}
   </div>
 </script>

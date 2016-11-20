@@ -2,32 +2,14 @@
 const Main = {
   userData: {},
   init: () => {
-    var param = location.href.split('#')[1].split('=')[1];
+    let param = location.href.split('#')[1].split('=')[1];
     console.log(param);
-    Main.getUserInfo();
-    Main.getSchedulesInfo({
-      id: param
-    });
-    Main.getoperations(param);
+    Main.getSchedulesInfo(param);
+    Main.getOperations(param);
   },
-  getUserInfo: () => {
+  getSchedulesInfo: (id) => {
     $.ajax({
-      url: '/api/weixin/my_info',
-      headers: {
-        'X-Api-Key': Wx.token,
-      },
-      type:'get',
-      dataType: 'json',
-      success: (result) => {
-        if (result.data) {
-          Main.userData = result.data.attributes;
-        }
-      }
-    })
-  },
-  getSchedulesInfo: (a) => {
-    $.ajax({
-      url: '/api/weixin/schedules/' + a.id,
+      url: '/api/weixin/schedules/' + id,
       type: 'get',
       dataType: 'json',
       headers: {
@@ -35,7 +17,7 @@ const Main = {
       },
       complete: (result) => {
         if(result.status == 200){
-          var data = result.responseJSON.data;
+          let data = result.responseJSON.data;
           data.attributes['start_date'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'yyyy-MM-dd'});
           data.attributes['start_time'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'hh:mm'});
           data.attributes['end_time'] = CS.setDateFormat({time: data.attributes['end-time'], format: 'hh:mm'});
@@ -62,9 +44,7 @@ const Main = {
       }
     })
   },
-  getoperations: (id) => {
-    ///weixin/schedules/1137/schedule_operations
-
+  getOperations: (id) => {
     $.ajax({
       url: '/api/weixin/schedules/'+ id +'/schedule_operations',
       type: 'get',
@@ -92,47 +72,7 @@ const Main = {
   },
   bindBookOrWait : (id) => {
     $('.js-btn-bookable').on('click', function() {
-        let data = Main.userData;
-        if (data['is-membership-valid']) {
-            if (data['booking-status'] == 'no_booking') {
-                if (data['bookable'] && !data['waitable'] || !data['waitable'] && data['waitable']) {
-                    // continue
-                    Main.postBookOrWait(id);
-                } else {
-                    CS.msgModalShow({msg: data['schedule-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
-                    return false;
-                }
-            } else if (data.attributes['booking-status'] == 'waiting') {
-                CS.msgConfirmShow({
-                    msg: '您已在排队,去往已预约列表查看!',
-                    title: '提示',
-                    style: 'weui',
-                    isPhone: 'ios',
-                    callback: () => {
-                        location.href = '/app/trainingsList';
-                    }
-                });
-                return false;
-            } else if (data.attributes['booking-status'] == 'booked') {
-                CS.msgConfirmShow({
-                    msg: '您已经预约该训练，去往已预约列表查看！',
-                    title: '提示',
-                    style: 'weui',
-                    isPhone: 'ios',
-                    callback: () => {
-                        location.href = '/app/trainingsList';
-                        return false;
-                    }
-                });
-                return false;
-            } else if (data.attributes['booking-status'] == 'cancelled') {
-                CS.msgModalShow({msg: data['schedule-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
-                return false;
-            }
-        } else {
-            CS.msgModalShow({msg: data['customer-reject-msg'], title: '提示', style: 'weui', isPhone: 'ios'});
-            return false;
-        }
+        Main.postBookOrWait(id);
     });
 
 },
