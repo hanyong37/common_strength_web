@@ -185,7 +185,7 @@ const Main = {
       let schedule_id = $(this).data('id');
       let store_id = $('.select-store').selectpicker('val');
       let booking_status = 'no_booking';
-      let training_status = 'not_start';
+      let training_status = 'normal';
       $.ajax({
         url: '/api/admin/trainings/',
         type: 'POST',
@@ -209,6 +209,7 @@ const Main = {
               callback: () => {
                 $('#trainings_modal').modal('hide');
                 Main.getTrainings(schedule_id);
+                Main.getSchedules(store_id);
               }
             });
           }else if(result.status == 422){
@@ -224,39 +225,54 @@ const Main = {
       });
     });
     let $trainingsBox = $('#trainings_box');
-    $trainingsBox.on('click', '.cancal-training', function(){
+    $trainingsBox.on('click', '.cancel-training', function(){
       let id = $(this).parent().data('id');
       let data = {
         "training[booking_status]": 'cancelled',
         "training[training_status]": 'not_start'
       };
-      Main.setTrainings(id, data, '取消预约');
+      csTools.msgConfirmShow({
+        msg: '是否取消训练？',
+        callback: () => {
+          Main.delTrainings(id);
+        }
+      });
+    });
+    $trainingsBox.on('click', '.waiting-training', function(){
+      let id = $(this).parent().data('id');
+      let data = {
+        "training[booking_status]": 'cancelled',
+        "training[training_status]": 'not_start'
+      };
+      csTools.msgConfirmShow({
+        msg: '是否排队成功？',
+        callback: () => {
+          Main.setTrainings(id, data, '排队成功');
+        }
+      });
     });
     $trainingsBox.on('click', '.later-training', function(){
       let id = $(this).parent().data('id');
       let data = {
         "training[training_status]": 'be_late'
       };
-      Main.setTrainings(id, data, '更新状态');
+      Main.setTrainings(id, data, '更新状态 迟到 ');
     });
     $trainingsBox.on('click', '.absence-training', function(){
       let id = $(this).parent().data('id');
       let data = {
         "training[training_status]": 'absence'
       };
-      Main.setTrainings(id, data, '更新状态');
+      Main.setTrainings(id, data, '更新状态 缺勤 ');
     });
     $trainingsBox.on('click', '.complete-training', function(){
       let id = $(this).parent().data('id');
       let data = {
-        "training[training_status]": 'complete'
+        "training[training_status]": 'normal'
       };
-      Main.setTrainings(id, data, '更新状态');
+      Main.setTrainings(id, data, '更新状态 完成 ');
     });
-    $trainingsBox.on('click', '.manage-del', function(){
-      let id = $(this).parent().data('id');
-      Main.delTrainings(id);
-    });
+
   },
   setWeekTitle: (_date) => {
     let weekArr = csTools.getWeekDay(_date);
