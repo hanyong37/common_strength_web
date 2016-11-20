@@ -654,8 +654,8 @@ const Main = {
   clearModal: ()=>{
     $('#select_course').selectpicker('val', '');
     $('#course_date').val('');
-    $('#start_datetime').val('');
-    $('#over_datetime').val('');
+    $('#start_datetime').val('00:00');
+    $('#over_datetime').val('00:00');
     $('#course_number').val('');
     $('#course_modal').data('id', '');
   },
