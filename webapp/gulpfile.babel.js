@@ -25,17 +25,15 @@ gulp.task('less', ()=> {
     .pipe(prefix('last 2 versions', '> 1%', 'ie 8', 'Android 2'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public/css'))
-    .pipe(browserSync.stream());
 });
 
 // es6 编译
 gulp.task('es6', ()=> {
   return gulp.src(['./es6/*.js', './es6/*/*.js'])
-    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.init({largeFile: true}))
     .pipe(es6({presets: ['es2015']}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public/js'))
-    .pipe(browserSync.stream());
 });
 
 //  浏览器同步
@@ -116,8 +114,14 @@ var path = [
   './views/*/*.*',
 ];
 
-gulp.watch('./less/*.*', ['less']);
-gulp.watch(['./es6/*.*', './es6/*/*.*'], ['es6']);
+gulp.watch('./less/*.*', ['less'], ()=> {
+  reload();
+});
+
+gulp.watch(['./es6/*.*', './es6/*/*.*'], ['es6'], ()=> {
+  reload();
+});
+
 gulp.watch(path, ()=> {
   reload();
 });

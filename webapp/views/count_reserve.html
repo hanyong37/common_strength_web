@@ -18,24 +18,30 @@
     <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
   </div>
   <div class="btn btn-large btn-info">搜索</div>
+
+  <div class="input-group select-store-box iy-right">
+    <select class="form-control select-store">
+      {% raw %}
+        <script type='text/template' id='temp_Select'>
+          {% for item in data %}
+          <option value="{{ item.id }}">{{ item.attributes.name }}</option>
+          {% endfor %}
+        </script>
+      {% endraw %}
+    </select>
+  </div>
 </div>
 <div class="content-text" style='width:1200px;'>
   <ul class="content-table title">
     <li class="table-checkbox"></li>
     <li>课程名称</li>
-    <li>门店</li>
     <li>课程</li>
+    <li>门店</li>
     <li>课程总容量</li>
     <li>预约人次</li>
-    <li>排队中的人次</li>
-    <li>排队成功人次</li>
-    <li>预约成功人次</li>
-    <li>未预约人次</li>
-    <li>预约取消人次</li>
-    <li>未开始人次</li>
-    <li>迟到人次</li>
     <li>缺席人次</li>
     <li>完成人次</li>
+    <li>迟到人次</li>
   </ul>
 
   {% raw %}
@@ -47,16 +53,10 @@
         <li>{{ items.attributes['store-name'] }}</li>
         <li>{{ items.attributes['course-type'] }}</li>
         <li>{{ items.attributes['total-capacity'] }}</li>
-        <li>{{ items.attributes['count-of-trainings'] }}</li>
-        <li>{{ items.attributes['count-of-waiting'] }}</li>
-        <li>{{ items.attributes['count-of-waiting-confirmed'] }}</li>
-        <li>{{ items.attributes['count-of-booked'] }}</li>
-        <li>{{ items.attributes['count-of-no-booking'] }}</li>
-        <li>{{ items.attributes['count-of-cancelled'] }}</li>
-        <li>{{ items.attributes['count-of-not-start'] }}</li>
-        <li>{{ items.attributes['count-of-be-late'] }}</li>
+        <li>{{ items.attributes['count-of-valid-booking'] }}</li>
         <li>{{ items.attributes['count-of-absence'] }}</li>
         <li>{{ items.attributes['count-of-complete'] }}</li>
+        <li>{{ items.attributes['count-of-be-late'] }}</li>
       </ul>
     {% endfor %}
   </script>
