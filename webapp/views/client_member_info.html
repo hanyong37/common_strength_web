@@ -20,22 +20,12 @@
       <ul class="content-table title">
         <li class="table-checkbox"> </li>
         <li class="table-cell-2">时间</li>
-        <li>门店</li>
+        <li class="table-cell-2">门店</li>
         <li class="table-cell-5 table-cell-info">课程名称</li>
-        <li>状态</li>
+        <li class="table-cell-2">状态</li>
       </ul>
       <div class="training-container"></div>
-      <!--<nav>-->
-        <!--<ul class="pagination iy-right">-->
-          <!--<li><a href="#">&laquo;</a></li>-->
-          <!--<li><a href="#">1</a></li>-->
-          <!--<li><a href="#">2</a></li>-->
-          <!--<li><a href="#">3</a></li>-->
-          <!--<li><a href="#">4</a></li>-->
-          <!--<li><a href="#">5</a></li>-->
-          <!--<li><a href="#">&raquo;</a></li>-->
-        <!--</ul>-->
-      <!--</nav>-->
+
       <!--<div class="training">-->
         <!--<span>总共预约<em class="text-blue">290</em>次</span>-->
         <!--<span>完成<em class="text-green">220</em>次</span>-->
@@ -53,18 +43,6 @@
         <li class="table-cell-5 table-cell-info">操作说明</li>
       </ul>
       <div class="opt-container"></div>
-
-      <!--<nav>-->
-        <!--<ul class="pagination iy-right">-->
-          <!--<li><a href="#">&laquo;</a></li>-->
-          <!--<li><a href="#">1</a></li>-->
-          <!--<li><a href="#">2</a></li>-->
-          <!--<li><a href="#">3</a></li>-->
-          <!--<li><a href="#">4</a></li>-->
-          <!--<li><a href="#">5</a></li>-->
-          <!--<li><a href="#">&raquo;</a></li>-->
-        <!--</ul>-->
-      <!--</nav>-->
     </div>
 
 
@@ -85,7 +63,7 @@
     <li class="table-checkbox">{{loop.index}}</li>
     <li>{{ item.attributes['user-name'] }}</li>
     <li class="table-cell-2">{{ item.attributes['created_at'] }}</li>
-    <li class="table-cell-5 table-cell-info" title="{{item.attributes['description']}}">
+    <li class="table-cell-4 table-cell-info more-height" title="{{item.attributes['description']}}">
       <p>
         {{item.attributes['description']}}
       </p>
@@ -101,29 +79,9 @@
   <ul class="content-table">
     <li class="table-checkbox">{{loop.index}}</li>
     <li class="table-cell-2">{{item.attributes['updated_at']}}</li>
-    <li>{{item.attributes['store-name']}}</li>
+    <li class="table-cell-2">{{item.attributes['store-name']}}</li>
     <li class="table-cell-5 table-cell-info">{{item.attributes['course-name']}}</li>
-    <li>
-      {% if item.attributes['booking-status'] == 'cancelled' %}
-        {% if item.attributes['training-status'] == 'not_start' %}
-          取消预约
-        {% endif %}
-      {% elif item.attributes['booking-status'] == 'waiting' %}
-        {% if item.attributes['training-status'] == 'not_start' %}
-          排队
-        {% endif %}
-      {% elif item.attributes['booking-status'] == 'booked' %}
-        {% if item.attributes['training-status'] == 'not_start' %}
-          预约
-        {% elif item.attributes['training-status'] == 'complete' %}
-          完成
-        {% elif item.attributes['training-status'] == 'absence' %}
-          缺席
-        {% elif item.attributes['training-status'] == 'be_late' %}
-          迟到
-        {% endif %}
-      {% endif %}
-    </li>
+    <li class="table-cell-2">{{item.attributes['readable-status']}}</li>
   </ul>
   {% endfor %}
   {% endraw %}

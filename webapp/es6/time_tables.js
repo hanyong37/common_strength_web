@@ -2,6 +2,7 @@ const Main = {
   theDate: moment().format('YYYY-MM-DD'),
   scheduleData: {},
   init: () => {
+    //门店选择
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
@@ -11,13 +12,16 @@ const Main = {
       Main.getSchedules(sid);
     });
 
+    //展示门店
     $("#select_store_add").selectpicker();
 
+    //添加训练 客户列表
     $('#trainings_select').selectpicker({
       size: 5,
       liveSearch: true
     });
 
+    //课程选择
     $('#select_course').selectpicker({
       size: 5,
       liveSearch: true
@@ -26,6 +30,7 @@ const Main = {
       $('#course_number').val(defaultCapacity);
     });
 
+    //添加编辑课程 时间选择
     $('#course_date').datetimepicker({
       format: 'YYYY-MM-DD'
     });
@@ -35,8 +40,8 @@ const Main = {
     $('#parse_datetime').datetimepicker({
       format: 'YYYY-MM-DD'
     });
-    var $startDatetime = $('#start_datetime');
-    var $overDatetime = $('#over_datetime');
+    let $startDatetime = $('#start_datetime');
+    let $overDatetime = $('#over_datetime');
     $startDatetime.datetimepicker({
       format: 'HH:mm'
     });
@@ -51,8 +56,10 @@ const Main = {
     });
 
 
+    //门店列表
     Main.getStoreList();
 
+    //课程删除
     $('.js-btn-del').on('click', function(){
       csTools.msgConfirmShow({
         msg: '确认删除此节课?',
@@ -62,17 +69,21 @@ const Main = {
         }
       });
     });
+
+    //编辑课程弹窗
     $('.js-btn-update').on('click', function(){
       $('#course_show_modal').modal('hide');
       $('#course_modal').modal('show');
       Main.setSchedule();
     });
 
+    //复制一周课程
     $('.js-btn-copy').on('click', function(){
       let copy_datetime = $('#copy_datetime').val();
       let parse_datetime = $('#parse_datetime').val();
       Main.copySchedules(copy_datetime, parse_datetime);
     });
+    //清空课程表
     $('.js-btn-delete').on('click', function(){
     let delete_datetime = Main.theDate;
       csTools.msgConfirmShow({
@@ -83,8 +94,10 @@ const Main = {
       });
     });
 
+    //设置一周时间
     Main.setWeekTitle();
 
+    //上一周，下一周
     $('.btn-calendar-prev').on('click', function(){
       let nextDate = Main.prevWeek();
       Main.setWeekTitle(nextDate);
