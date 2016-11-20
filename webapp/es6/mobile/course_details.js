@@ -85,7 +85,6 @@ const Main = {
         'X-Api-Key': Wx.token,
       },
       complete: (result)=>{
-        console.log(result);
         if(result.status == 200){
           let bookingStatus = result.responseJSON.data.attributes['booking-status'];
           let msg;
@@ -105,22 +104,32 @@ const Main = {
           });
         }else if(result.status == 409){
           CS.msgModalShow({
-            msg: '排队人数已满，如需预约请咨询门店！',
+            msg: result.attributes['schedule-reject-msg'],
             title: '提示',
             style: 'weui',
             isPhone: 'ios',
             callback: ()=>{
-              Main.getoperations(id);
+              Main.getOperations(id);
             }
           });
         }else if(result.status == 403){
           CS.msgModalShow({
-            msg: '课程暂时无法预约！',
+            msg: result.attributes['customer-reject-msg'],
             title: '提示',
             style: 'weui',
             isPhone: 'ios',
             callback: ()=>{
-              Main.getoperations(id);
+              Main.getOperations(id);
+            }
+          });
+        }else if(result.status == 404){
+          CS.msgModalShow({
+            msg: '该课程可能已被取消！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: ()=>{
+              Main.getOperations(id);
             }
           });
         }else{
@@ -129,6 +138,9 @@ const Main = {
             title: '提示',
             style: 'weui',
             isPhone: 'ios',
+            callback: ()=>{
+              Main.getOperations(id);
+            }
           });
         }
       }
