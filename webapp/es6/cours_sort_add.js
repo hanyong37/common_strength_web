@@ -56,7 +56,7 @@ const Main = {
       headers: {
         "X-Api-Key": csTools.token
       },
-      complete: (retult) => {
+      complete: (result) => {
         if(result.status == 202){
           csTools.msgModalShow({
             href: '/courseSort',

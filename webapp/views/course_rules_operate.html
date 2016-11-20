@@ -11,7 +11,7 @@
 {% block body -%}
 <div class="storeadd-box">
   <div class="content-title">
-    <h4>设置课程规则</h3>
+    <h3>设置课程规则</h3>
   </div>
   <div class="content-text">
     <form class="form-horizontal" role="form">
@@ -30,18 +30,25 @@
         <button type="button" class="btn btn-info j-save" style="margin-left 12.22%">保存修改</button>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label" data-key="cancel_limit_minutes">课程冻结时间(分钟)</label>
+        <label class="col-sm-2 control-label" data-key="booking_limit_minutes">课程允许预约时间（分钟）</label>
         <div class="col-sm-4">
-            <!-- <div class='input-group date datetimepicker start_datetime iy-left'>
-              <input type='text' id="j-delDate" class="form-control" placeholder="请选择取消时间">
-              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span>
-            </div> -->
-              <input id="j-endDate" type="text" class="form-control" placeholder="请输入内容">
+          <input id="j-booking-limit" type="text" class="form-control" placeholder="请输入内容">
         </div>
         <button type="button" class="btn btn-info j-save" style="margin-left 12.22%">保存修改</button>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label" data-key="queue_limit_number">允许排队人数(个)</label>
+        <label class="col-sm-2 control-label" data-key="cancel_limit_minutes">课程允许取消时间（分钟）</label>
+        <div class="col-sm-4">
+          <!-- <div class='input-group date datetimepicker start_datetime iy-left'>
+            <input type='text' id="j-delDate" class="form-control" placeholder="请选择取消时间">
+            <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span>
+          </div> -->
+          <input id="j-cancel-limit" type="text" class="form-control" placeholder="请输入内容">
+        </div>
+        <button type="button" class="btn btn-info j-save" style="margin-left 12.22%">保存修改</button>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" data-key="queue_limit_number">允许排队人数（个）</label>
         <div class="col-sm-4">
           <input id="j-menNum" type="text" class="form-control" placeholder="请输入内容">
         </div>

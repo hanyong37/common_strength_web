@@ -9,6 +9,7 @@ const Main = {
       let _key = _self.siblings('label').data('key');
       let _name = _self.siblings('label').text();
       let _text = _self.siblings('.col-sm-4').find('input').val();
+
       if ($.trim(_text) == "") {
         csTools.msgModalShow({
           msg: _name + '不能为空!',
