@@ -123,18 +123,18 @@
     </li>
     <li class="table-cell-4" data-id="{{ item.id }}">
       {% if item.attributes['cancelable'] %}
-      <a class="cancel-training">取消预约</a>
+        <a class="cancel-training">取消预约</a>
       {% endif %}
       {% if item.attributes['booking-status'] == "waiting" %}
         <a class="waiting-training">排队成功</a>
       {% else %}
-        {% if not item.attributes['trainings-booking'] == 'normal' %}
+        {% if not (item.attributes['training-status'] == 'normal') %}
           <a class="complete-training">完成</a>
         {% endif %}
-        {% if not item.attributes['trainings-booking'] == 'be_late' %}
+        {% if not (item.attributes['training-status'] == 'be_late') %}
           <a class="later-training">迟到</a>
         {% endif %}
-        {% if not item.attributes['trainings-booking'] == 'absence' %}
+        {% if not (item.attributes['training-status'] == 'absence') %}
           <a class="absence-training">缺勤</a>
         {% endif %}
       {% endif %}

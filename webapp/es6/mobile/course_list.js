@@ -1,6 +1,8 @@
   const Main = {
     init: () => {
       console.log('init');
+
+
       Main.getSchedulesList();
       let $txtDate = $('.text-date');
       $('.btn-prev').on('click',function() {

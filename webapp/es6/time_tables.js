@@ -208,6 +208,7 @@ const Main = {
               msg: '添加训练成功！',
               callback: () => {
                 $('#trainings_modal').modal('hide');
+                $('.js-btn-published, .js-btn-del').hide();
                 Main.getTrainings(schedule_id);
                 Main.getSchedules(store_id);
               }
