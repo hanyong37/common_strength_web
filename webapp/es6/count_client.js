@@ -1,7 +1,7 @@
 $(function(){
   const Main = {
     init: ()=> {
-      $('.datetimepicker').datetimepicker({
+      $('.form-datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD'
       });
 
@@ -48,7 +48,7 @@ $(function(){
           typeName = '时段偏好统计';
         }
 
-        var html = '<div class="chart-tmp"><span class="glyphicon glyphicon-remove j-remove"></span>'
+        let html = '<div class="chart-tmp"><span class="glyphicon glyphicon-remove j-remove"></span>'
                 +'<h4 class="tmp-left">' + typeName + '</h4>'
                 + '<div>' + data + '</div>'
                 +'</div>';
@@ -62,8 +62,8 @@ $(function(){
 
     },
     BindChartEvent: (data)=> {
-      var Stat = G2.Stat;
-      var chart = new G2.Chart({
+      let Stat = G2.Stat;
+      let chart = new G2.Chart({
         id: 'c1',
         width: 200,
         height: 200
@@ -85,19 +85,17 @@ $(function(){
       });
       chart.render();
       // 设置默认选中
-      var geom = chart.getGeoms()[0]; // 获取所有的图形
-      var items = geom.getData(); // 获取图形对应的数据
+      let geom = chart.getGeoms()[0]; // 获取所有的图形
+      let items = geom.getData(); // 获取图形对应的数据
       geom.setSelected(items[1]); // 设置选中
     },
     getCountClientInfo: (a) => {
       const storeId = $('.select-store').selectpicker('val');
+      let url = '?from_date=' + a.startTime
+        + '&to_date' + a.endTime
+        + '&store_id=' + storeId;
       $.ajax({
-        url: '/api/admin/customer_report',
-        data: {
-          'from_date': a.startTime,
-          'to_date': a.endTime,
-          'store_id': storeId
-        },
+        url: '/api/admin/customer_report' + url,
         headers: {
           'X-Api-Key': csTools.token,
         },

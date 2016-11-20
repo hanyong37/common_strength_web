@@ -1,6 +1,6 @@
 const Main = {
   init: () => {
-    $('.datetimepicker').datetimepicker({
+    $('.form-datetimepicker').datetimepicker({
       format: 'YYYY-MM-DD'
     });
 
@@ -17,9 +17,13 @@ const Main = {
         startTime: '',
         endTime: ''
       });
-    })
+    });
 
+    Main.bindEvent();
+  },
+  bindEvent: () => {
     $(".btn-info").on('click', function() {
+      $(".btn-info").off('click');
       const start_datetime = $("#start_datetime").val();
       const over_datetime = $("#over_datetime").val();
 
@@ -28,17 +32,14 @@ const Main = {
         'endTime': over_datetime
       });
     });
-
   },
   getCountReserve: (a) => {
     const storeId = $('.select-store').selectpicker('val');
+    let url = '?from_date=' + a.startTime
+      + '&to_date' + a.endTime
+      + '&store_id=' + storeId;
     $.ajax({
-      url: '/api/admin/course_report',
-      data: {
-        'from_date': a.startTime,
-        'to_date': a.endTime,
-        'store_id': storeId
-      },
+      url: '/api/admin/course_report'+ url,
       headers: {
         'X-Api-Key': csTools.token,
       },
@@ -54,7 +55,7 @@ const Main = {
             isAppend: 'append',
             data: result.data,
             callback: () => {
-              Main.BindChangeEvent();
+              Main.bindEvent();
             }
           });
         }
@@ -95,7 +96,7 @@ const Main = {
       }
     });
   }
-}
+};
 
 
 Main.init();
