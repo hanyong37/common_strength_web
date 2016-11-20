@@ -15,9 +15,9 @@ const Main = {
     });
   },
   saveEvent: () => {
-    var _type = $('#j-type').val();
-    var _id = $('#j-type').data('id');
-    var _description = $('#j-description').val();
+    let _type = $('#j-type').val();
+    let _id = $('#j-type').data('id');
+    let _description = $('#j-description').val();
     if(!_type){
       csTools.msgModalShow({
         msg: '请输入课程分类信息！'
@@ -35,7 +35,6 @@ const Main = {
     });
   },
   setCourseType: (a)=> {
-    /* FIXME typeId需要动态生成，这里等待接口更改 */
     let ajaxUrl = '';
     let msgTop = '添加';
     let type = 'post';
@@ -57,16 +56,27 @@ const Main = {
         "X-Api-Key": csTools.token
       },
       complete: (result) => {
-        if(result.status == 202){
+        if(result.status == 201 || result.status == 200){
           csTools.msgModalShow({
             href: '/courseSort',
-            msg: msgTop + '课程分类成功！'
+            msg: msgTop + '课程分类成功！',
+            callback: () => {
+              let code = JSON.stringify({
+                'typeId': a.id,
+                'typeName':a.val,
+                'description':a.description
+              });
+             history.replaceState({foo: 'replaceCsort'}, null, '#code=' + encodeURIComponent(csTools.utf16to8(code)));
+             code = null;
+            }
           });
         }else{
           csTools.msgModalShow({
             msg: msgTop + '课程分类失败！'
           });
         }
+        a = null;
+        msgTop = null;
         $("#j-save").on("click", function() {
           $("#j-save").off("click");
           Main.saveEvent();
