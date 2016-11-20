@@ -19,31 +19,18 @@
           <div class="weui-media-box__bd cs-list cs-list-active-a" data-id="{{items.id}}">
               <div class="cs-text">
                 <h4 class="weui-media-box__title">{{ items.attributes['course-name'] }}
-              {% if items.attributes['training-status'] == "not_start" %}
+              {% if items.attributes['training-status'] == "normal" %}
                 {% if items.attributes['int-end-time'] >= items.attributes['int-now-time'] and items.attributes['int-start-time'] <=  items.attributes['int-now-time'] %}
                   <em class="em-booked em-training">进行中</em>
                 {% elif items.attributes['int-end-time'] <= items.attributes['int-now-time'] %}
-                  {% if items.attributes['booking-status'] == "cancelled" %}
-                    <em class="em-over em-training">已结束</em>
-                  {% else %}
-                    <em class="em-complete em-training">已结束</em>
-                  {% endif %}
+                  <em class="em-complete">已完成</em>
                 {% else %}
                   {% if items.attributes['booking-status'] == "booked" or items.attributes['booking-status'] == "no_booking" %}
                     <em class="cancel-em cancel-true em-booked" data-id="{{items.id}}">已预约</em>
                   {% elif items.attributes['booking-status'] == "waiting" %}
                     <em class="cancel-em cancel-true em-booked" data-id="{{items.id}}">排队中</em>
-                  {% elif items.attributes['booking-status'] == "cancelled" %}
-                    <em class="canceled-em cancel-true em-cancelled" data-id="{{items.id}}">已取消</em>
                   {% endif %}
                 {% endif %}
-
-              {% elif items.attributes['training-status'] == "complete" %}
-                  {% if items.attributes['booking-status'] == "booked" or items.attributes['booking-status'] == "no_booking"%}
-                    <em class="em-complete">已完成</em>
-                  {% else %}
-                    <em class="em-over">已结束</em>
-                  {% endif %}
               {% elif items.attributes['training-status'] == "absence" %}
                 <em class="em-absence">缺席</em>
               {% elif items.attributes['training-status'] == "be_late" %}
@@ -56,10 +43,8 @@
                 </div>
               </div>
             {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
-              {% if items.attributes['training-status'] == "not_start" %}
+              {% if items.attributes['training-status'] == "normal" %}
                 <div class="cs-del cs-cancel">取消预约</div>
-              {% elif items.attributes['training-status'] == "not_start" %}
-                <div class="cs-del cs-rebook">重新预约</div>
               {% endif %}
             {% endif %}
           </div>

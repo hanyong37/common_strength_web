@@ -6,13 +6,13 @@ const Main = {
 
     },
     slideEvent: () => {
-        var $domList = $('.cs-list');
+        let $domList = $('.cs-list');
         for (let i = 0, lg = $domList.length; i < lg; i++) {
             (function(i, Dom) {
                 let x, y, x1, y1, dx, isTrue = true,
                     isEnd = false;
-                var isCancel = $(Dom).find('.cancel-em').hasClass('cancel-true');
-                var isCanceled = $(Dom).find('.canceled-em').hasClass('cancel-true');
+                let isCancel = $(Dom).find('.cancel-em').hasClass('cancel-true');
+                let isCanceled = $(Dom).find('.canceled-em').hasClass('cancel-true');
                 if (isCancel || isCanceled) {
                     Dom.addEventListener('touchstart', function(e) {
                         x = e.targetTouches[0].screenX;
@@ -32,19 +32,7 @@ const Main = {
                                     Main.delEvent(tId);
                                 }
                             });
-                        } else if ($(e.target).hasClass('cs-rebook')) {
-                            isTrue = false;
-                            CS.msgConfirmShow({
-                                msg: '确定重新预约该课程？',
-                                title: '提示',
-                                style: 'weui',
-                                isPhone: 'ios',
-                                btn: ['取消', '确定'],
-                                callback: () => {
-                                    Main.rebookTrainings(tId);
-                                }
-                            });
-                        } else {
+                        }else {
                             isTrue = true;
                             $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
                             let oldLf = parseInt(this.getAttribute('data-left'));
