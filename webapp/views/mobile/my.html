@@ -11,7 +11,7 @@
   <script type="text/template" id="tmp">
     <div class="cs-title">
       <div class="cs-title-img">
-        <img src="/img/heard.jpg" alt="">
+
       </div>
       <div class="cs-title-name">
         <div class="name-h6">{{ data.name }}</div>
@@ -20,22 +20,23 @@
     </div>
     <div class="cs-info">
       <ul>
+        {% if (data['membership-type'] == 'measured_card') %}
         <li>
-          <label for="">卡类别:</label>
-          {% if (data['membership-type'] == 'measured_card') %}
-          次卡
-          {% else %}
-          时间卡
-          {% endif%}
+          <label >卡类别:</label>次卡
         </li>
         <li>
-          <label for="">剩余次数:</label>{{ data['membership-remaining-times'] }}
+          <label >剩余次数:</label>{{ data['membership-remaining-times'] }}
+        </li>
+        {% else %}
+        <li>
+          <label >卡类别:</label>时间卡
         </li>
         <li>
-          <label for="">截止时间:</label>{{ data['membership-duedate'] }}
+          <label >截止时间:</label>{{ data['membership-duedate'] }}
         </li>
+        {% endif%}
         <li>
-          <label for="">使用门店:</label>{{ data['store-name'] }}
+          <label >使用门店:</label>{{ data['store-name'] }}
         </li>
       </ul>
     </div>
