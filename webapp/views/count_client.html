@@ -39,8 +39,8 @@
       <li>缺席人次</li>
       <li>完成人次</li>
       <li>迟到人次</li>
-      <li style='flex:2'>课程偏好</li>
-      <li style='flex:2'>时段偏好</li>
+      <li style='flex:3'>课程偏好</li>
+      <li style='flex:3'>时段偏好</li>
     </ul>
 
     {% raw %}
@@ -53,8 +53,8 @@
           <li>{{ items.attributes['count-of-absence'] }}</li>
           <li>{{ items.attributes['count-of-complete'] }}</li>
           <li>{{ items.attributes['count-of-be-late'] }}</li>
-          <li style='flex:2'>{{ items.attributes['favorite-time-slots'] }}</li>
-          <li style='flex:2'>{{ items.attributes['favarite-courses'] }}</li>
+          <li style='flex:3'>{{ items.attributes['favorite-time-slots'] }}</li>
+          <li style='flex:3'>{{ items.attributes['favarite-courses'] }}</li>
           <!-- <li>
             <a href="javascript:void(0);" class="kcph" type='0' data = {{ items.attributes['favarite-courses'] }}>查看</a> -->
             <!-- <div class="chart-tmp">
