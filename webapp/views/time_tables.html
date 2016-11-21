@@ -43,7 +43,7 @@
   {% for item in data.resouce %}
     {% if data.tDate == item.attributes.thisDate %}
     <div class="column-cell" data-id="{{item.id}}" data-publish="{{item.attributes['is-published']}}" data-booknumber="{{item.attributes['booked-number']}}">
-      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes.capacity}}/{{item.attributes['booked-number']}}/{{item.attributes['complete-number']}}</span></p>
+      <p><span class="cell-time">{{item.attributes.startTime}}~{{item.attributes.endTime}}</span><span class="cell-capacity">{{item.attributes.capacity}}/{{item.attributes['booked-number'] + item.attributes['waiting-number']}}/{{item.attributes['complete-number']}}</span></p>
       <p><span class="cell-time">{{item.attributes['course-name']}}</span><span class="cell-capacity" >{% if item.attributes['is-published'] %}已发布{% else %}未发布{% endif %}</span></p>
     </div>
     {% endif %}
