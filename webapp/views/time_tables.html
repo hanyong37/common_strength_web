@@ -133,9 +133,10 @@
       {{ item.attributes['readable-status'] }}
     </li>
     <li class="table-cell-4" data-id="{{ item.id }}">
-      {% if item.attributes['cancelable'] %}
-        <a class="cancel-training">取消预约</a>
-      {% endif %}
+      <a class="cancel-training">取消预约</a>
+      <!--{% if item.attributes['cancelable'] %}-->
+        <!--<a class="cancel-training">取消预约</a>-->
+      <!--{% endif %}-->
       {% if item.attributes['booking-status'] == "waiting" %}
         <a class="waiting-training">排队成功</a>
       {% else %}
