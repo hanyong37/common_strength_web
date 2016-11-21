@@ -30,6 +30,8 @@
           <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
       {% elif data.attributes['booking-status'] == 'not_booked' and not data.attributes['bookable'] and data.attributes['waitable']%}
         <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
+      {% elif data.attributes['booking-status'] == 'booked' or data.attributes['booking-status'] == 'no_booking'%}
+        <div class="weui-btn weui-btn_warn js-btn-cancel">取消预约</div>
       {% else %}
         <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
       {% endif %}

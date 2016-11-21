@@ -6,81 +6,19 @@ const Main = {
 
     },
     slideEvent: () => {
-        let $domList = $('.cs-list');
-        for (let i = 0, lg = $domList.length; i < lg; i++) {
-            (function(i, Dom) {
-                let x, y, x1, y1, dx, isTrue = true,
-                    isEnd = false;
-                let isCancel = $(Dom).find('.cancel-em').hasClass('cancel-true');
-                let isCanceled = $(Dom).find('.canceled-em').hasClass('cancel-true');
-                if (isCancel || isCanceled) {
-                    Dom.addEventListener('touchstart', function(e) {
-                        x = e.targetTouches[0].screenX;
-                        y = e.targetTouches[0].screenY;
-                        console.log('1', $(e.target).hasClass('cs-del'));
-                        let tId = this.getAttribute('data-id');
-
-                        if ($(e.target).hasClass('cs-cancel')) {
-                            isTrue = false;
-                            CS.msgConfirmShow({
-                                msg: '确定取消该课程？',
-                                title: '提示',
-                                style: 'weui',
-                                isPhone: 'ios',
-                                btn: ['取消', '确定'],
-                                callback: () => {
-                                    Main.delEvent(tId);
-                                }
-                            });
-                        }else {
-                            isTrue = true;
-                            $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
-                            let oldLf = parseInt(this.getAttribute('data-left'));
-                            dx = !oldLf ? 0 : oldLf;
-                        }
-                    });
-                    Dom.addEventListener('touchmove', function(e) {
-                        if (isTrue) {
-                            x1 = e.targetTouches[0].screenX;
-                            y1 = e.targetTouches[0].screenY;
-                            let diff = x1 - x;
-                            let err = y1 - y;
-                            if (err <= 80) {
-                                let change = diff + dx;
-                                if (change < -96) {
-                                    change = -96;
-                                    this.setAttribute('data-left', change);
-                                    this.style.transform = 'translate(' + change + 'px, 0)';
-                                    isEnd = false;
-                                } else {
-                                    this.setAttribute('data-left', change);
-                                    this.style.transform = 'translate(' + change + 'px, 0)';
-                                    isEnd = true;
-                                }
-                            } else {
-                                this.setAttribute('data-left', '0');
-                                this.style.transform = 'translate(' + 0 + 'px, 0)';
-                            }
-                        } else {
-                            this.setAttribute('data-left', '0');
-                            this.style.transform = 'translate(' + 0 + 'px, 0)';
-                        }
-
-                    });
-                    Dom.addEventListener('touchend', function(e) {
-                        if (isEnd) {
-                            $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
-                        } else {
-                            console.log('end show');
-                        }
-                    });
-                } else {
-                    Dom.addEventListener('touchstart', function() {
-                        $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
-                    });
-                }
-            }(i, $domList[i]));
-        }
+        $('.em-btn-cancel').on('click', function(){
+        let id = $(this).parents('.cs-list').data('id');
+          CS.msgConfirmShow({
+            msg: '确定取消该课程？',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            btn: ['取消', '确定'],
+            callback: () => {
+              Main.delEvent(tId);
+            }
+          });
+        });
     },
     getTrainings: () => {
         let page = Main.page;

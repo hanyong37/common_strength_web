@@ -38,15 +38,20 @@
               {% endif %}
                 </h4>
                 <div class="weui-media-box__desc">
-                  <div><label>门店:</label>{{ items.attributes['store-name'] }}</div>
-                  <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
+                  <div class="vm-left">
+                    <div><label>门店:</label>{{ items.attributes['store-name'] }}</div>
+                    <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
+                  </div>
+                  <div class="vm-right">
+                    {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
+                    {% if items.attributes['training-status'] == "normal" %}
+                    <em class="em-btn-cancel">取消预约</em>
+                    {% endif %}
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
-              {% if items.attributes['training-status'] == "normal" %}
-                <div class="cs-del cs-cancel">取消预约</div>
-              {% endif %}
-            {% endif %}
+
           </div>
           {% endfor %}
         </script>
