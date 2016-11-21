@@ -10,10 +10,7 @@ $(function() {
             msg: '确定删除门店吗!',
             callback: function() {
               Main.delStoreList({
-                id: _this.parent().data("id"),
-                callback: () => {
-                  _this.parents(".content-table").remove();
-                }
+                id: _this.parent().data("id")
               });
             }
           });
@@ -70,9 +67,20 @@ $(function() {
         headers: {
           'X-Api-Key': csTools.token,
         },
-        success: function(result) {
+        complete: function(result) {
           console.log(result);
-          a.callback();
+          if(result.status == 204){
+            csTools.msgConfirmShow({
+              msg: '删除门店成功!',
+              callback: function () {
+                location.reload();
+              }
+            });
+          }else{
+            csTools.msgConfirmShow({
+              msg: '删除门店失败!'
+            });
+          }
         }
       })
     },

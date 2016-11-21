@@ -60,7 +60,10 @@ const Main = {
       complete: (result) => {
         if (result.status == 204) {
           csTools.msgModalShow({
-            msg: '删除管理员成功!'
+            msg: '删除管理员成功!',
+            callback: () => {
+              location.reload();
+            }
           });
         } else {
           csTools.msgModalShow({

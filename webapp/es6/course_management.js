@@ -94,7 +94,7 @@ const Main = {
           csTools.msgModalShow({
             msg: '删除课程成功！',
             callback: () => {
-              Main.__ajax();
+              location.reload();
             }
           });
         }else{

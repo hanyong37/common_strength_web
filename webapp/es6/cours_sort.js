@@ -63,7 +63,7 @@ const Main = {
           csTools.msgModalShow({
             msg: '删除课程分类成功！',
             callback: () => {
-              Main.getCourseType();
+              location.reload();
             }
           });
         }else{

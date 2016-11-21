@@ -107,7 +107,7 @@ let Main = {
           csTools.msgModalShow({
             msg: msg + '会员成功！',
             callback: () => {
-              Main.getMemberShipsInfo();
+              location.reload();
             }
           });
         }else{
