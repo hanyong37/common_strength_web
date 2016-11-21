@@ -61,13 +61,7 @@ const Main = {
             href: '/courseSort',
             msg: msgTop + '课程分类成功！',
             callback: () => {
-              let code = JSON.stringify({
-                'typeId': a.id,
-                'typeName':a.val,
-                'description':a.description
-              });
-             history.replaceState({foo: 'replaceCsort'}, null, '#code=' + encodeURIComponent(csTools.utf16to8(code)));
-             code = null;
+              location.href = '/courseSort';
             }
           });
         }else{
