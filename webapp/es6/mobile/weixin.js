@@ -1,5 +1,5 @@
-  sessionStorage.nOpenId = 'omPPQwsvIy9IiYmn1shs3zUBCb_A';
-  sessionStorage.newWxToken = 'WrNzmzhz6nVKLx76qV5Ri3Ua';
+  //sessionStorage.nOpenId = 'omPPQwsvIy9IiYmn1shs3zUBCb_A';
+  //sessionStorage.newWxToken = 'WrNzmzhz6nVKLx76qV5Ri3Ua';
 
 const Wx = {
   token: '',
@@ -46,7 +46,6 @@ const Wx = {
       dataType: 'json',
       complete: (result) => {
         console.log('session', result);
-        return false;
         if(result.status == 200){
           const token = result.responseJSON.data.attributes.token;
           sessionStorage.newWxToken = token;
