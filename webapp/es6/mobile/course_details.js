@@ -26,7 +26,10 @@ const Main = {
             tmpSelector: '#tmp',
             boxSelector: '.box',
             isAppend: 'append',
-            data: data
+            data: data,
+            callback: () => {
+              $('.weui-desc').append(data.attributes['course-description']);
+            }
           });
         }else if (result.status == 404) {
           CS.msgModalShow({

@@ -36,7 +36,7 @@ const Main = {
     let type = $("#j-type").val();
     let status = $("#j-status").bootstrapSwitch('state');
     let store = $("#j-store").val();
-    let text = $("#j-text").val();
+    let text = csTools.textareaTo($("#j-text").val());
     let defaultCapacity = $('#default_capacity').val();
 
     let courseStatus = 'active';
@@ -82,7 +82,7 @@ const Main = {
           console.log(status);
           $("#j-status").bootstrapSwitch('state', status);
           $(".select-store").selectpicker('val', storeId);
-          $("#j-text").val(description);
+          $("#j-text").val(csTools.toTextarea(description));
           $('#default_capacity').val(defaultCapacity);
 
         }
@@ -178,6 +178,7 @@ const Main = {
       }
     });
   },
+
   getCourseTypeList: () => {
     $.ajax({
       url: '/api/admin/course_types',

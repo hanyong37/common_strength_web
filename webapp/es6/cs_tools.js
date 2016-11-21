@@ -311,4 +311,22 @@ const csTools = {
     }
     return dateArr;
   },
+  textareaTo: (str) => {
+    let reg = new RegExp("\n","g");
+    let regSpace = new RegExp(" ","g");
+
+    str = str.replace(reg,"<br>");
+    str = str.replace(regSpace,"&nbsp;");
+
+    return str;
+  },
+  toTextarea: function (str) {
+    let reg = new RegExp("<br>", "g");
+    let regSpace = new RegExp("&nbsp;", "g");
+
+    str = str.replace(reg, "\n");
+    str = str.replace(regSpace, " ");
+
+    return str;
+  },
 };
