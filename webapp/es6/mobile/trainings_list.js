@@ -7,7 +7,7 @@ const Main = {
     },
     slideEvent: () => {
         $('.em-btn-cancel').on('click', function(){
-        let id = $(this).parents('.cs-list').data('id');
+          let id = $(this).parents('.cs-list').data('id');
           CS.msgConfirmShow({
             msg: '确定取消该课程？',
             title: '提示',
@@ -15,7 +15,7 @@ const Main = {
             isPhone: 'ios',
             btn: ['取消', '确定'],
             callback: () => {
-              Main.delEvent(tId);
+              Main.delEvent(id);
             }
           });
         });

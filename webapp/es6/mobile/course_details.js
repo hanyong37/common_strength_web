@@ -47,6 +47,71 @@ const Main = {
       }
     })
   },
+  cancelEvent: () => {
+    $('.js-btn-cancel').on('click', function(){
+      let id = $(this).data('id');
+      CS.msgConfirmShow({
+        msg: '确定取消该课程？',
+        title: '提示',
+        style: 'weui',
+        isPhone: 'ios',
+        btn: ['取消', '确定'],
+        callback: () => {
+          Main.delEvent(id);
+        }
+      });
+    });
+  },
+  delEvent: (id) => {
+    //cs-del
+    console.log('cs-del', id);
+    $.ajax({
+      url: '/api/weixin/trainings/' + id,
+      type: 'put',
+      dataType: 'json',
+      data: {
+        'trainings[booking-status]': 'cancelled'
+      },
+      headers: {
+        'X-Api-Key': Wx.token,
+      },
+      complete: (result) => {
+        if (result.status == 403) {
+          CS.msgModalShow({
+            msg: '该训练已无法取消，如需取消请联系门店！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+            }
+          });
+        } else if (result.status == 200) {
+          CS.msgModalShow({
+            msg: '取消预约成功！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+              Main.getTrainings();
+            }
+          });
+        } else {
+          CS.msgModalShow({
+            msg: '该训练可能已结束，详情请联系门店！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+            }
+          });
+        }
+      }
+
+    });
+  },
   getOperations: (id) => {
     $.ajax({
       url: '/api/weixin/schedules/'+ id +'/schedule_operations',
@@ -67,6 +132,7 @@ const Main = {
             data: data,
             callback: ()=>{
               Main.bindBookOrWait(id);
+              Main.cancelEvent();
             }
           });
         }
