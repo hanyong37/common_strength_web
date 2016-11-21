@@ -119,6 +119,17 @@
     <li>{{loop.index}}</li>
     <li class="table-cell-2">{{ item.attributes['customer-name'] }}</li>
     <li class="table-cell-2">
+      {% if item.attributes['booking-status'] == 'no_booking' %}
+        管理员预约
+      {% elif item.attributes['booking-status'] == 'booked' %}
+        客户预约
+      {% elif item.attributes['booking-status'] == 'waiting' %}
+        排队中
+      {% else %}
+        取消预约
+      {% endif %}
+    </li>
+    <li class="table-cell-2">
       {{ item.attributes['readable-status'] }}
     </li>
     <li class="table-cell-4" data-id="{{ item.id }}">
@@ -216,6 +227,7 @@
           <ul class="content-table title">
             <li> </li>
             <li class="table-cell-2">会员名称</li>
+            <li class="table-cell-2">预约状态</li>
             <li class="table-cell-2">训练状态</li>
             <li class="table-cell-4">操作</li>
           </ul>

@@ -228,10 +228,6 @@ const Main = {
     let $trainingsBox = $('#trainings_box');
     $trainingsBox.on('click', '.cancel-training', function(){
       let id = $(this).parent().data('id');
-      let data = {
-        "training[booking_status]": 'cancelled',
-        "training[training_status]": 'not_start'
-      };
       csTools.msgConfirmShow({
         msg: '是否取消训练？',
         callback: () => {
