@@ -18,7 +18,9 @@ const Main = {
       complete: (result) => {
         if(result.status == 200){
           let data = result.responseJSON.data;
-          data.attributes['start_date'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'yyyy-MM-dd'});
+          let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+          let mDate = moment(data.attributes['start-time']);
+          data.attributes['start_date'] = mDate.format('YYYY-MM-DD ') + weekArr[mDate.format('E') - 1];
           data.attributes['start_time'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'hh:mm'});
           data.attributes['end_time'] = CS.setDateFormat({time: data.attributes['end-time'], format: 'hh:mm'});
 
@@ -29,6 +31,7 @@ const Main = {
             data: data,
             callback: () => {
               $('.weui-desc').append(data.attributes['course-description']);
+              data = null;
             }
           });
         }else if (result.status == 404) {
@@ -129,10 +132,11 @@ const Main = {
             tmpSelector: '#tmp_btn',
             boxSelector: '.box',
             isAppend: 'append',
-            data: data,
+            data,
             callback: ()=>{
               Main.bindBookOrWait(id);
               Main.cancelEvent();
+              data = null;
             }
           });
         }
