@@ -12,6 +12,7 @@ import imagemin from 'gulp-imagemin';
 import es6 from 'gulp-babel';
 import del from 'del';
 import config from './config';
+import minifycss from 'gulp-minify-css';
 
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
@@ -67,31 +68,32 @@ gulp.task('nodemon', (a)=> {
 // 压缩合并 css or js or image
 
 gulp.task('minifycss', ()=> {
-  return gulp.src('./public/css/*.css')
-    .pipe(gulp.dest('./dist/css'))
+  return gulp.src('./static/css/**/*.css')
+    .pipe(minifycss())
+    .pipe(gulp.dest('./public/css'))
   // .pipe(rename({suffix:'.min'}))
   // .pipe(cleancss())
   // .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('minifyjs', ()=> {
-  return gulp.src('./public/js/*.js')
+  return gulp.src('./static/js/**/*.js')
   // .pipe(concat('public.js'))
-    .pipe(gulp.dest('./dist/js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./public/js'))
   // .pipe(rename({suffix:'.min'}))
-  // .pipe(uglify())
   // .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('miniimage', ()=> {
-  return gulp.src('./public/images/*')
+  return gulp.src('./public/img/**／*.*')
     .pipe(imagemin())
-    .pipe(gulp.dest('./dist/images'))
+    .pipe(gulp.dest('./dist/public/img'))
 });
 
 gulp.task('fonts', ()=> {
   return gulp.src('./public/fonts/*')
-    .pipe(gulp.dest('./dist/fonts'))
+    .pipe(gulp.dest('./dist/public/fonts'))
 });
 
 // 编译 nunjucks
@@ -114,6 +116,7 @@ var path = [
   './views/*/*.*',
 ];
 
+
 gulp.watch('./less/*.*', ['less'], ()=> {
   reload();
 });
@@ -129,6 +132,7 @@ gulp.watch(path, ()=> {
 // 构建压缩项目
 gulp.task('go', [ 'clean', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
 gulp.task('going', ['less', 'es6']);
+gulp.task('build', ['clean', 'minifycss', 'minifyjs']);
 
 // 默认执行gulp 启动项目
 gulp.task('default', ['browser-sync', 'less', 'es6']);

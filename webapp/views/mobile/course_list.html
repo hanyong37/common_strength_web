@@ -2,20 +2,15 @@
 {% set title = '课程预约' %}
 {% block style -%}
 <link rel="stylesheet" href="/css/course_list.css?v1114">
-<style>
-  .date-box {
-    padding: 0 86px;
-    background: #efefef url("../img/WechatLogo-min.png") no-repeat right 10px center;
-    background-size: auto 48%;
-  }
-</style>
 {%- endblock %}
 {% set tab_default = "weui-bar__item_on" %}
 {% block body -%}
-<div class="date-box">
-  <div class="btn-date btn-prev"></div>
-  <div class="text-date">获取日期中...</div>
-  <div class="btn-date btn-next"></div>
+<div class="top-date-box">
+  <div class="date-box">
+    <div class="btn-date btn-prev"></div>
+    <div class="text-date">获取日期中...</div>
+    <div class="btn-date btn-next"></div>
+  </div>
 </div>
 <div class="training-list">
   <!--<div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">-->

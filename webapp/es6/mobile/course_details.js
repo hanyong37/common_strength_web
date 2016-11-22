@@ -18,9 +18,11 @@ const Main = {
       complete: (result) => {
         if(result.status == 200){
           let data = result.responseJSON.data;
-          let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-          let mDate = moment(data.attributes['start-time']);
-          data.attributes['start_date'] = mDate.format('YYYY-MM-DD ') + weekArr[mDate.format('E') - 1];
+          let weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+          let nWeek = new Date(data.attributes['start-time']).getDay();
+
+          let tWeek = weekArr[nWeek];
+          data.attributes['start_date'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'yyyy-MM-dd '}) + tWeek;
           data.attributes['start_time'] = CS.setDateFormat({time: data.attributes['start-time'], format: 'hh:mm'});
           data.attributes['end_time'] = CS.setDateFormat({time: data.attributes['end-time'], format: 'hh:mm'});
 

@@ -34,12 +34,17 @@ const Main = {
       success: (result) => {
 
         if (result.data) {
-          let weekArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+          let weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+
 
           let data = result.data;
           for (let key in data) {
-            let mDate = moment(data[key].attributes['start-time']);
-            data[key].attributes['start-timeY'] = mDate.format('YYYY-MM-DD ') + weekArr[mDate.format('E') - 1];
+            let nWeek = new Date(data[key].attributes['start-time']).getDay();
+
+            let tWeek = weekArr[nWeek];
+            data[key].attributes['start_date'] = CS.setDateFormat({time: data[key].attributes['start-time'], format: 'yyyy-MM-dd '}) + tWeek;
+
             data[key].attributes['start-timeH'] = CS.setDateFormat({
               time: data[key].attributes['start-time'],
               format: 'hh:mm'
