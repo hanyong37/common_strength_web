@@ -94,7 +94,7 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: () => {
-              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+              Main.getTrainings();
             }
           });
         } else if (result.status == 200) {
@@ -104,7 +104,6 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: () => {
-              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
               Main.getTrainings();
             }
           });
@@ -115,7 +114,7 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: () => {
-              $('.cs-list').css('transform', 'translate(0, 0)').attr('data-left', 0);
+              Main.getTrainings();
             }
           });
         }
