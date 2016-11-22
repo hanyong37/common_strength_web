@@ -40,7 +40,7 @@ nunjucks.configure(viewPath, {
 app.set('view cache', config.viewCache);
 app.disable('x-powered-by');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, config.assetsPath)));
 
 // interface proxy
 app.use('/api', proxy({
