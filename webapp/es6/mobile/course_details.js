@@ -72,7 +72,7 @@ const Main = {
     console.log('cs-del', id);
     $.ajax({
       url: '/api/weixin/trainings/' + id,
-      type: 'put',
+      type: 'delete',
       dataType: 'json',
       data: {
         'trainings[booking-status]': 'cancelled'
