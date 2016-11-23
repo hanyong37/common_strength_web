@@ -3,10 +3,7 @@ import less from 'gulp-less';
 import prefix from 'gulp-autoprefixer';
 import nodemon from 'gulp-nodemon';
 import sourcemaps from 'gulp-sourcemaps';
-import cleancss from 'gulp-clean-css';
 import uglify from 'gulp-uglify';
-import rename from 'gulp-rename';
-import concat from 'gulp-concat';
 import nunjucks from 'gulp-nunjucks';
 import imagemin from 'gulp-imagemin';
 import es6 from 'gulp-babel';
@@ -71,18 +68,12 @@ gulp.task('minifycss', ()=> {
   return gulp.src('./static/css/**/*.css')
     .pipe(minifycss())
     .pipe(gulp.dest('./public/css'))
-  // .pipe(rename({suffix:'.min'}))
-  // .pipe(cleancss())
-  // .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('minifyjs', ()=> {
   return gulp.src('./static/js/**/*.js')
-  // .pipe(concat('public.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./public/js'))
-  // .pipe(rename({suffix:'.min'}))
-  // .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('miniimage', ()=> {
