@@ -19,7 +19,7 @@ module.exports = function(app) {
   // });
 
   // global route
-  app.get(['/login'], function(req, res){
+  app.get(['/', '/login'], function(req, res){
     res.render('login.html');
   });
 
