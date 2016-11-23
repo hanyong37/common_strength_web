@@ -1,26 +1,48 @@
   const Main = {
     init: () => {
       console.log('init');
-
-
-      Main.getSchedulesList();
       let $txtDate = $('.text-date');
+      Main.popstateDate();
+
+      window.onpopstate = function(event){
+        Main.popstateDate();
+      };
+
       $('.btn-prev').on('click',function() {
-        console.log('tap prev');
         let thisDate = $txtDate.data('val');
         let prevDate = Time.getPrevDate(thisDate);
         $txtDate.html(prevDate.nowDate + ' ' + prevDate.week).data('val', prevDate.nowDate);
+        console.log('tap prev', prevDate.nowDate);
+        history.replaceState({foo: prevDate.nowDate}, null, '#' + prevDate.nowDate);
         Main.getSchedulesList();
       });
 
       $('.btn-next').on('click',function() {
-        console.log('tap next');
         let thisDate = $txtDate.data('val');
         let nextDate = Time.getNextDate(thisDate);
         $txtDate.html(nextDate.nowDate + ' ' + nextDate.week).data('val', nextDate.nowDate);
+        console.log('tap next', nextDate.nowDate);
+        history.replaceState({foo: nextDate.nowDate}, null, '#' + nextDate.nowDate);
         Main.getSchedulesList();
       });
 
+    },
+    popstateDate: () => {
+      let $txtDate = $('.text-date');
+      let urlDate = location.href.split('#')[1];
+      if(urlDate){
+        let urlWeek = Main.getWeek(urlDate);
+        $txtDate.html(urlDate + ' ' + urlWeek).data('val', urlDate);
+      }
+      Main.getSchedulesList();
+    },
+    getWeek: (date) => {
+      let weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+      let numWeek = new Date(date).getDay();
+      let strWeek = weekArr[numWeek];
+      weekArr = null;
+      numWeek = null;
+      return strWeek;
     },
     getSchedulesList: () => {
       const time = $(".text-date").data('val');
