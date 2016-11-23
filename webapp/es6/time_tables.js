@@ -75,6 +75,11 @@ const Main = {
       $('#course_show_modal').modal('hide');
       $('#course_modal').modal('show');
       Main.setSchedule();
+
+      $('.js-btn-save').off('click').on('click', function(){
+        $('.js-btn-save').off('click');
+        Main.postSchedules();
+      });
     });
 
     //复制一周课程
@@ -113,6 +118,7 @@ const Main = {
       let id = $(this).data('id');
       let isTrue = $(this).data('publish');
       let bookNumber = $(this).data('booknumber');
+      $('#course_show_modal').data('id', id);
 
       //判断是否发布
       let $btnPublishAndDel = $('.js-btn-published, .js-btn-del');
@@ -132,6 +138,7 @@ const Main = {
         $('.js-btn-update').hide();
         $('.js-btn-published').text('取消发布').data('publish', true);
       }
+      console.log($('#course_show_modal').data('id'));
       Main.editSchedule(id);
     });
 
@@ -180,6 +187,7 @@ const Main = {
       $('#copy_modal').modal();
     });
 
+    //添加训练
     $('.js-btn-create').on('click', function(){
       let customer_id = $('#trainings_select').selectpicker('val');
       let schedule_id = $(this).data('id');
@@ -380,7 +388,6 @@ const Main = {
     let start_time = courseDate + ' ' + $('#start_datetime').val();
     let end_time = courseDate + ' ' + $('#over_datetime').val();
 
-    console.log(start_time, end_time, start_time < end_time);
     let data = {
       "schedule[store_id]": $('.select-store').selectpicker('val'),
       "schedule[course_id]": $('#select_course').selectpicker('val'),
@@ -424,10 +431,10 @@ const Main = {
           });
         }
 
-          $('.js-btn-save').off('click').on('click', function(){
-            $('.js-btn-save').off('click');
-            Main.postSchedules();
-          });
+        $('.js-btn-save').off('click').on('click', function(){
+          $('.js-btn-save').off('click');
+          Main.postSchedules();
+        });
       }
     });
   },

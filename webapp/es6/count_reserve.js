@@ -22,7 +22,7 @@ const Main = {
     Main.bindEvent();
   },
   bindEvent: () => {
-    $(".btn-info").on('click', function() {
+    $(".btn-info").off('click').on('click', function() {
       $(".btn-info").off('click');
       const start_datetime = $("#start_datetime").val();
       const over_datetime = $("#over_datetime").val();
