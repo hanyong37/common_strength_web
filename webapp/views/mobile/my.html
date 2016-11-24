@@ -23,6 +23,9 @@
         <li>
           <label >使用门店:</label>{{ data['store-name'] }}
         </li>
+        <li>
+          <label>卡状态:</label>{{ data['show-status'] }}
+        </li>
         {% if (data['membership-type'] == 'measured_card') %}
         <li>
           <label >卡类别:</label>课时卡
