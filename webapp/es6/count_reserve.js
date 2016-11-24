@@ -56,11 +56,33 @@ const Main = {
             data: result.data,
             callback: () => {
               Main.bindEvent();
+              Main.setNumComplete(result.data);
             }
           });
         }
       }
     })
+  },
+  setNumComplete: (data) => {
+    let sumNum = {
+      absence: 0,
+      beLate: 0,
+      complete: 0,
+      validBooking: 0
+    };
+    for(let i = 0, lg = data.length; i < lg; i++){
+      sumNum.absence += data[i].attributes['count-of-absence'];
+      sumNum.beLate += data[i].attributes['count-of-be-late'];
+      sumNum.complete += data[i].attributes['count-of-complete'];
+      sumNum.validBooking += data[i].attributes['count-of-valid-booking'];
+    }
+    sumNum.sum = sumNum.absence + sumNum.beLate + sumNum.complete + sumNum.validBooking;
+    csTools.setNunjucksTmp({
+      tmpSelector: '#tmp_num_sum',
+      boxSelector: '.content-table-sum',
+      isAppend: false,
+      data: sumNum
+    });
   },
   BindChangeStore: (fun) => {
     $.ajax({

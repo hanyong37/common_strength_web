@@ -19,8 +19,9 @@
     <div class="content-text tab-container-block trainings-block">
       <ul class="content-table title">
         <li class="table-checkbox"> </li>
-        <li class="table-cell-2">时间</li>
+        <li class="table-cell-2">预约时间</li>
         <li class="table-cell-2">门店</li>
+        <li class="table-cell-3">课程时间</li>
         <li class="table-cell-5 table-cell-info">课程名称</li>
         <li class="table-cell-2">状态</li>
       </ul>
@@ -80,6 +81,7 @@
     <li class="table-checkbox">{{loop.index}}</li>
     <li class="table-cell-2">{{item.attributes['updated_at']}}</li>
     <li class="table-cell-2">{{item.attributes['store-name']}}</li>
+    <li class="table-cell-3">{{ item.attributes['start_time'] }}</li>
     <li class="table-cell-5 table-cell-info">{{item.attributes['course-name']}}</li>
     <li class="table-cell-2">{{item.attributes['readable-status']}}</li>
   </ul>

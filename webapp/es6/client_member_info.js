@@ -107,8 +107,12 @@ let Main = {
         console.log('getTrainings', result);
         if(result.data){
           let data = result.data;
+          let weekArr = [' 周一', ' 周二', ' 周三', ' 周四', ' 周五', ' 周六', ' 周日'];
+
           for(let i =0, lg = data.length; i<lg; i++){
+            let theDate = moment(data[i].attributes['start-time']);
             data[i].attributes['updated_at'] = moment(data[i].attributes['updated-at']).format('YYYY-MM-DD HH:mm');
+            data[i].attributes['start_time'] = theDate.format('YYYY-MM-DD HH:mm') + weekArr[theDate.format('E') - 1];
           }
 
           csTools.setNunjucksTmp({

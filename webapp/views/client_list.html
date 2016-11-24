@@ -83,11 +83,7 @@
       {% endif %}
     </li>
     <li>
-      {% if item.attributes['is-locked'] %}
-        已锁定
-      {% else %}
-        正常
-      {% endif %}
+      {{ item.attributes['show-status']}}
     </li>
     <li class="table-cell-auto">
       <a href="clientListAdd#code={{ item.code }}">编辑</a>

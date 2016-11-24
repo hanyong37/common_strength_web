@@ -31,12 +31,18 @@
     </select>
   </div>
 </div>
+<ul class="content-table-sum">
+  <li>总完成人次: </li>
+  <li>预约人次: </li>
+  <li>缺席人次: </li>
+  <li>完成人次: </li>
+  <li>迟到人次: </li>
+</ul>
 <div class="content-text">
   <ul class="content-table title">
     <li class="table-checkbox"></li>
     <li>课程名称</li>
-    <li>课程</li>
-    <li>门店</li>
+    <li>课程类别</li>
     <li>课程总容量</li>
     <li>预约人次</li>
     <li>缺席人次</li>
@@ -50,7 +56,6 @@
       <ul class="content-table list">
         <li class="table-checkbox">{{ loop.index }}</li>
         <li>{{ items.attributes['course-name'] }}</li>
-        <li>{{ items.attributes['store-name'] }}</li>
         <li>{{ items.attributes['course-type'] }}</li>
         <li>{{ items.attributes['total-capacity'] }}</li>
         <li>{{ items.attributes['count-of-valid-booking'] }}</li>
@@ -59,6 +64,13 @@
         <li>{{ items.attributes['count-of-be-late'] }}</li>
       </ul>
     {% endfor %}
+  </script>
+  <script id="tmp_num_sum" type="text/template">
+    <li>总完成人次: {{data.sum}}</li>
+    <li>预约人次: {{data.absence}}</li>
+    <li>缺席人次: {{data.beLate}}</li>
+    <li>完成人次: {{data.complete}}</li>
+    <li>迟到人次: {{data.validBooking}}</li>
   </script>
   {% endraw %}
 
