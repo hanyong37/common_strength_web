@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="format-detection" content="telephone=no"/>
+  <title>已预约</title>
+  <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.0.2/style/weui.min.css">
+  <link rel="stylesheet" href="/css/my_reserve.css">
+</head>
+<body ontouchstart>
+
+<div class="weui-tab">
+  <div class="weui-tab__panel cs-list-cell">
+
+  </div>
+  <div class="weui-tabbar">
+    <a href="/app/courseList" class="weui-tabbar__item">
+      <img src="/img/menu.png" alt="" class="weui-tabbar__icon">
+      <img src="/img/menu_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
+      <p class="weui-tabbar__label">课程表</p>
+    </a>
+    <a href="/app/trainingsList" class="weui-tabbar__item weui-bar__item_on">
+      <img src="/img/msg.png" alt="" class="weui-tabbar__icon">
+      <img src="/img/msg_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
+      <p class="weui-tabbar__label">已预约</p>
+    </a>
+    <a href="/app/my" class="weui-tabbar__item">
+      <img src="/img/my.png" alt="" class="weui-tabbar__icon">
+      <img src="/img/my_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
+      <p class="weui-tabbar__label">我</p>
+    </a>
+  </div>
+</div>
+
+{% raw %}
+<script id="temp" type="text/template">
+  {% if data.length <= 0 %}
+  暂无训练记录
+  {% endif %}
+  {% for items in data %}
+  <div class="weui-media-box__bd cs-list cs-list-active-a" data-id="{{items.id}}">
+    <div class="cs-text">
+      <h4 class="weui-media-box__title">{{ items.attributes['course-name'] }}
+        {% if items.attributes['training-status'] == "normal" %}
+        {% if items.attributes['int-end-time'] >= items.attributes['int-now-time'] and items.attributes['int-start-time'] <=  items.attributes['int-now-time'] %}
+        <em class="em-booked em-training">进行中</em>
+        {% elif items.attributes['int-end-time'] <= items.attributes['int-now-time'] %}
+        <em class="em-complete">已完成</em>
+        {% else %}
+        {% if items.attributes['booking-status'] == "booked" or items.attributes['booking-status'] == "no_booking" %}
+        <em class="cancel-em cancel-true em-booked" data-id="{{items.id}}">已预约</em>
+        {% elif items.attributes['booking-status'] == "waiting" %}
+        <em class="cancel-em cancel-true em-booked" data-id="{{items.id}}">排队中</em>
+        {% endif %}
+        {% endif %}
+        {% elif items.attributes['training-status'] == "absence" %}
+        <em class="em-absence">缺席</em>
+        {% elif items.attributes['training-status'] == "be_late" %}
+        <em class="em-be_late">迟到</em>
+        {% endif %}
+      </h4>
+      <div class="weui-media-box__desc">
+        <div class="vm-left">
+          <div><label>门店:</label>{{ items.attributes['store-name'] }}</div>
+          <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
+        </div>
+        <div class="vm-right">
+          {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
+          {% if items.attributes['training-status'] == "normal" %}
+          <em class="em-btn-cancel">取消预约</em>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+</script>
+{% endraw %}
+
+{% include 'layout/weui_modal.html' %}
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/mobile/weixin.js"></script>
+<script src="/js/date_tool.js"></script>
+<script src="/js/mobile/trainings_list.js"></script>
+</body>
+</html>

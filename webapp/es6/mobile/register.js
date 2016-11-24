@@ -1,3 +1,5 @@
+
+
 const WxTool = {
   token: '',
   openId: '',

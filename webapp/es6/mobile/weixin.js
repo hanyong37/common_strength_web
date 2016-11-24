@@ -1,34 +1,10 @@
-  //sessionStorage.nOpenId = 'omPPQwsvIy9IiYmn1shs3zUBCb_A';
-  //sessionStorage.newWxToken = 'WrNzmzhz6nVKLx76qV5Ri3Ua';
+
 
 const Wx = {
   token: '',
   openId: sessionStorage.nOpenId,
   init: () => {
     Wx.isWxLogin();
-    let ioa = Wx.iosOrAndroid();
-    let isAndroid = (ioa == 'ios' ? false : true);
-    let outer = (  isAndroid // do it yourself
-      ? 'wrapper'
-      : 'container' );
-    let list = [outer];
-    let prevent = new PreventOverScroll({
-      list: list
-    });
-  },
-  iosOrAndroid: () => {
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-      //alert(navigator.userAgent);
-      //苹果端
-      return 'ios';
-    } else if (/(Android)/i.test(navigator.userAgent)) {
-      //alert(navigator.userAgent);
-      //安卓端
-      return 'android';
-    } else {
-      //pc端
-      return 'pc';
-    }
   },
   getUserInfo: () => {
     if(!Wx.openId){

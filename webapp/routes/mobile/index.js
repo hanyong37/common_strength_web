@@ -24,6 +24,6 @@ module.exports = function(app) {
   });
 
   app.get('/app/trainingsList', function(req, res) {
-    res.render('mobile/trainings_list.html');
+    res.render('mobile/trainings_list_new.html');
   });
 }
