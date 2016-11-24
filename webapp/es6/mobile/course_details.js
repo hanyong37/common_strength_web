@@ -101,9 +101,19 @@ const Main = {
               location.reload();
             }
           });
-        } else {
+        } else if(result.status == 409){
           CS.msgModalShow({
-            msg: '该训练可能已结束，详情请联系门店！',
+            msg: '超过可取消时间，无法取消！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              location.reload();
+            }
+          });
+        }else{
+          CS.msgModalShow({
+            msg: '出现未知错误，请联系门店！',
             title: '提示',
             style: 'weui',
             isPhone: 'ios',
