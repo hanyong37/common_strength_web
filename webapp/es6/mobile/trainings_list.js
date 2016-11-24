@@ -107,9 +107,20 @@ const Main = {
               Main.getTrainings();
             }
           });
+        } else if (result.status == 409) {
+          console.log('409',result);
+          CS.msgModalShow({
+            msg: '超过可取消时间，无法取消！',
+            title: '提示',
+            style: 'weui',
+            isPhone: 'ios',
+            callback: () => {
+              Main.getTrainings();
+            }
+          });
         } else {
           CS.msgModalShow({
-            msg: '该训练可能已结束，详情请联系门店！',
+            msg: '该训练无法取消，详情请联系门店！',
             title: '提示',
             style: 'weui',
             isPhone: 'ios',
