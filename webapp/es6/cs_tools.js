@@ -133,7 +133,7 @@ const csTools = {
     }
     $('.js-modal-message').html(options.msg);
 
-    $('#messageModal').modal().on('hidden.bs.modal', () => {
+    $('#messageModal').modal().off('hidden.bs.modal').on('hidden.bs.modal', () => {
       if(options.callback){
         options.callback();
       }

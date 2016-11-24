@@ -35,6 +35,8 @@
       <li>课程冻结时间(分钟)</li>
       {% elif (items.attributes.key == 'queue_limit_number') %}
       <li>允许排队人数(个)</li>
+      {% elif (items.attributes.key == 'daily_booking_limit_number') %}
+      <li>每天可预约次数(次)</li>
       {% endif %}
       <li>{{ items.attributes.value }}</li>
       <li data-id="{{ items.id }}">

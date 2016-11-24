@@ -10,16 +10,16 @@ const Main = {
       let _name = _self.siblings('label').text();
       let _text = _self.siblings('.col-sm-4').find('input').val();
 
-      if ($.trim(_text) == "") {
+      if (!/\d+/.test($.trim(_text))) {
         csTools.msgModalShow({
-          msg: _name + '不能为空!',
+          msg: '请输入正确的 ' + _name + ' 规则!',
         });
 
         return false;
       }
 
       csTools.msgConfirmShow({
-        msg: '确认修改' + _name + '为' + _text + '吗？',
+        msg: '确认修改 ' + _name + ' 为 ' + _text + ' 吗？',
         callback: () => {
           Main.saveCourseInfo({
             key: _key,
@@ -41,8 +41,21 @@ const Main = {
       headers: {
         'X-Api-Key': csTools.token,
       },
-      success: function(result) {
+      complete: function(result) {
         console.log(result);
+        if(result.status == 200){
+          csTools.msgModalShow({
+            msg: '修改成功!',
+          });
+        }else{
+          let txt = '';
+          if(restult.responseText){
+            txt = '错误原因：' + restult.responseText;
+          }
+          csTools.msgConfirmShow({
+            msg: '修改失败!' + txt,
+          });
+        }
       }
     });
   },
