@@ -30,8 +30,7 @@
     {% elif data.attributes['waitable']%}
     <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
     {% elif data.attributes['cancelable'] %}
-      {{items.attributes['booking-status']}}
-      {% if items.attributes['booking-status'] == "waiting" %}
+      {% if data.attributes['booking-status'] == "waiting" %}
       <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消排队</div>
       {% else %}
       <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消预约</div>
