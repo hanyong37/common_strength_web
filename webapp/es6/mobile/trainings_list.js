@@ -1,9 +1,26 @@
 const Main = {
   page: 1,
   numValue: 10,
+  isEnd: false,
+  pageNum: null,
   init: () => {
     Main.getTrainings();
 
+    setTimeout( () => {
+      var myScroll = new IScroll('.cs-list-cell', {
+        probeType: 2,
+        bindToWrapper:true
+      });
+
+      myScroll.on('scroll', function() {
+        if(this.y < (this.maxScrollY - 60) && Main.isEnd && Main.page < Main.pageNum) { // 上拉加载
+          Main.isEnd = false;
+          Main.page ++;
+          console.log(Main.page)
+          Main.getTrainings();
+        }
+      })
+    }, 500)
   },
   slideEvent: () => {
     $('.em-btn-cancel').on('click', function () {
@@ -56,11 +73,11 @@ const Main = {
             data[key].attributes['int-now-time'] = new Date().getTime();
           }
           console.log(data);
-          $(".cs-list-cell .cs-list").remove();
+          $(".panel-cell-list .cs-list").remove();
 
           CS.setNunjucksTmp({
             tmpSelector: '#temp',
-            boxSelector: '.cs-list-cell',
+            boxSelector: '.panel-cell-list',
             isAppend: 'append',
             data,
             callback: () => {
@@ -69,6 +86,9 @@ const Main = {
             }
           });
 
+
+          Main.isEnd = true;
+          Main.pageNum = result.meta['total-pages'];
         }
       }
     })
