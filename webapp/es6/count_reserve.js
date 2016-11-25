@@ -65,18 +65,20 @@ const Main = {
   },
   setNumComplete: (data) => {
     let sumNum = {
+      number: 0,
       absence: 0,
       beLate: 0,
       complete: 0,
       validBooking: 0
     };
     for(let i = 0, lg = data.length; i < lg; i++){
+      sumNum.number += data[i].attributes['total-capacity'];
       sumNum.absence += data[i].attributes['count-of-absence'];
       sumNum.beLate += data[i].attributes['count-of-be-late'];
       sumNum.complete += data[i].attributes['count-of-complete'];
       sumNum.validBooking += data[i].attributes['count-of-valid-booking'];
     }
-    sumNum.sum = sumNum.absence + sumNum.beLate + sumNum.complete + sumNum.validBooking;
+    sumNum.sum = sumNum.absence + sumNum.complete + sumNum.validBooking;
     csTools.setNunjucksTmp({
       tmpSelector: '#tmp_num_sum',
       boxSelector: '.content-table-sum',
