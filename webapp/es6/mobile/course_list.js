@@ -1,12 +1,8 @@
-  const Main = {
+const Main = {
     init: () => {
       console.log('init');
       let $txtDate = $('.text-date');
       Main.popstateDate();
-
-      window.onpopstate = function(event){
-        Main.popstateDate();
-      };
 
       $('.btn-prev').on('click',function() {
         let thisDate = $txtDate.data('val');
@@ -45,9 +41,10 @@
       return strWeek;
     },
     getSchedulesList: () => {
+      let nowDate = new Date().getTime();
       const time = $(".text-date").data('val');
       $.ajax({
-        url:'/api/weixin/my_schedules/' + time,
+        url:'/api/weixin/my_schedules/' + time + '?tokentime=' + nowDate,
         type: 'get',
         dataType: 'json',
         headers: {

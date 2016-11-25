@@ -98,7 +98,7 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: () => {
-              location.reload();
+              history.go(-1);
             }
           });
         } else if(result.status == 409){
@@ -183,7 +183,7 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: ()=>{
-              history.back();
+              history.go(-1);
             }
           });
         }else if(result.status == 409){
