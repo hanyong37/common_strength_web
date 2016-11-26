@@ -25,9 +25,7 @@
 </script>
 <script id="tmp_btn" type="text/template">
   <div class="page__ft">
-    {% if (not data.attributes['booking-status'] || data.attributes['booking-status'] == 'no_booked') and  not data.attributes['is-membership-valid']%}
-      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
-    {% else %}
+    {% if (data.attributes['booking-status'] == 'booked' || data.attributes['booking-status'] == 'no_booking' ||  data.attributes['booking-status'] == 'waiting') || data.attributes['is-membership-valid']%}
       {% if data.attributes['bookable'] %}
       <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
       {% elif data.attributes['waitable']%}
@@ -43,6 +41,8 @@
       {% else %}
       <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
       {% endif %}
+    {% else %}
+      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
     {% endif %}
   </div>
 </script>
