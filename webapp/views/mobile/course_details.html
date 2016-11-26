@@ -25,7 +25,7 @@
 </script>
 <script id="tmp_btn" type="text/template">
   <div class="page__ft">
-    {% if (data.attributes['booking-status'] == 'booked' || data.attributes['booking-status'] == 'no_booking' ||  data.attributes['booking-status'] == 'waiting') || data.attributes['is-membership-valid']%}
+    {% if (data.attributes['booking-status'] == 'booked' or data.attributes['booking-status'] == 'no_booking' or  data.attributes['booking-status'] == 'waiting') or data.attributes['is-membership-valid']%}
       {% if data.attributes['bookable'] %}
       <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
       {% elif data.attributes['waitable']%}
