@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="format-detection" content="telephone=no"/>
+  <title>课程预约</title>
+  <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.0.2/style/weui.min.css">
+  <link rel="stylesheet" href="/css/course_list.css">
+</head>
+<body ontouchstart>
+
+<div class="weui-tab">
+  <div class="weui-tab__panel cs-list-cell">
+    <div class="panel-cell-list" style="padding-bottom: 55px">
+      <div class="top-date-box">
+        <div class="date-box">
+          <div class="btn-date btn-prev"></div>
+          <div class="text-date">获取日期中...</div>
+          <div class="btn-date btn-next"></div>
+        </div>
+      </div>
+      <div class="training-list">
+
+      </div>
+    </div>
+  </div>
+  <div class="weui-tabbar">
+    <a href="/app/courseList" class="weui-tabbar__item">
+      <img src="/img/menu.png" alt="" class="weui-tabbar__icon">
+      <p class="weui-tabbar__label">课程表</p>
+    </a>
+    <a href="/app/trainingsList" class="weui-tabbar__item weui-bar__item_on">
+      <img src="/img/msg_on.png" alt="" class="weui-tabbar__icon weui-tabbar__icon_on">
+      <p class="weui-tabbar__label">已预约</p>
+    </a>
+    <a href="/app/my" class="weui-tabbar__item">
+      <img src="/img/my.png" alt="" class="weui-tabbar__icon">
+      <p class="weui-tabbar__label">我</p>
+    </a>
+  </div>
+</div>
+
+
+{% raw %}
+<script type="text/template" id="temp">
+  {% for items in data %}
+  {% if items.attributes['waiting-number'] > 0 %}
+  <div class="training-block training-danger" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+    {% else %}
+    <div class="training-block" data-id="{{ items.id }}" data-course="{{ items.attributes['course-id'] }}">
+      {% endif %}
+      <div class="t-b-time">
+        <div class="time-begin">{{ items.attributes['start-time'] }}</div>
+        <div class="time-over">{{ items.attributes['end-time'] }}</div>
+      </div>
+      <div class="training-info">
+        <div class="t-i-name">{{ items.attributes['course-name'] }}</div>
+        <div class="t-i-bottom" data-store="{{ items.attributes['store-id'] }}"><span class="tag-block">{{items.attributes['course-type-name']}}</span><span
+          class="store-address">{{ items.attributes['store-name'] }}</span></div>
+      </div>
+      <div class="schedule">
+        <span class="schedule-tag">{{items.attributes['booked-number'] + items.attributes['waiting-number']}}/{{items.attributes['capacity']}}</span>
+      </div>
+      <div class="schedule-over"><i class="weui_icon_success_circle"></i></div>
+    </div>
+  </div>
+  {% endfor %}
+</script>
+{% endraw %}
+
+{% include 'layout/weui_modal.html' %}
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/nunjucks/2.4.2/nunjucks.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/mobile/weixin.js"></script>
+<script src="//cdn.bootcss.com/iScroll/5.2.0/iscroll-probe.min.js"></script>
+<script src="/js/date_tool.js"></script>
+<script src="/js/mobile/course_list.js"></script>
+</body>
+</html>
