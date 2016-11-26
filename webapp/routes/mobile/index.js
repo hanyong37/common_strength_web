@@ -16,7 +16,7 @@ module.exports = function(app) {
   });
 
   app.get(['/app/courseList'], function(req, res) {
-    res.render('mobile/course_list.html');
+    res.render('mobile/course_list_new.html');
   });
 
   app.get(['/app/courseDetails'], function(req, res) {

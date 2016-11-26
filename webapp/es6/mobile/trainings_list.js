@@ -1,3 +1,7 @@
+
+var hg =  window.innerHeight;
+document.getElementsByClassName('weui-tab')[0].style.height = hg;
+
 const Main = {
   page: 1,
   numValue: 10,
