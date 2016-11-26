@@ -25,22 +25,25 @@
 </script>
 <script id="tmp_btn" type="text/template">
   <div class="page__ft">
-    {% if data.attributes['bookable'] %}
-    <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
-    {% elif data.attributes['waitable']%}
-    <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
-    {% elif data.attributes['cancelable'] %}
-      {% if data.attributes['booking-status'] == "waiting" %}
-      <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消排队</div>
-      {% else %}
-      <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消预约</div>
-      {% endif %}
-    {% elif not data.attributes['booking-status'] and not data.attributes['is-membership-valid'] %}
-    <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
+    {% if (not data.attributes['booking-status'] || data.attributes['booking-status'] == 'no_booked') and  not data.attributes['is-membership-valid']%}
+      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
     {% else %}
-    <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
+      {% if data.attributes['bookable'] %}
+      <div class="weui-btn weui-btn_primary js-btn-bookable">预约课程</div>
+      {% elif data.attributes['waitable']%}
+      <div class="weui-btn weui-btn_primary js-btn-bookable">排队课程</div>
+      {% elif data.attributes['cancelable'] %}
+        {% if data.attributes['booking-status'] == "waiting" %}
+        <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消排队</div>
+        {% else %}
+        <div class="weui-btn weui-btn_warn js-btn-cancel" data-id="{{data.attributes['cancel-id']}}">取消预约</div>
+        {% endif %}
+      {% elif not data.attributes['booking-status'] and not data.attributes['is-membership-valid'] %}
+      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['customer-reject-msg']}}</div>
+      {% else %}
+      <div class="weui-btn weui-btn_disabled weui-btn_default">{{data.attributes['schedule-reject-msg']}}</div>
+      {% endif %}
     {% endif %}
-
   </div>
 </script>
 {% endraw %}
