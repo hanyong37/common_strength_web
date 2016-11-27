@@ -16,7 +16,7 @@ const reload = browserSync.reload;
 
 // DONE can not compite less file
 
-gulp.task('less', ()=> {
+gulp.task('less', function() {
   return gulp.src(['./less/*.less'])
     .pipe(sourcemaps.init())
     .pipe(less())
@@ -26,7 +26,7 @@ gulp.task('less', ()=> {
 });
 
 // es6 编译
-gulp.task('es6', ()=> {
+gulp.task('es6', function() {
   return gulp.src(['./es6/*.js', './es6/*/*.js'])
     .pipe(sourcemaps.init({largeFile: true}))
     .pipe(es6({presets: ['es2015']}))
@@ -64,13 +64,13 @@ gulp.task('nodemon', (a)=> {
 // gulp go
 // 压缩合并 css or js or image
 
-gulp.task('minifycss', ()=> {
+gulp.task('minifycss', ['less'],function(){
   return gulp.src('./static/css/**/*.css')
     .pipe(minifycss())
     .pipe(gulp.dest('./public/css'))
 });
 
-gulp.task('minifyjs', ()=> {
+gulp.task('minifyjs', ['es6'],function() {
   return gulp.src('./static/js/**/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('./public/js'))
@@ -122,8 +122,9 @@ gulp.watch(path, ()=> {
 
 // 构建压缩项目
 gulp.task('go', [ 'clean', 'minifycss', 'minifyjs', 'miniimage', 'fonts' , 'nunjucks']);
-gulp.task('going', ['less', 'es6']);
-gulp.task('build', ['clean', 'minifycss', 'minifyjs']);
+gulp.task('going', ['less', 'es6'], function(){
+});
+gulp.task('build', [ 'minifycss', 'minifyjs']);
 
 // 默认执行gulp 启动项目
 gulp.task('default', ['browser-sync', 'less', 'es6']);
