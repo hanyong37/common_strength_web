@@ -57,8 +57,6 @@ const Main = {
                 Main.isEnd = true;
             });
           }, 800);
-        }else if (this.y >= (this.maxScrollY - 90)){
-          this.y = (this.maxScrollY - 90);
         }
       });
   },
