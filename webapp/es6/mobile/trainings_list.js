@@ -30,7 +30,9 @@ const Main = {
       });
     });
   },
-  scrollInit: () => {
+  scrollInit: (opt) => {
+      var easing = opt.bounceEasing || 'quadratic';
+      var bounceTime = opt.bounceTime || 600;
       Main.myScroll = new IScroll('.cs-list-cell', {
         probeType: 2,
         bindToWrapper:true,
@@ -39,11 +41,12 @@ const Main = {
         bounce:true,
         shrinkScrollbars:'scale',
         momentum:true,
-        bounceEasing: 'bounce'
+        bounceEasing: easing,
+        bounceTime 
       });
   },
   scrollEvent: function(){
-    Main.scrollInit();
+    Main.scrollInit({bounceTime: 1000});
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);  
 
       Main.myScroll.on('scroll', function() {
@@ -62,7 +65,7 @@ const Main = {
               if(Main.page > Main.pageNum){
                 Main.myScroll.destroy();
                 Main.myScroll = null;
-                Main.scrollInit();
+                Main.scrollInit({bounceEasing: 'elastic'});
               }
             });
           }, 800);
