@@ -54,6 +54,8 @@ const Main = {
                 Main.isEnd = true;
             });
           }, 800);
+        }else{
+          this.y = (this.maxScrollY - 90);
         }
       });
   },
