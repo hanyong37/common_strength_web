@@ -5,29 +5,17 @@ document.getElementsByClassName('weui-tab')[0].style.height = hg;
 const Main = {
   page: 1,
   numValue: 10,
-  isEnd: false,
+  isEnd: true,
   pageNum: null,
+  myScroll: null,
   init: () => {
-    Main.getTrainings();
+    Main.getTrainings(function(){
+      Main.scrollEvent();
+    });
 
-    setTimeout( () => {
-      var myScroll = new IScroll('.cs-list-cell', {
-        probeType: 2,
-        bindToWrapper:true
-      });
-
-      myScroll.on('scroll', function() {
-        if(this.y < (this.maxScrollY - 60) && Main.isEnd && Main.page < Main.pageNum) { // 上拉加载
-          Main.isEnd = false;
-          Main.page ++;
-          console.log(Main.page)
-          Main.getTrainings();
-        }
-      })
-    }, 500)
   },
   slideEvent: () => {
-    $('.em-btn-cancel').on('click', function () {
+    $('.em-btn-cancel').off('click').on('click', function () {
       let id = $(this).parents('.cs-list').data('id');
       CS.msgConfirmShow({
         msg: '确定取消该课程？',
@@ -41,7 +29,31 @@ const Main = {
       });
     });
   },
-  getTrainings: () => {
+  scrollEvent: function(){
+      Main.myScroll = new IScroll('.cs-list-cell', {
+        probeType: 2,
+        bindToWrapper:true,
+        resize: true
+      });
+
+      Main.myScroll.on('scroll', function() {
+        console.log(this.maxScrollY);
+        if(this.y < (this.maxScrollY - 90) && Main.isEnd && Main.page <= Main.pageNum) { // 上拉加载
+          $('#loading').show();
+          Main.page ++;
+          Main.isEnd = false;
+          
+          setTimeout(function(){
+            Main.getTrainings(function(){
+                $('#loading').show();
+                Main.myScroll.refresh();
+                Main.isEnd = true;
+            });
+          }, 800);
+        }
+      });
+  },
+  getTrainings: (callback) => {
     let page = Main.page;
     let numValue = Main.numValue;
     // 获取训练列表
@@ -77,22 +89,24 @@ const Main = {
             data[key].attributes['int-now-time'] = new Date().getTime();
           }
           console.log(data);
-          $(".panel-cell-list .cs-list").remove();
 
           CS.setNunjucksTmp({
             tmpSelector: '#temp',
-            boxSelector: '.panel-cell-list',
-            isAppend: 'append',
+            boxSelector: '#loading',
+            isAppend: 'before',
             data,
             callback: () => {
               data = null;
               Main.slideEvent();
+              
             }
           });
 
 
-          Main.isEnd = true;
           Main.pageNum = result.meta['total-pages'];
+          if(typeof callback === 'function'){
+            callback();
+          }
         }
       }
     })
