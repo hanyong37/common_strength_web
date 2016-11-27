@@ -36,6 +36,8 @@ const Main = {
         resize: true
       });
 
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);  
+
       Main.myScroll.on('scroll', function() {
         console.log(this.maxScrollY);
         if(this.y < (this.maxScrollY - 90) && Main.isEnd && Main.page <= Main.pageNum) { // 上拉加载
@@ -45,7 +47,7 @@ const Main = {
           
           setTimeout(function(){
             Main.getTrainings(function(){
-                $('#loading').show();
+                $('#loading').hide();
                 Main.myScroll.refresh();
                 Main.isEnd = true;
             });

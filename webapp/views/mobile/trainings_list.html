@@ -10,7 +10,12 @@
     <div class="bd" style="height: 100%;">
         <div class="weui-panel weui-panel_access cs-list-cell">
 
-        {% raw %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% raw %}
         <script id="temp" type="text/template">
           {% if data.length <= 0 %}
             暂无训练记录
@@ -42,11 +47,6 @@
           {% endfor %}
         </script>
         {% endraw %}
-      </div>
-    </div>
-  </div>
-</div>
-
 {% include 'layout/weui_modal.html' %}
 {% endblock %}
 
