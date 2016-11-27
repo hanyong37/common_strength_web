@@ -35,7 +35,10 @@ const Main = {
         probeType: 2,
         bindToWrapper:true,
         resize: true,
-        click: true
+        click: true,
+        bounce:true,
+        shrinkScrollbars:'scale',
+        momentum:true
       });
 
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);  
