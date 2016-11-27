@@ -15,6 +15,7 @@ const Main = {
 
   },
   slideEvent: () => {
+    console.log('slideEvent');
     $('.em-btn-cancel').off('click').on('click', function () {
       let id = $(this).parents('.cs-list').data('id');
       CS.msgConfirmShow({
@@ -33,7 +34,8 @@ const Main = {
       Main.myScroll = new IScroll('.cs-list-cell', {
         probeType: 2,
         bindToWrapper:true,
-        resize: true
+        resize: true,
+        click: true
       });
 
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);  
