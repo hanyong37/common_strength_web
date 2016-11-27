@@ -17,7 +17,7 @@ const Main = {
   slideEvent: () => {
     console.log('slideEvent');
     $('.em-btn-cancel').off('click').on('click', function () {
-      let self = $(this);
+      let self = $(this).parents('.cs-list');
       let id = $(this).parents('.cs-list').data('id');
       CS.msgConfirmShow({
         msg: '确定取消该课程？',
