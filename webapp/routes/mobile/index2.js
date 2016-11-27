@@ -1,4 +1,4 @@
-
+const request = require('request');
 
 module.exports = function(app) {
 
@@ -19,7 +19,7 @@ module.exports = function(app) {
   });
 
   app.get('/app/getWxToken', function(req, res){
-    req('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' +
+    request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' +
       'wx3e88f64ec69153c2' +
       '&secret=' +
       '042d99014f1ae55841ed797246883fcc',
@@ -34,7 +34,7 @@ module.exports = function(app) {
   });
   app.get('/app/getWxOpenid', function(req, res){
     let code = req.query.code;
-    req('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' +
+    request('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' +
       'wx3e88f64ec69153c2' +
       '&secret=042d99014f1ae55841ed797246883fcc&code=' +
       code +
