@@ -17,6 +17,7 @@ const Main = {
   slideEvent: () => {
     console.log('slideEvent');
     $('.em-btn-cancel').off('click').on('click', function () {
+      let self = $(this);
       let id = $(this).parents('.cs-list').data('id');
       CS.msgConfirmShow({
         msg: '确定取消该课程？',
@@ -25,7 +26,7 @@ const Main = {
         isPhone: 'ios',
         btn: ['取消', '确定'],
         callback: () => {
-          Main.delEvent(id);
+          Main.delEvent(id, self);
         }
       });
     });
@@ -130,7 +131,7 @@ const Main = {
       }
     })
   },
-  delEvent: (id) => {
+  delEvent: (id, obj) => {
     //cs-del
     console.log('cs-del', id);
     $.ajax({
@@ -161,7 +162,7 @@ const Main = {
             style: 'weui',
             isPhone: 'ios',
             callback: () => {
-              Main.getTrainings();
+              obj.remove();
             }
           });
         } else if (result.status == 409) {
