@@ -30,7 +30,7 @@ const Main = {
       });
     });
   },
-  scrollEvent: function(){
+  scrollInit: () => {
       Main.myScroll = new IScroll('.cs-list-cell', {
         probeType: 2,
         bindToWrapper:true,
@@ -38,9 +38,12 @@ const Main = {
         click: true,
         bounce:true,
         shrinkScrollbars:'scale',
-        momentum:true
+        momentum:true,
+        bounceEasing: 'bounce'
       });
-
+  },
+  scrollEvent: function(){
+    Main.scrollInit();
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);  
 
       Main.myScroll.on('scroll', function() {
@@ -50,11 +53,17 @@ const Main = {
           Main.page ++;
           Main.isEnd = false;
           
+          
           setTimeout(function(){
             Main.getTrainings(function(){
-                $('#loading').hide();
-                Main.myScroll.refresh();
-                Main.isEnd = true;
+              $('#loading').hide();
+              Main.myScroll.refresh();
+              Main.isEnd = true;
+              if(Main.page > Main.pageNum){
+                Main.myScroll.destroy();
+                Main.myScroll = null;
+                Main.scrollInit();
+              }
             });
           }, 800);
         }
