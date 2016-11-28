@@ -63,9 +63,11 @@
           <div><label>日期:</label>{{ items.attributes['start-timeY'] }} <label>时间:</label>{{ items.attributes['start-timeH'] }} - {{ items.attributes['end-timeH'] }} </div>
         </div>
         <div class="vm-right">
-          {% if items.attributes['int-start-time'] >=  items.attributes['int-now-time'] %}
-          {% if items.attributes['training-status'] == "normal" %}
+          {% if items.attributes['cancelable'] %}
+          {% if items.attributes['booking-status'] == "booked" or items.attributes['booking-status'] == "no_booking" %}
           <em class="em-btn-cancel">取消预约</em>
+          {% elif items.attributes['booking-status'] == "waiting" %}
+          <em class="em-btn-cancel">取消排队</em>
           {% endif %}
           {% endif %}
         </div>
