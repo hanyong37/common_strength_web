@@ -22,7 +22,7 @@ gulp.task('less', function() {
     .pipe(less())
     .pipe(prefix('last 2 versions', '> 1%', 'ie 8', 'Android 2'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/css'))
+    .pipe(gulp.dest('./public/css'))
 });
 
 // es6 编译
@@ -31,7 +31,7 @@ gulp.task('es6', function() {
     .pipe(sourcemaps.init({largeFile: true}))
     .pipe(es6({presets: ['es2015']}))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/js'))
+    .pipe(gulp.dest('./public/js'))
 });
 
 //  浏览器同步
