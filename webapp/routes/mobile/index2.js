@@ -1,5 +1,7 @@
 const request = require('request');
 
+const AppID = 'wx4187e97165cc9be5';
+const AppSecret = 'c7d039a556038a5d330e475f7e1a0f92';
 module.exports = function(app) {
 
   app.get(['/app/redirect'], function(req, res) {
@@ -7,7 +9,7 @@ module.exports = function(app) {
     // let redirectUrl = encodeURIComponent('http://mg98p.free.natapp.cc/app/register');
     let redirectUrl = encodeURIComponent('http://commonstrength.cn/app/register');
     let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
-      'wx3e88f64ec69153c2' +
+      AppID +
       '&redirect_uri=' +
       redirectUrl +
       '&response_type=code&scope=snsapi_base&state=' +
@@ -20,9 +22,9 @@ module.exports = function(app) {
 
   app.get('/app/getWxToken', function(req, res){
     request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' +
-      'wx3e88f64ec69153c2' +
+      AppID +
       '&secret=' +
-      '042d99014f1ae55841ed797246883fcc',
+      AppSecret,
       function(error, response, body){
         if (!error && response.statusCode == 200) {
           res.send(body);
@@ -35,8 +37,9 @@ module.exports = function(app) {
   app.get('/app/getWxOpenid', function(req, res){
     let code = req.query.code;
     request('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' +
-      'wx3e88f64ec69153c2' +
-      '&secret=042d99014f1ae55841ed797246883fcc&code=' +
+      AppID +
+      '&secret=' + AppSecret+
+      '&code=' +
       code +
       '&grant_type=authorization_code',
       function(error, response, body){
