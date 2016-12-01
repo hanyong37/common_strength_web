@@ -804,7 +804,7 @@ const Main = {
   },
   getCustomersModal: (id) => {
     $.ajax({
-      url: '/api/admin/customers?store_id=' + id,
+      url: '/api/admin/customers?store_id=' + id + "&per_page=" + 500,
       type: 'get',
       dataType: 'json',
       headers: {
