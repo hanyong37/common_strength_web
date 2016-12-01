@@ -31,7 +31,10 @@ let Main = {
       Main.getMemberShipsInfo();
     });
     $('.query-string').on('keypress', function(e){
-      Main.getMemberShipsInfo();
+      let val = $(this).val();
+      if(e.keyCode === 13){
+        Main.getMemberShipsInfo();
+      }
     });
 
     Main.pageNumEvent();

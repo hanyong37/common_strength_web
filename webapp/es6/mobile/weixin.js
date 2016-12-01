@@ -2,7 +2,7 @@
 
 const Wx = {
   token: '',
-  openId: sessionStorage.nOpenId,
+  openId: sessionStorage.newOpenId,
   init: () => {
     Wx.isWxLogin();
   },

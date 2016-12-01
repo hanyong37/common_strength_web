@@ -71,7 +71,7 @@
   {% raw %}
   {% for item in data %}
   {% if not item.attributes['is-locked'] %}
-  <option value="{{ item.id }}">{{ item.attributes.name }}</option>
+  <li data-val="{{ item.id }}" data-id="option">{{ item.attributes.name }}</li>
   {% endif %}
   {% endfor %}
   {% endraw %}
@@ -222,8 +222,7 @@
       </div>
       <div class="modal-body">
         <div id="course_show_body"></div>
-          <div class="btn btn-large btn-info js-create-trainings"
-               data-toggle="modal" data-target="#trainings_modal">添加用户</div>
+          <div class="btn btn-large btn-info js-create-trainings" >添加用户</div>
         <div class="content-text">
           <ul class="content-table title">
             <li> </li>
@@ -263,8 +262,10 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">添加训练</h4>
       </div>
-      <div class="modal-body">
-        <select id="trainings_select"></select>
+      <div class="modal-body modal-body-box">
+        <input id="trainings_select" type="text" placeholder="请输入名字或电话">
+        <!--<select id="trainings_select"></select>-->
+        <ul id="trainings_select_box"></ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

@@ -140,6 +140,12 @@ const Main = {
         $('.js-btn-update').hide();
         $('.js-btn-published').text('取消发布').data('publish', true);
       }
+
+      $('.js-create-trainings').off('click').on('click', function(){
+        $('#trainings_modal').modal('show');
+        $('#trainings_select').val('').data('val', '');
+        $('#trainings_select_box').empty();
+      });
       console.log($('#course_show_modal').data('id'));
       Main.editSchedule(id);
     });
@@ -189,9 +195,32 @@ const Main = {
       $('#copy_modal').modal();
     });
 
+    $(document).on('click', function(ev){
+      let e = window.event || ev; // 兼容IE7
+      let obj = $(e.srcElement || e.target);
+      let $that = $(obj);
+      if (!$that.is("#trainings_select, #trainings_select_box,#trainings_select_box *")) {
+        $('#trainings_select_box').slideUp(100);
+      }
+    });
+    //auto 点击事件
+    $("#trainings_select_box").on('click', 'li', function(e){
+      console.log('text, val');
+      e.stopPropagation();
+      e.preventDefault();
+      let $that = $(this);
+      let text = $that.text();
+      let val = $that.data('val');
+      console.log(text, val);
+      $that.addClass('active').siblings('li').remove();
+      $('#trainings_select').val(text).data('text', text).data('val', val);
+      $('#trainings_select_box').slideUp(100);
+    });
+
+
     //添加训练
     $('.js-btn-create').on('click', function(){
-      let customer_id = $('#trainings_select').selectpicker('val');
+      let customer_id = $('#trainings_select').data('val');
       let schedule_id = $(this).data('id');
       let store_id = $('.select-store').selectpicker('val');
       let booking_status = 'no_booking';
@@ -605,7 +634,29 @@ const Main = {
               $('#course_show_modal').modal('show');
               Main.getTrainings(id);
               let storeid = $('.select-store').selectpicker('val');
-              Main.getCustomersModal(storeid);
+              console.log('608', storeid);
+              // Main.getCustomersModal(storeid);
+
+              let timeOut = null;
+              $('#trainings_select').off('input').on('input', function(){
+                clearTimeout(timeOut);
+                let $that = $(this);
+                let text = $.trim($that.val());
+                let oldText = $.trim($that.data('val'));
+                if(text !== oldText){
+                  $that.data('val', '');
+                }
+                $('#trainings_select_box').empty();
+                timeOut = setTimeout(function(){
+                  let val = $.trim($('#trainings_select').val());
+                  console.log('key', val);
+                  if(val !== ''){
+                    Main.getCustomersModal(storeid, val);
+                  }
+                }, 300);
+              }).on('focus', function(){
+                $('#trainings_select_box').slideDown(100);
+              });
 
               $('.js-btn-published').off('click').on('click', function(){
                 let publishStatus = $(this).data('publish');
@@ -664,30 +715,7 @@ const Main = {
     $('#course_number').val('');
     $('#course_modal').data('id', '');
   },
-  pageNumEvent: () => {
 
-    $('.js-pagination').on('click', '.js-first', function(){
-      console.log('first');
-      Main.getMemberShipsInfo(1);
-    }).on('click', '.js-prev', function(){
-      console.log('prev');
-      if(Main.page > 1){
-        Main.page -= 1;
-
-        Main.getMemberShipsInfo(Main.page);
-      }
-    }).on('click', '.js-next', function(){
-      console.log('next');
-      if(Main.page < Main.count){
-        Main.page += 1;
-
-        Main.getMemberShipsInfo(Main.page);
-      }
-    }).on('click', '.js-last', function(){
-      console.log('last');
-      Main.getMemberShipsInfo(Main.count);
-    });
-  },
   setTrainings: (id, data, msg) => {
     $.ajax({
       url: '/api/admin/trainings/' + id,
@@ -802,20 +830,21 @@ const Main = {
     });
 
   },
-  getCustomersModal: (id) => {
+  getCustomersModal: (id, query) => {
+    query = query || '';
     $.ajax({
-      url: '/api/admin/customers?store_id=' + id + "&per_page=" + 500,
+      url: '/api/admin/customers?store_id=' + id + "&qstring=" + query,
       type: 'get',
       dataType: 'json',
       headers: {
         "X-Api-Key": csTools.token
       },
       success: (result) => {
-        console.log(result);
+        console.log('tmp_select_customers', result);
         //trainings_box
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_select_customers',
-          boxSelector: '#trainings_select',
+          boxSelector: '#trainings_select_box',
           data: result.data,
           callback: () => {
             $('#trainings_select').selectpicker('refresh');
