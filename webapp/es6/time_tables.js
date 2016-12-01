@@ -1,6 +1,8 @@
 const Main = {
   theDate: moment().format('YYYY-MM-DD'),
   scheduleData: {},
+  page: 1,
+  count: 1,
   init: () => {
     //门店选择
     $('.select-store').selectpicker({
@@ -662,6 +664,30 @@ const Main = {
     $('#course_number').val('');
     $('#course_modal').data('id', '');
   },
+  pageNumEvent: () => {
+
+    $('.js-pagination').on('click', '.js-first', function(){
+      console.log('first');
+      Main.getMemberShipsInfo(1);
+    }).on('click', '.js-prev', function(){
+      console.log('prev');
+      if(Main.page > 1){
+        Main.page -= 1;
+
+        Main.getMemberShipsInfo(Main.page);
+      }
+    }).on('click', '.js-next', function(){
+      console.log('next');
+      if(Main.page < Main.count){
+        Main.page += 1;
+
+        Main.getMemberShipsInfo(Main.page);
+      }
+    }).on('click', '.js-last', function(){
+      console.log('last');
+      Main.getMemberShipsInfo(Main.count);
+    });
+  },
   setTrainings: (id, data, msg) => {
     $.ajax({
       url: '/api/admin/trainings/' + id,
@@ -733,10 +759,11 @@ const Main = {
       }
     });
   },
-  getTrainings: (id) => {
+  getTrainings: (id, page) => {
+    page = page || 1;
     $('.js-btn-create').data('id', id);
     $.ajax({
-      url: '/api/admin/schedules/' + id + '/trainings',
+      url: '/api/admin/schedules/' + id + '/trainings'+ "?page=" + page,
       type: 'get',
       dataType: 'json',
       headers: {
@@ -761,7 +788,11 @@ const Main = {
             data[i].attributes['trainings-booking'] = 'starting';
           }
         }
-          console.log('trainings_box2', data);
+        let meta = result.meta;
+        Main.page = meta["current-page"];
+        Main.count = meta["total-pages"];
+        $('.js-page').text(Main.page);
+
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_trainings_box',
           boxSelector: '#trainings_box',

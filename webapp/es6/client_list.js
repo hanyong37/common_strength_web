@@ -1,16 +1,21 @@
 
 let Main = {
+  page: 1,
+  count: 1,
   init: () => {
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
     }).on('changed.bs.select', function(e){
       console.log('change');
-      Main.getMemberShipsInfo();
+      Main.getMemberShipsInfo(1);
     });
+    let uPage = $.url().fparam('page');
+    if(uPage > 0){
+      Main.page = uPage;
+    }
 
     Main.getStoreList();
-    Main.getMemberShipsInfo();
 
     let $listBox = $('.list-box');
     $listBox.on('click', '.j-locked',function(){
@@ -27,6 +32,32 @@ let Main = {
     });
     $('.query-string').on('keypress', function(e){
       Main.getMemberShipsInfo();
+    });
+
+    Main.pageNumEvent();
+  },
+  pageNumEvent: () => {
+
+    $('.js-pagination').on('click', '.js-first', function(){
+      console.log('first');
+      Main.getMemberShipsInfo(1);
+    }).on('click', '.js-prev', function(){
+      console.log('prev');
+      if(Main.page > 1){
+        Main.page -= 1;
+
+        Main.getMemberShipsInfo(Main.page);
+      }
+    }).on('click', '.js-next', function(){
+      console.log('next');
+      if(Main.page < Main.count){
+        Main.page += 1;
+
+        Main.getMemberShipsInfo(Main.page);
+      }
+    }).on('click', '.js-last', function(){
+      console.log('last');
+      Main.getMemberShipsInfo(Main.count);
     });
   },
   getStoreList: () => {
@@ -50,6 +81,7 @@ let Main = {
           isAppend: true,
           callback: () => {
             $('.select-store').selectpicker('refresh');
+            Main.getMemberShipsInfo(Main.page);
           }
         });
       },
@@ -60,12 +92,16 @@ let Main = {
       }
     });
   },
-  getMemberShipsInfo: () => {
+  getMemberShipsInfo: (page) => {
+    page = page || 1;
     let storeId = $('.select-store').selectpicker('val');
     let qstring = $('.query-string').val();
     console.log(storeId);
+
+    history.replaceState({page: page}, null, "#page=" + page);
     $.ajax({
-      url: '/api/admin/customers?store_id=' + storeId + '&qstring=' + qstring,
+      url: '/api/admin/customers?store_id=' + storeId + '&qstring=' + qstring + "&page=" + page,
+      // url: '/api/admin/stores/'+ storeId +'/customers' + '?qstring=' + qstring + "&page=" + page +"&per_page=" + per_page,
       type: 'get',
       dataType: 'json',
       headers: {
@@ -76,13 +112,17 @@ let Main = {
         for(let i = 0, lg = data.length; i < lg; i++){
           data[i].code = csTools.base64encode(csTools.utf16to8(data[i].id));
         }
+
+        let meta = result.meta;
+        Main.page = meta["current-page"];
+        Main.count = meta["total-pages"];
+        console.log(" Main.count", Main.count);
+        $('.js-page').text(Main.page);
+
         csTools.setNunjucksTmp({
           tmpSelector: '#tmp_client_list',
           boxSelector: '.list-box',
-          data: result.data,
-          callback: () => {
-
-          }
+          data: result.data
         });
       }
     });

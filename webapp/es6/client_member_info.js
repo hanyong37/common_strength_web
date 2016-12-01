@@ -1,6 +1,8 @@
 let Main = {
   customersId: '',
   urlPath: '',
+  page: 1,
+  count: 1,
   init: () => {
     let Url = $.url();
     let code = Url.fparam('code');
@@ -14,6 +16,8 @@ let Main = {
 
     let path = Url.attr('path');
     Main.urlPath = path + '#code=' + code;
+
+    Main.pageNumEvent();
 
     Main.tabChange();
     let type = Url.fparam('type');
@@ -95,9 +99,11 @@ let Main = {
       }
     });
   },
-  getTrainings: (id) => {
+  getTrainings: (id, page) => {
+    page = page || 1;
+
     $.ajax({
-      url: '/api/admin/customers/' + id +'/trainings',
+      url: '/api/admin/customers/' + id +'/trainings' + "?page=" + page,
       type: 'get',
       dataType: 'json',
       headers: {
@@ -115,12 +121,45 @@ let Main = {
             data[i].attributes['start_time'] = theDate.format('YYYY-MM-DD HH:mm') + weekArr[theDate.format('E') - 1];
           }
 
+          let meta = result.meta;
+          Main.page = meta["current-page"];
+          Main.count = meta["total-pages"];
+          $('.js-page').text(Main.page);
+
           csTools.setNunjucksTmp({
             tmpSelector: '#tmp_training_block',
             boxSelector: '.training-container',
             data: result.data
           });
         }
+      }
+    });
+  },
+  pageNumEvent: () => {
+    let id = Main.customersId;
+    $('.js-pagination').on('click', '.js-first', function(){
+      console.log('first');
+      if(Main.page != 1){
+        Main.getTrainings(id, 1);
+      }
+    }).on('click', '.js-prev', function(){
+      console.log('prev');
+      if(Main.page > 1){
+        Main.page -= 1;
+
+        Main.getTrainings(id, Main.page);
+      }
+    }).on('click', '.js-next', function(){
+      console.log('next');
+      if(Main.page < Main.count){
+        Main.page += 1;
+
+        Main.getTrainings(id, Main.page);
+      }
+    }).on('click', '.js-last', function(){
+      console.log('last');
+      if(Main.page != Main.count){
+        Main.getTrainings(id, Main.count);
       }
     });
   },

@@ -14,7 +14,7 @@
       <span class="input-group-addon btn-query"><em class="glyphicon glyphicon-search"></em></span>
     </div>
     <div class="input-group select-store-box iy-right">
-      <select class="form-control select-store" title="请选择门店">
+      <select class="form-control select-store">
       </select>
     </div>
   </div>
@@ -35,32 +35,28 @@
 
     </div>
 
-    <!--<nav>-->
-      <!--<ul class="pagination iy-right">-->
-        <!--<li><a href="#">&laquo;</a></li>-->
-        <!--<li><a href="#">1</a></li>-->
-        <!--<li><a href="#">2</a></li>-->
-        <!--<li><a href="#">3</a></li>-->
-        <!--<li><a href="#">4</a></li>-->
-        <!--<li><a href="#">5</a></li>-->
-        <!--<li><a href="#">&raquo;</a></li>-->
-      <!--</ul>-->
-    <!--</nav>-->
+    <nav>
+      <ul class="pagination iy-right js-pagination">
+        <li class="js-first"><i class="glyphicon glyphicon-fast-backward"></i></li>
+        <li class="js-prev"><i class="glyphicon glyphicon-backward"></i></li>
+        <li class="js-page">1</li>
+        <li class="js-next"><i class="glyphicon glyphicon-forward"></i></li>
+        <li class="js-last"><i class="glyphicon glyphicon-fast-forward"></i></li>
+      </ul>
+    </nav>
   </div>
 </div>
 
 {% block modal -%}
 {% include 'layout/modal.html' %}
 {%- endblock %}
+{% raw %}
 <script id="tmp_select_store" type="text/template">
-  {% raw %}
   {% for item in data %}
   <option value="{{ item.id }}">{{ item.attributes.name }}</option>
   {% endfor %}
-  {% endraw %}
 </script>
 <script id="tmp_client_list" type="text/template">
-  {% raw %}
   {% for item in data %}
   <ul class="content-table">
     <li class="table-checkbox">{{ loop.index }}</li>
@@ -97,8 +93,9 @@
     </li>
   </ul>
   {% endfor %}
-  {% endraw %}
 </script>
+
+{% endraw %}
 {%- endblock %}
 {% block script -%}
 <script src="//cdn.bootcss.com/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
