@@ -65,7 +65,7 @@ const WxTool = {
         if(result.errcode == 40029){
           WxTool.sendUrl('/app/register');
         }else{
-          sessionStorage.nOpenId = data.openid;
+          sessionStorage.newOpenId = data.openid;
           // sessionStorage.openId = 'jiujiu_98';
           WxTool.sendUrl('/app/courseList');
         }

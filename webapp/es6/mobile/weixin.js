@@ -24,7 +24,7 @@ const Wx = {
         console.log('session', result);
         if(result.status == 200){
           const token = result.responseJSON.data.attributes.token;
-          sessionStorage.newWxToken = token;
+          sessionStorage.nWxToken = token;
           location.reload();
         }else if (result.status == 404) {
           const phoneHtml = '<div class="weui-cell weui-cell_vcode">'
@@ -92,7 +92,7 @@ const Wx = {
         }else if(result.status === 200){
           const token = result.responseJSON.data.attributes.token;
           const weixin = result.responseJSON.data.attributes.weixin;
-          sessionStorage.newWxToken = token;
+          sessionStorage.nWxToken = token;
           sessionStorage.newWeixin = weixin;
             Wx.sendUrl('/app/courseList');
         }
@@ -100,7 +100,7 @@ const Wx = {
     });
   },
   isWxLogin: () => {
-    const token = sessionStorage.newWxToken;
+    const token = sessionStorage.nWxToken;
     if(!token){
       if(location.pathname != '/app/courseList'){
           console.log('isWxLogin');
