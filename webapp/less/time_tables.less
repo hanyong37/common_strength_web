@@ -124,11 +124,26 @@
     padding-right: 10px;
   }
 }
-.modal-dialog {
-  width: 800px;
 
+.modal-dialog {
+  //width: 800px;
+  overflow-x: auto;
+
+  .modal-content {
+    width: 800px;
+  }
   .content-table li a {
     padding: 0 4px;
+  }
+}
+@media (min-width: 768px) and (max-width: 800px) {
+  .modal-dialog {
+    width: 768px;
+  }
+}
+@media (min-width: 800px) {
+  .modal-dialog {
+    width: 800px;
   }
 }
 
