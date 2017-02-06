@@ -92,7 +92,7 @@ $(function(){
     getCountClientInfo: (a) => {
       const storeId = $('.select-store').selectpicker('val');
       let url = '?from_date=' + a.startTime
-        + '&to_date' + a.endTime
+        + '&to_date=' + a.endTime
         + '&store_id=' + storeId;
       $.ajax({
         url: '/api/admin/customer_report' + url,
