@@ -95,7 +95,7 @@ let Main = {
                 if (xhr.status == 403) {
                     location.href = 'login';
                 } else if (xhr.status == 404) {
-                    location.href = 'clientList';
+                    window.history.go(-1);
                 }
             }
         });
@@ -219,12 +219,12 @@ let Main = {
                 } else if (result.status == 201) {
                     csTools.msgModalShow({
                         msg: '添加会员成功！',
-                        href: 'clientList'
+                        back: true
                     });
                 } else if (result.status == 200 && memberShipId) {
                     csTools.msgModalShow({
                         msg: '更新会员成功！',
-                        href: 'clientList'
+                        back: true
                     });
                 } else {
                     let msg = '添加会员失败！';

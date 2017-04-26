@@ -2,7 +2,9 @@
 let Main = {
   page: 1,
   count: 1,
+  storeVal: '',
   init: () => {
+
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
@@ -11,6 +13,7 @@ let Main = {
       Main.getMemberShipsInfo(1);
     });
     let uPage = $.url().fparam('page');
+    Main.storeVal = $.url().fparam('storeVal');
     if(uPage > 0){
       Main.page = uPage;
     }
@@ -84,6 +87,9 @@ let Main = {
           isAppend: true,
           callback: () => {
             $('.select-store').selectpicker('refresh');
+            if (Main.storeVal) {
+              $('.select-store').selectpicker('val', Main.storeVal);
+            }
             Main.getMemberShipsInfo(Main.page);
           }
         });
@@ -101,7 +107,8 @@ let Main = {
     let qstring = $('.query-string').val();
     console.log(storeId);
 
-    history.replaceState({page: page}, null, "#page=" + page);
+    let store = $('.select-store').selectpicker('val');
+    history.replaceState({ page: page }, null, "#page=" + page + '&storeVal=' + store);
     $.ajax({
       url: '/api/admin/customers?store_id=' + storeId + '&qstring=' + qstring + "&page=" + page,
       // url: '/api/admin/stores/'+ storeId +'/customers' + '?qstring=' + qstring + "&page=" + page +"&per_page=" + per_page,

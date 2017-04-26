@@ -137,7 +137,9 @@ const csTools = {
       if(options.callback){
         options.callback();
       }
-      if(options.href){
+      if (options.back) {
+        window.history.go(-1);
+      }else if(options.href){
         location.href = options.href;
       }
     });
