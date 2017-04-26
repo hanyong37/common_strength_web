@@ -8,11 +8,13 @@
 .cellBox() {
   display: -webkit-box;
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 .cellFlex(@number) {
   -webkit-box-flex: @number;
   -webkit-flex: @number;
+  -ms-flex: @number;
   flex: @number;
 }
 @borderColor: #fff;
@@ -20,9 +22,6 @@
 @color1: #f0ad4e;
 @color2: #dd524d;
 @color3: #4cd964;
-html {
-  font-size: 14px;
-}
 body {
   background-color: @bgColor;
   font-size: 12px;
@@ -36,7 +35,6 @@ body {
   overflow-y: auto;
 }
 .top-date-box {
-  display: block;
   top: 0;
   bottom: inherit;;
   background: #fff url("../img/WechatLogo-min.png") no-repeat right 10px top 12px;
@@ -45,18 +43,16 @@ body {
 .weui-tab__bd, .weui-tab__panel {
   padding-top: 50px;
 }
-
 .date-box {
-  position: relative;
   width: 12.3rem;
   height: 3rem;
   margin: 0 auto;
+  .cellBox();
 
   .btn-date {
-    position: absolute;
+    position: relative;
     width: 1.8rem;
     height: 3rem;
-    top: 0;
     line-height: 3rem;
     text-align: center;
   }
@@ -64,15 +60,13 @@ body {
     font-size: 1.1rem;
     line-height: 3rem;
     text-align: center;
-    padding: 0 1.8rem;
+    .cellFlex(1);
   }
   .btn-prev {
-    left: 0;
     background: url('../img/arrow-left.png') no-repeat right center;
     background-size: 18px;
   }
   .btn-next {
-    right: 0;
     background: url('../img/arrow-right.png') no-repeat left center;
     background-size: 18px;
   }
@@ -80,9 +74,10 @@ body {
 
 .training-block {
   position: relative;
-  height: 60px;
   padding: 10px;
+  // border-bottom: 1px solid #fff;
   background-color: @borderColor;
+  .cellBox();
 
   &::after {
     content: ' ';
@@ -99,8 +94,6 @@ body {
   }
 
   .t-b-time {
-    position: absolute;
-    left: 10px;
     width: 70px;
     height: 60px;
     font-size: 18px;
@@ -116,11 +109,9 @@ body {
     }
   }
   .training-info {
-    position: absolute;
-    left: 80px;
-    right: 55px;
     padding: 0 10px;
     line-height: 30px;
+    .cellFlex(1);
 
     .t-i-name {
       height: 30px;
@@ -144,9 +135,8 @@ body {
     }
   }
   .schedule {
-    position: absolute;
-    right: 10px;
     height: 60px;
+    padding-left: 10px;
 
     .schedule-tag {
       font-size: 14px;

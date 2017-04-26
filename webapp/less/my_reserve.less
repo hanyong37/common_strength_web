@@ -77,21 +77,21 @@ html, body {
 }
 
 .weui-media-box__desc {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
+  position: relative;
   height: 30px;
 
   .vm-left {
-    -webkit-box: 1;
-    -webkit-flex: 1;
-    flex: 1;
+    padding-right: 60px;
   }
   .vm-right {
-    width: 100px;
+    width: 60px;
     text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0px;
 
     .em-btn-cancel{
+      padding: 0 4px;
       margin-top: 8px;
     }
   }
