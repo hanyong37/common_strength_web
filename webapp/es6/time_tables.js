@@ -3,13 +3,18 @@ const Main = {
   scheduleData: {},
   page: 1,
   count: 1,
+  storeVal: '',
   init: () => {
     //门店选择
+    Main.storeVal = $.url().fparam('storeVal');
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
     }).on('changed.bs.select', function(e){
       let sid = $(this).selectpicker('val');
+      window.history.replaceState({
+        foo: 'change store'
+      }, null, '#storeVal=' + sid);
       $('#select_store_add').selectpicker('val', sid);
       Main.getSchedules(sid);
     });
@@ -366,6 +371,9 @@ const Main = {
           isAppend: true,
           callback: () => {
             $('.select-store, #select_store_add').selectpicker('refresh');
+            if (Main.storeVal) {
+              $('.select-store').selectpicker('val', Main.storeVal);
+            }
             let sid = $('.select-store').selectpicker('val');
             Main.getSchedules(sid);
           }
