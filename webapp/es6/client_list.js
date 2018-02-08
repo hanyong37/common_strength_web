@@ -42,8 +42,8 @@ let Main = {
 
     Main.pageNumEvent();
   },
-  pageNumEvent: () => {
 
+  pageNumEvent: () => {
     $('.js-pagination').on('click', '.js-first', function(){
       console.log('first');
       Main.getMemberShipsInfo(1);
@@ -51,14 +51,12 @@ let Main = {
       console.log('prev');
       if(Main.page > 1){
         Main.page -= 1;
-
         Main.getMemberShipsInfo(Main.page);
       }
     }).on('click', '.js-next', function(){
       console.log('next');
       if(Main.page < Main.count){
         Main.page += 1;
-
         Main.getMemberShipsInfo(Main.page);
       }
     }).on('click', '.js-last', function(){
@@ -66,6 +64,7 @@ let Main = {
       Main.getMemberShipsInfo(Main.count);
     });
   },
+
   getStoreList: () => {
     $.ajax({
       url: '/api/admin/stores',
