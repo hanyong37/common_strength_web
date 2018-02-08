@@ -1,6 +1,10 @@
 $(function(){
   const Main = {
     init: ()=> {
+
+      $('#start_datetime').val(moment().subtract(7, 'days').startOf('week').format("YYYY-MM-DD"));
+      $('#over_datetime').val(moment().subtract(7, 'days').endOf('week').format("YYYY-MM-DD"));
+
       $('.form-datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD'
       });
@@ -15,20 +19,15 @@ $(function(){
 
       Main.BindChangeStore(() => {
         Main.getCountClientInfo({
-          'startTime': '',
-          'endTime': ''
+          'startTime': $("#start_datetime").val(),
+          'endTime': $("#over_datetime").val()
         });
       });
 
-
-
       $(".btn-info").on('click', function() {
-        const start_datetime = $("#start_datetime").val();
-        const over_datetime = $("#over_datetime").val();
-
         Main.getCountClientInfo({
-          'startTime': start_datetime,
-          'endTime': over_datetime
+          'startTime': $("#start_datetime").val(),
+          'endTime': $("#over_datetime").val()
         });
       });
 

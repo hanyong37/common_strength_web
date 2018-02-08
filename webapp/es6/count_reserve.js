@@ -4,6 +4,9 @@ const Main = {
       format: 'YYYY-MM-DD'
     });
 
+    $('#start_datetime').val(moment().subtract(7, 'days').startOf('week').format("YYYY-MM-DD"));
+    $('#over_datetime').val(moment().subtract(7, 'days').endOf('week').format("YYYY-MM-DD"));
+
     $('.select-store').selectpicker({
       size: 5,
       liveSearch: true
@@ -14,8 +17,8 @@ const Main = {
 
     Main.BindChangeStore(() => {
       Main.getCountReserve({
-        startTime: '',
-        endTime: ''
+        startTime: $("#start_datetime").val(),
+        endTime: $("#over_datetime").val()
       });
     });
 
