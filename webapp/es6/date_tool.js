@@ -8,7 +8,7 @@ const Time = {
   },
   getDate: (_date = new Date()) => {
     const mydate = new Date(_date);
-    const myyear = mydate.getYear() + 1900;
+    const myyear = mydate.getFullYear();
     let mymonth = mydate.getMonth()+1;//注：月数从0~11为一月到十二月
     let myday = mydate.getDate();
     const weekArr = [ '周日', '周一', '周二', '周三', '周四', '周五', '周六',];
